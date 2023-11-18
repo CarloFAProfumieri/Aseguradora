@@ -16,6 +16,7 @@ import static javafx.collections.FXCollections.observableArrayList;
 
 public class AltaPoliza implements Initializable{
     ObservableList<String> marcasLista = observableArrayList("CHEVROLET", "FORD", "VOLKSWAGEN", "RENAULT", "PEUGEOT", "FIAT", "TOYOTA", "HONDA");
+    ObservableList<String> cantidadDeSiniestrosLista = observableArrayList("Ninguno", "1", "2", "Más de 2");
     ObservableList<String> modelosListaHonda = observableArrayList(
             "Accord",
             "Civic",
@@ -43,12 +44,14 @@ public class AltaPoliza implements Initializable{
     @FXML private DatePicker inicioCoberturaDatePicker;
     @FXML private TextField sumaAseguradaTextField, apellidoTextField, kilometrosTextField, motorTextField, nombreTextField, nroClienteTextField, nroDeDocumentoTextField, patenteTextField;
     @FXML private Pane upperPane, middlePane, bottomPane, clientDataPane;
+    @FXML private Label successMessage;
     ObservableList<Hijo> lista = observableArrayList(new Hijo(24,'M',"CASADO"));
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tipoDocumentoComboBox.setItems(tiposDeDocumentoLista);
         marcaComboBox.setItems(marcasLista); //traer modelos desde bdd
         provinciaComboBox.setItems(provinciasLista);
+        siniestrosComboBox.setItems(cantidadDeSiniestrosLista);
         //localidadComboBox.setItems implementar
         anioComboBox.setItems(anos());//falta traer los años de la base de datos, donde supuestamente estarian cargados los años en que se fabrico ese modelo
         edadColumn.setCellValueFactory(new PropertyValueFactory<Hijo,Integer>("edad"));
@@ -84,7 +87,7 @@ public class AltaPoliza implements Initializable{
     }
 
     public void darDeAltaClienteAction(ActionEvent evento) throws IOException{
-        //altaCliente();
+        altaCliente();
     }
     public void editarClienteAction(ActionEvent evento) throws IOException{
         editarClienteToggle();
@@ -112,10 +115,14 @@ public class AltaPoliza implements Initializable{
         if (clientDataPane.isDisabled()){
             clientDataPane.setDisable(false);
             middlePane.setDisable(true);
+            buscarClienteButton.setDisable(false);
+            successMessage.setVisible(false);
         }
         else {
             clientDataPane.setDisable(true);
             middlePane.setDisable(false);
+            buscarClienteButton.setDisable(true);
+            successMessage.setVisible(true);
         }
     }
     private void setEstado2() {
@@ -127,6 +134,7 @@ public class AltaPoliza implements Initializable{
         modificarDatosButton.setDisable(true);
         confirmarDatosButton.setDisable(false);
         bottomPane.setDisable(true);
+        successMessage.setVisible(false); // este mensaje se podria quitar despues de unos segundos usando threads...
     }
     private void setEstado3() {
         clientDataPane.setDisable(true);
@@ -135,6 +143,7 @@ public class AltaPoliza implements Initializable{
         confirmarDatosButton.setDisable(true);
         bottomPane.setDisable(false);
         editarClienteButton.setDisable(true);
+        successMessage.setVisible(false);
     }
     private void habilitarLocalidades() {
         localidadComboBox.setDisable(false);
@@ -152,6 +161,8 @@ public class AltaPoliza implements Initializable{
     }
 
     private void altaCliente(){ //faltan los caminos tistes
+        Integer numeroAleatorio = new java.util.Random().nextInt(1000) + 1;
+        nroClienteTextField.setText(String.valueOf(numeroAleatorio));
         clientDataPane.setDisable(true);
         middlePane.setDisable(false);
         editarClienteButton.setDisable(false);

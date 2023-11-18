@@ -41,6 +41,7 @@
                       <Label layoutX="264.0" layoutY="62.0" text="Nombre" />
                </children>
             </Pane>
+            <Label fx:id="successMessage" layoutX="707.0" layoutY="125.0" text="Datos guardados correctamente!" textFill="#0dff00" visible="false" />
             </children>
         </Pane>
         <Pane fx:id="middlePane" disable="true" layoutY="148.0" prefHeight="445.0" prefWidth="906.0">
