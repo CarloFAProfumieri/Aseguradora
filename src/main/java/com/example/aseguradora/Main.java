@@ -2,7 +2,9 @@ package com.example.aseguradora;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,7 +16,11 @@ public class Main extends Application {
         stg = stage;
         stage.setResizable(false);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("altaPoliza.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 906, 844);
+        Parent root = (Parent)fxmlLoader.load();
+        ScrollPane scrollPane = new ScrollPane(root);
+        scrollPane.setFitToWidth(true);
+        Scene scene = new Scene(scrollPane, 906.0, 600.0);
+
         stage.setTitle("Alta Poliza");
         stage.setScene(scene);
         stage.show();
