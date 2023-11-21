@@ -113,7 +113,7 @@ public class AltaPoliza implements Initializable{
 
 }
     public void quitarHijoAction(ActionEvent evento)throws IOException{
-        //implementar!
+        lista.removeLast();
     }
 
     private void calcularSumaAsegurada() {

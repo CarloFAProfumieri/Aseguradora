@@ -54,6 +54,13 @@ public class AltaPolizaHijoController implements Initializable {
     }
 
     @FXML
+    private void cancelarButtonAction() {
+
+        cerrarVentanaActual();
+
+    }
+
+    @FXML
     private void agregarButtonAction() {
         // Obtener la información seleccionada en AltaPolizaHijo
         String fechaNacimiento = datePicker.getValue().toString();
