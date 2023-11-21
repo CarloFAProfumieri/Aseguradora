@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.aseguradora.AltaPolizaHijo"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.AltaPolizaHijoController">
+   <children>
+      <DatePicker fx:id="datePicker" layoutX="49.0" layoutY="91.0" />
+      <Label fx:id="fechaLabel" layoutX="49.0" layoutY="54.0" text="Fecha de nacimiento:" />
+      <Label fx:id="estadoCivilLabel" layoutX="351.0" layoutY="54.0" text="Sexo:" />
+      <ComboBox fx:id="sexoComboBox" layoutX="351.0" layoutY="91.0" prefWidth="150.0" promptText="SEXO" />
+      <ComboBox fx:id="estadoCivilComboBox" layoutX="49.0" layoutY="200.0" prefWidth="150.0" promptText="ESTADO CIVIL" />
+      <Button fx:id="agregarButton" layoutX="400.0" layoutY="341.0" mnemonicParsing="false" text="Agregar" onAction="#agregarButtonAction" />
+      <Button fx:id="cancelarButton" layoutX="476.0" layoutY="341.0" mnemonicParsing="false" text="Cancelar" />
 
+   </children>
 </AnchorPane>

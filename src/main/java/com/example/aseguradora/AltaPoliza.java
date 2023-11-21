@@ -2,14 +2,19 @@ package com.example.aseguradora;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXMLLoader;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -100,9 +105,13 @@ public class AltaPoliza implements Initializable{
     public void provinciaSelectedAction(ActionEvent evento) throws IOException{
         habilitarLocalidades();
     }
-    public void agregarHijoAction(ActionEvent evento) throws IOException{
-        //implementar! :S
-    }
+    public void agregarHijoAction(ActionEvent evento) throws IOException {
+
+        abrirVentanaAltaPolizaHijo();
+
+
+
+}
     public void quitarHijoAction(ActionEvent evento)throws IOException{
         //implementar!
     }
@@ -176,6 +185,29 @@ public class AltaPoliza implements Initializable{
         nroDeDocumentoTextField.setText("41256332");
         setEstado2();
         //editarClienteButton.setDisable(false);
+    }
+
+    public void abrirVentanaAltaPolizaHijo() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("altaPolizaHijo.fxml"));
+            Parent root = loader.load();
+
+            AltaPolizaHijoController altaPolizaHijoController = loader.getController();
+
+            // Configurar una referencia a AltaPoliza en AltaPolizaHijoController
+            altaPolizaHijoController.setAltaPolizaController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Alta de Póliza para Hijo");
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Manejar la excepción según sea necesario
+        }
+    }
+
+    public void agregarHijo(Hijo nuevoHijo) {
+        lista.add(nuevoHijo);
     }
 
 
