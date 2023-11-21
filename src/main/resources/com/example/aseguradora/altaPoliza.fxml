@@ -63,8 +63,8 @@
                                 <TableView fx:id="hijosTabla" layoutY="-1.0" prefHeight="314.0" prefWidth="225.0">
                                     <columns>
                                         <TableColumn fx:id="edadColumn" editable="false" prefWidth="47.0" resizable="false" sortable="false" text="Edad" />
-                                        <TableColumn fx:id="sexoColumn" editable="false" minWidth="0.0" prefWidth="41.0" resizable="false" sortable="false" text="Sexo" />
-                                        <TableColumn fx:id="estadoCivilColumn" editable="false" prefWidth="132.0" sortable="false" text="Estado civil" />
+                                        <TableColumn fx:id="sexoColumn" editable="false" minWidth="0.0" prefWidth="76.0" resizable="false" sortable="false" text="Sexo" />
+                                        <TableColumn fx:id="estadoCivilColumn" editable="false" prefWidth="97.0" sortable="false" text="Estado civil" />
                                     </columns>
                                 </TableView>
                             </children>

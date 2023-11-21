@@ -1,4 +1,6 @@
 package com.example.aseguradora;
+import com.example.aseguradora.enumeraciones.Sexo;
+import com.example.aseguradora.persistentes.Hijo;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,9 +41,6 @@ public class AltaPoliza implements Initializable{
     ObservableList<String> tiposDeDocumentoLista = observableArrayList("DNI", "LE", "LC");
     private final int ULTIMO_ANO_VIGENTE = 1998;
     @FXML private TableView<Hijo> hijosTabla;
-    @FXML private TableColumn<Hijo,Integer> edadColumn;
-    @FXML private TableColumn<Hijo,Character> sexoColumn;
-    @FXML private TableColumn<Hijo,String> estadoCivilColumn;
     @FXML private Button editarClienteButton, agregarHijoButton, altaClienteButton, buscarClienteButton, calcularPremioButton, confirmarDatosButton, cancelarButton, modificarDatosButton, quitarHijoButton;
     @FXML private CheckBox alarmaCheckBox, garageCheckBox, rastreoVehicularCheckBox, tuercasAntirroboCheckBox;
     @FXML private ComboBox<String> tipoDocumentoComboBox, marcaComboBox, anioComboBox, localidadComboBox, modalidadDePagoComboBox, modeloComboBox, provinciaComboBox, siniestrosComboBox, tipoCoberturaComboBox;
@@ -49,7 +48,10 @@ public class AltaPoliza implements Initializable{
     @FXML private TextField sumaAseguradaTextField, apellidoTextField, kilometrosTextField, motorTextField, nombreTextField, nroClienteTextField, nroDeDocumentoTextField, patenteTextField;
     @FXML private Pane upperPane, middlePane, bottomPane, clientDataPane;
     @FXML private Label successMessage;
-    ObservableList<Hijo> lista = observableArrayList(new Hijo(24,'M',"CASADO"));
+    ObservableList<Hijo> lista = observableArrayList();
+    @FXML private TableColumn<Hijo,Integer> edadColumn;
+    @FXML private TableColumn<Hijo,Character> sexoColumn;
+    @FXML private TableColumn<Hijo,String> estadoCivilColumn;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tipoDocumentoComboBox.setItems(tiposDeDocumentoLista);

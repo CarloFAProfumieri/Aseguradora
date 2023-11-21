@@ -1,0 +1,49 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+        <!-- Configuración de la conexión a la base de datos -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/Aseguradora</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">gengis100</property>
+
+        <!-- Dialecto de la base de datos -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Mostrar las declaraciones SQL en la consola -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Actualizar automáticamente el esquema de la base de datos -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Mapeo de las clases de entidad -->
+        <mapping class="com.example.aseguradora.persistentes.Poliza"/>
+        <mapping class="com.example.aseguradora.persistentes.CantidadSiniestros"/>
+        <mapping class="com.example.aseguradora.persistentes.Cliente"/>
+        <mapping class="com.example.aseguradora.persistentes.CondicionIva"/>
+        <mapping class="com.example.aseguradora.persistentes.Cuota"/>
+        <mapping class="com.example.aseguradora.persistentes.Domicilio"/>
+        <mapping class="com.example.aseguradora.persistentes.EstadoCivil"/>
+        <mapping class="com.example.aseguradora.persistentes.Hijo"/>
+        <mapping class="com.example.aseguradora.persistentes.KmPorAnio"/>
+        <mapping class="com.example.aseguradora.persistentes.Localidad"/>
+        <mapping class="com.example.aseguradora.persistentes.Marca"/>
+        <mapping class="com.example.aseguradora.persistentes.MedidaSeguridad"/>
+        <mapping class="com.example.aseguradora.persistentes.ModeloVehiculo"/>
+        <mapping class="com.example.aseguradora.persistentes.ModificacionProximaPoliza"/>
+        <mapping class="com.example.aseguradora.persistentes.PagoPoliza"/>
+        <mapping class="com.example.aseguradora.persistentes.Pais"/>
+        <mapping class="com.example.aseguradora.persistentes.ParametrosMonto"/>
+        <mapping class="com.example.aseguradora.persistentes.Profesion"/>
+        <mapping class="com.example.aseguradora.persistentes.Provincia"/>
+        <mapping class="com.example.aseguradora.persistentes.TipoCobertura"/>
+        <mapping class="com.example.aseguradora.persistentes.TipoDocumento"/>
+        <mapping class="com.example.aseguradora.persistentes.Usuario"/>
+        <mapping class="com.example.aseguradora.persistentes.ValorPorcentualHijo"/>
+        <mapping class="com.example.aseguradora.persistentes.AnioFabricacion"/>
+    </session-factory>
+</hibernate-configuration>

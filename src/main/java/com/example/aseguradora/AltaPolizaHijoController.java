@@ -1,5 +1,7 @@
 package com.example.aseguradora;
 
+import com.example.aseguradora.enumeraciones.Sexo;
+import com.example.aseguradora.persistentes.Hijo;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -67,7 +69,7 @@ public class AltaPolizaHijoController implements Initializable {
         String estadoCivil = estadoCivilComboBox.getValue();
         String sexo = sexoComboBox.getValue();
 
-        char ns = (Objects.equals(sexo, "Masculino")) ? 'M' : 'F';
+        Sexo ns = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER;
 
         // Obtener la fecha de nacimiento del DatePicker
         LocalDate fechaNacimiento1 = datePicker.getValue();
