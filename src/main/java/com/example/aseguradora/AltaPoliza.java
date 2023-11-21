@@ -209,8 +209,43 @@ public class AltaPoliza implements Initializable{
     }
 
     public void agregarHijo(Hijo nuevoHijo) {
-        lista.add(nuevoHijo);
+
+            lista.add(nuevoHijo);
+        }
+
+
+    public void mostrarVentanaError(String mensaje) {
+        try {
+            // Cargar el FXML de la ventana de error
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador de la ventana de error
+            ErrorPopupController errorController = loader.getController();
+
+            // Configurar el mensaje de error
+            errorController.setErrorMessage(mensaje);
+
+            // Crear la escena y el escenario (Stage)
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Error");
+            stage.setScene(scene);
+
+            // Mostrar la ventana de error
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
 }
+
+
+
+
+
+
+
+
+

@@ -65,28 +65,43 @@ public class AltaPolizaHijoController implements Initializable {
     @FXML
     private void agregarButtonAction() {
         // Obtener la información seleccionada en AltaPolizaHijo
-        String fechaNacimiento = datePicker.getValue().toString();
+        String fechaNacimiento = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
         String estadoCivil = estadoCivilComboBox.getValue();
         String sexo = sexoComboBox.getValue();
 
-        Sexo ns = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER; //este comentario esta en la linea 72
 
-        // Obtener la fecha de nacimiento del DatePicker
-        LocalDate fechaNacimiento1 = datePicker.getValue();
 
-        // Obtener la fecha actual
-        LocalDate fechaActual = LocalDate.now();
+        if (fechaNacimiento != null && estadoCivil != null && sexo != null) {
 
-        int edad = Period.between(fechaNacimiento1, fechaActual).getYears();
+            Sexo ns = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER;
 
-        // Crear un nuevo objeto Hijo
-        Hijo nuevoHijo = new Hijo(edad, ns, estadoCivil);
+            // Obtener la fecha de nacimiento del DatePicker
+            LocalDate fechaNacimiento1 = datePicker.getValue();
 
-        // Agregar el nuevo hijo a AltaPoliza
-        altaPolizaController.agregarHijo(nuevoHijo);
+            // Obtener la fecha actual
+            LocalDate fechaActual = LocalDate.now();
 
-        // Cerrar la ventana de AltaPolizaHijo
-        cerrarVentanaActual();
+            int edad = Period.between(fechaNacimiento1, fechaActual).getYears();
+
+            if(edad<18 || edad >30) {
+
+                altaPolizaController.mostrarVentanaError("La edad debe estar entre 18 y 30 años");
+                return;
+            }
+
+            // Crear un nuevo objeto Hijo
+            Hijo nuevoHijo = new Hijo(edad, ns, estadoCivil);
+
+            // Agregar el nuevo hijo a AltaPoliza
+            altaPolizaController.agregarHijo(nuevoHijo);
+
+            // Cerrar la ventana de AltaPolizaHijo
+            cerrarVentanaActual();
+        } else {
+
+            altaPolizaController.mostrarVentanaError("Debe completar la información correspondiente");
+
+        }
 
 
 
