@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.RowConstraints?>
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.ConfirmarPolizaController">
+    <children>
+        <Label text="DATOS DE LA PÓLIZA" style="-fx-font-size: 18px; -fx-font-weight: bold;-fx-border-color: black; -fx-border-width: 0 0 2 0; -fx-padding: 10 10 10 10;-fx-background-color: #CCCCCC;-fx-text-fill: black;" maxWidth="Infinity">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </Label>
+        <GridPane hgap="10" vgap="5" prefHeight="322.0" prefWidth="508.0" style="-fx-padding: 10;" VBox.vgrow="NEVER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <!-- Agregar etiquetas en la columna izquierda -->
+            <Label text="Titular del Seguro:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label text="Marca del Vehiculo:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Label text="Modelo del Vehiculo:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Label text="Motor:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <Label text="Chasis:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <Label text="Patente:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <Label text="Inicio de la cobertura:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <Label text="Final de la cobertura:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+            <Label text="Suma Asegurada:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+            <Label text="Premio:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+            <Label text="Importes por descuentos:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+            <Label text="Modalidad de pago:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+            <Label text="Último día de pago:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+            <Label text="Monto por cuota:" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+            <Label text="Monto total a abonar:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+        </GridPane>
+
+        <Label text="" />
+
+
+        <HBox spacing="10.0" alignment="BOTTOM_RIGHT">
+            <children>
+                <Button mnemonicParsing="false" text="Cancelar" />
+                <Button mnemonicParsing="false" text="Generar Póliza" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
