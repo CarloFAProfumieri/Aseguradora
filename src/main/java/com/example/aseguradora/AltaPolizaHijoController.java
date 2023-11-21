@@ -69,7 +69,7 @@ public class AltaPolizaHijoController implements Initializable {
         String estadoCivil = estadoCivilComboBox.getValue();
         String sexo = sexoComboBox.getValue();
 
-        Sexo ns = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER;
+        Sexo ns = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER; //este comentario esta en la linea 72
 
         // Obtener la fecha de nacimiento del DatePicker
         LocalDate fechaNacimiento1 = datePicker.getValue();
