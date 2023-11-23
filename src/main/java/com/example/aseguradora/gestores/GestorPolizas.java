@@ -48,7 +48,10 @@ public class GestorPolizas {
         PolizaDAO polizaDAO = new PolizaDAO();
         return polizaDAO.getModelos(idMarca);
     }
-
+    public void guardarPoliza(PolizaDTO polizaDTO){
+        PolizaDAO DAO = new PolizaDAO();
+        DAO.guardarPoliza(polizaDTO);
+    }
     public static void main(String[] args) {
         PolizaDTO polizaTest = new PolizaDTO(1,500.0, new Date(), new Date(), 1000.35, "ABC123",
                 "123456", new Date(),20000, "XYZ789", 1, 123,

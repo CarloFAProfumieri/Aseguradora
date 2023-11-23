@@ -48,7 +48,6 @@ public class AltaPoliza implements Initializable{
         inicializarMarcaComboBox();
         inicializarProvinciaComboBox();
         siniestrosComboBox.setItems(cantidadDeSiniestrosLista);
-        //localidadComboBox.setItems implementar
         anioComboBox.setItems(anos());//falta traer los años de la base de datos, donde supuestamente estarian cargados los años en que se fabrico ese modelo
         edadColumn.setCellValueFactory(new PropertyValueFactory<Hijo,Integer>("edad"));
         sexoColumn.setCellValueFactory(new PropertyValueFactory<Hijo,Character>("sexo"));
@@ -101,9 +100,15 @@ public class AltaPoliza implements Initializable{
         setEstado2();
     }
     public void confirmarDatosAction(ActionEvent evento) throws IOException{
+        verificarDatosIngresados(); //IMPLEMENTAR
+        //gestorPolizas.guardarPoliza(getPolizaDTO());
         setEstado3();
         setSumaAsegurada(CalculadoraMontos.calcularSumaAsegurada());
     }
+
+    private void verificarDatosIngresados() {
+    }
+
     public void buscarClienteAction(ActionEvent evento) throws IOException{
         busquedaCliente();
     }
@@ -249,6 +254,7 @@ public class AltaPoliza implements Initializable{
         for (ModeloVehiculo modeloVehiculo : modelosLista){
             nombresModelos.add(modeloVehiculo.getNombre());
         }
+
         modeloComboBox.setItems(nombresModelos);
         System.out.println("modelos de " + marcaComboBox.getValue() + " cargados");
     }
