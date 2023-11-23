@@ -19,7 +19,7 @@ public class Main extends Application {
         Parent root = (Parent)fxmlLoader.load();
         ScrollPane scrollPane = new ScrollPane(root);
         scrollPane.setFitToWidth(true);
-        Scene scene = new Scene(scrollPane, 906.0, 600.0);
+        Scene scene = new Scene(scrollPane, 906.0, 800.0);
 
         stage.setTitle("Alta Poliza");
         stage.setScene(scene);

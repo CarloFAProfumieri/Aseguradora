@@ -5,6 +5,7 @@ import com.example.aseguradora.persistentes.PagoPoliza;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -13,7 +14,9 @@ public class PagoDAO {
 
     private final SessionFactory sessionFactory;
 
-    public PagoDAO(SessionFactory sessionFactory) {
+    public PagoDAO() {
+        Configuration configuration = new Configuration().configure(ClienteDAO.class.getClassLoader().getResource("hibernate.cfg.xml"));
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
         this.sessionFactory = sessionFactory;
     }
 

@@ -2,7 +2,6 @@ package com.example.aseguradora.DTOs;
 
 public class ClienteDTO {
     private int numeroCliente;
-
     private int tipoDocumento;
     private int numeroDocumento;
     private String apellido;

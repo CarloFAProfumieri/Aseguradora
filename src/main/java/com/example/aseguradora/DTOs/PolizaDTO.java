@@ -3,12 +3,13 @@ package com.example.aseguradora.DTOs;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 public class PolizaDTO {
-    private String numeroPoliza;
+    private int numeroPoliza;
     private EstadoPoliza estadoPoliza;
-    private Double sumaAsegurada;
+    private int sumaAsegurada;
     private Date fechaInicio;
     private Date fechaFin;
     private FormaPago formaPago;
@@ -29,38 +30,48 @@ public class PolizaDTO {
     private Double descuento;
     private Double derechoEmision;
     private Double baseAnualPrima;
+    private Integer numeroCliente;
+    private Integer idValorPorcentualHijo;
 
-    public PolizaDTO(String numeroPoliza, EstadoPoliza estadoPoliza, Double sumaAsegurada, Date fechaInicio, Date fechaFin, FormaPago formaPago, Double premio, Date ultimoDiaPago, String patente, String codigoMotor, Double montoTotal, String codigoChasis, int idTipoCobertura, int anio, int idModelo, int idLocalidad, int[] idMedida, int idKmPorAnio, int idCantidadSiniestros, Double prima, Double descuento, Double derechoEmision, Double baseAnualPrima) {
+    public PolizaDTO(int numeroPoliza, Double premio, Date fechaInicio, Date fechaFin, Double montoTotal, String patente, String codigoMotor, Date ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {
         this.numeroPoliza = numeroPoliza;
-        this.estadoPoliza = estadoPoliza;
-        this.sumaAsegurada = sumaAsegurada;
+        this.premio = premio;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.formaPago = formaPago;
-        this.premio = premio;
-        this.ultimoDiaPago = ultimoDiaPago;
+        this.montoTotal = montoTotal;
         this.patente = patente;
         this.codigoMotor = codigoMotor;
-        this.montoTotal = montoTotal;
+        this.ultimoDiaPago = ultimoDiaPago;
+        this.sumaAsegurada = sumaAsegurada;
         this.codigoChasis = codigoChasis;
-        this.idTipoCobertura = idTipoCobertura;
-        this.anio = anio;
-        this.idModelo = idModelo;
+        this.numeroCliente = numeroCliente;
         this.idLocalidad = idLocalidad;
-        this.idMedida = idMedida;
-        this.idKmPorAnio = idKmPorAnio;
+        this.idModelo = idModelo;
+        this.idTipoCobertura = idTipoCobertura;
         this.idCantidadSiniestros = idCantidadSiniestros;
-        this.prima = prima;
-        this.descuento = descuento;
-        this.derechoEmision = derechoEmision;
-        this.baseAnualPrima = baseAnualPrima;
+        this.idKmPorAnio = idKmPorAnio;
+        this.idValorPorcentualHijo = idValorPorcentualHijo;
+        this.formaPago = formaPago;
+        this.estadoPoliza = estadoPoliza;
     }
 
-    public String getNumeroPoliza() {
+    public PolizaDTO() {
+
+    }
+
+    public Integer getNumeroCliente() {
+        return numeroCliente;
+    }
+
+    public Integer getIdValorPorcentualHijo() {
+        return idValorPorcentualHijo;
+    }
+
+    public int getNumeroPoliza() {
         return numeroPoliza;
     }
 
-    public void setNumeroPoliza(String numeroPoliza) {
+    public void setNumeroPoliza(int numeroPoliza) {
         this.numeroPoliza = numeroPoliza;
     }
 
@@ -72,11 +83,11 @@ public class PolizaDTO {
         this.estadoPoliza = estadoPoliza;
     }
 
-    public Double getSumaAsegurada() {
+    public int getSumaAsegurada() {
         return sumaAsegurada;
     }
 
-    public void setSumaAsegurada(Double sumaAsegurada) {
+    public void setSumaAsegurada(int sumaAsegurada) {
         this.sumaAsegurada = sumaAsegurada;
     }
 

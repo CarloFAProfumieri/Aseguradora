@@ -14,7 +14,9 @@ public class CuotaDAO {
 
     private final SessionFactory sessionFactory;
 
-    public CuotaDAO(SessionFactory sessionFactory) {
+    public CuotaDAO() {
+        Configuration configuration = new Configuration().configure(ClienteDAO.class.getClassLoader().getResource("hibernate.cfg.xml"));
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
         this.sessionFactory = sessionFactory;
     }
 
@@ -44,7 +46,7 @@ public class CuotaDAO {
         Configuration configuration = new Configuration().configure(ClienteDAO.class.getClassLoader().getResource("hibernate.cfg.xml"));
         SessionFactory sessionFactory = configuration.buildSessionFactory();
 
-        ClienteDAO clienteDAO = new ClienteDAO(sessionFactory);
+        ClienteDAO clienteDAO = new ClienteDAO();
 
         // Ahora puedes usar clienteDAO para interactuar con la base de datos
         // por ejemplo, guardar un nuevo cliente

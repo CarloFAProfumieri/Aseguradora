@@ -4,6 +4,7 @@ import com.example.aseguradora.persistentes.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -12,7 +13,9 @@ public class UsuarioDAO {
 
     private final SessionFactory sessionFactory;
 
-    public UsuarioDAO(SessionFactory sessionFactory) {
+    public UsuarioDAO() {
+        Configuration configuration = new Configuration().configure(ClienteDAO.class.getClassLoader().getResource("hibernate.cfg.xml"));
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
         this.sessionFactory = sessionFactory;
     }
 

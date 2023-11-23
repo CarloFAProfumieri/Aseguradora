@@ -4,7 +4,7 @@ import com.example.aseguradora.enumeraciones.FormaPago;
 import jakarta.persistence.*;
 
 import javax.persistence.Entity;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @jakarta.persistence.Entity
@@ -37,7 +37,7 @@ public class Poliza {
     private Date ultimoDiaPago;
     @Basic
     @Column(name = "sumaAsegurada")
-    private Double sumaAsegurada;
+    private int sumaAsegurada;
     @Basic
     @Column(name = "codigoChasis")
     private String codigoChasis;
@@ -69,6 +69,32 @@ public class Poliza {
     @Enumerated(EnumType.STRING)
     @Column(name = "estadoPoliza")
     private EstadoPoliza estadoPoliza;
+
+    public Poliza(int numeroPoliza, Double premio, Date fechaInicio, Date fechaFin, Double montoTotal, String patente, String codigoMotor, Date ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {
+        this.numeroPoliza = numeroPoliza;
+        this.premio = premio;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.montoTotal = montoTotal;
+        this.patente = patente;
+        this.codigoMotor = codigoMotor;
+        this.ultimoDiaPago = ultimoDiaPago;
+        this.sumaAsegurada = sumaAsegurada;
+        this.codigoChasis = codigoChasis;
+        this.numeroCliente = numeroCliente;
+        this.idLocalidad = idLocalidad;
+        this.idModelo = idModelo;
+        this.idTipoCobertura = idTipoCobertura;
+        this.idCantidadSiniestros = idCantidadSiniestros;
+        this.idKmPorAnio = idKmPorAnio;
+        this.idValorPorcentualHijo = idValorPorcentualHijo;
+        this.formaPago = formaPago;
+        this.estadoPoliza = estadoPoliza;
+    }
+
+    public Poliza() {
+
+    }
 
     public int getNumeroPoliza() {
         return numeroPoliza;
@@ -134,11 +160,11 @@ public class Poliza {
         this.ultimoDiaPago = ultimoDiaPago;
     }
 
-    public Double getSumaAsegurada() {
+    public int getSumaAsegurada() {
         return sumaAsegurada;
     }
 
-    public void setSumaAsegurada(Double sumaAsegurada) {
+    public void setSumaAsegurada(int sumaAsegurada) {
         this.sumaAsegurada = sumaAsegurada;
     }
 

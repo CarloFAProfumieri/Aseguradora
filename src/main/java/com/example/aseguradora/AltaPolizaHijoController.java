@@ -49,14 +49,14 @@ public class AltaPolizaHijoController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         estadoCivilComboBox.getItems().addAll("SOLTERO", "CASADO", "DIVORCIADO", "VIUDO");
-
-
+        LocalDate fechaInicial = LocalDate.now().minusYears(18);
+        datePicker.setValue(fechaInicial);
         sexoComboBox.getItems().addAll("Masculino", "Femenino");
 
     }
 
     @FXML
-    private void cancelarButtonAction() {
+    public void cancelarButtonAction() {
 
         cerrarVentanaActual();
 
