@@ -250,4 +250,8 @@ public class PolizaDTO {
     public void setBaseAnualPrima(Double baseAnualPrima) {
         this.baseAnualPrima = baseAnualPrima;
     }
+
+    public void setnumeroCliente(int unNumeroCliente) {
+        numeroCliente = unNumeroCliente;
+    }
 }

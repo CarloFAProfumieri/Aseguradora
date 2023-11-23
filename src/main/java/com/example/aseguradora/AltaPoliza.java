@@ -30,7 +30,7 @@ public class AltaPoliza implements Initializable{
     @FXML private CheckBox alarmaCheckBox, garageCheckBox, rastreoVehicularCheckBox, tuercasAntirroboCheckBox;
     @FXML private ComboBox<String> tipoDocumentoComboBox, marcaComboBox, anioComboBox, localidadComboBox, modalidadDePagoComboBox, modeloComboBox, provinciaComboBox, siniestrosComboBox, tipoCoberturaComboBox;
     @FXML private DatePicker inicioCoberturaDatePicker;
-    @FXML private TextField sumaAseguradaTextField, apellidoTextField, kilometrosTextField, motorTextField, nombreTextField, nroClienteTextField, nroDeDocumentoTextField, patenteTextField;
+    @FXML private TextField sumaAseguradaTextField, apellidoTextField, kilometrosTextField, motorTextField, nombreTextField, nroClienteTextField, nroDeDocumentoTextField, patenteTextField, chasisTextField;
     @FXML private Pane upperPane, middlePane, bottomPane, clientDataPane;
     @FXML private Label successMessage;
     ObservableList<Hijo> listaHijos = observableArrayList();
@@ -38,8 +38,9 @@ public class AltaPoliza implements Initializable{
     @FXML private TableColumn<Hijo,Character> sexoColumn;
     @FXML private TableColumn<Hijo,String> estadoCivilColumn;
     GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
-    List<String> marcasLista;
+    List<String> marcasLista, modelosLista, listaDeLocalidadesCargadas;
     List<String> provinciasLista2;
+    PolizaDTO polizaDTO = new PolizaDTO();
     ObservableList<String> cantidadDeSiniestrosLista = observableArrayList("Ninguno", "Uno", "Dos", "Más de Dos");
     ObservableList<String> tiposDeDocumentoLista = observableArrayList("DNI", "LE", "LC");
     @Override
@@ -81,6 +82,8 @@ public class AltaPoliza implements Initializable{
     public int getMarcaId(String nombreMarca) {
        return marcasLista.indexOf(nombreMarca) + 1;
     }
+    private int getLocalidadId(String nombreLocalidad){return listaDeLocalidadesCargadas.indexOf(nombreLocalidad)+1;}
+    private int getModeloId(String nombreModelo){return modelosLista.indexOf(nombreModelo)+1;}
     public ObservableList<String> anos() {
         ObservableList<String> anos = observableArrayList();
         for (int i = 2023; i >= ULTIMO_ANIO_ELEGIBLE; i--) {
@@ -90,23 +93,75 @@ public class AltaPoliza implements Initializable{
     }
     @FXML
     public void cancelarAction(ActionEvent evento) {
-        // Obtén la referencia al escenario (Stage) actual
         Stage stage = (Stage) ((javafx.scene.Node) evento.getSource()).getScene().getWindow();
-
-        // Cierra la ventana actual
         stage.close();
     }
     public void modificarDatosAction(ActionEvent evento) throws IOException{
         setEstado2();
     }
     public void confirmarDatosAction(ActionEvent evento) throws IOException{
-        verificarDatosIngresados(); //IMPLEMENTAR
+        verificarDatosIngresadosVehiculo(); //IMPLEMENTAR
         //gestorPolizas.guardarPoliza(getPolizaDTO());
+        //actualizarPolizaDTO();
         setEstado3();
         setSumaAsegurada(CalculadoraMontos.calcularSumaAsegurada());
     }
 
-    private void verificarDatosIngresados() {
+    private void verificarDatosIngresadosVehiculo() {
+    }
+
+    private void actualizarPolizaDTO() {
+        int numeroCliente = (int) Integer.parseInt(nroClienteTextField.getText());
+        polizaDTO.setnumeroCliente(numeroCliente);
+        PolizaDTO polizaDTO = new PolizaDTO();
+        polizaDTO.setEstadoPoliza(EstadoPoliza.GENERADA);
+        polizaDTO.setSumaAsegurada(getSumaAsegurada());
+        polizaDTO.setPatente(patenteTextField.getText());
+        polizaDTO.setCodigoMotor(motorTextField.getText());
+        polizaDTO.setCodigoChasis(chasisTextField.getText());
+        polizaDTO.setIdKmPorAnio(this.getIdKmPorAnio());
+        polizaDTO.setIdModelo(getModeloId(marcaComboBox.getValue()));
+        polizaDTO.setIdLocalidad(getModeloId(localidadComboBox.getValue()));
+        polizaDTO.setIdMedida(this.getMedidas());
+        //polizaDTO.setHijos
+        //polizaDTO.setFechaInicio();
+        //polizaDTO.setFechaFin();
+        /*polizaDTO.setFormaPago(formaPago);
+        polizaDTO.setPremio(premio);
+        polizaDTO.setUltimoDiaPago(ultimoDiaPago);
+        polizaDTO.setPatente(patente);
+        polizaDTO.setCodigoMotor(codigoMotor);
+        polizaDTO.setMontoTotal(montoTotal);
+        polizaDTO.setCodigoChasis(codigoChasis);
+        polizaDTO.setIdTipoCobertura(idTipoCobertura);
+        polizaDTO.setAnio(anio);
+        polizaDTO.setIdModelo(idModelo);
+        polizaDTO.setIdLocalidad(idLocalidad);
+        polizaDTO.setIdMedida(idMedida);
+        polizaDTO.setIdKmPorAnio(idKmPorAnio);
+        polizaDTO.setIdCantidadSiniestros(idCantidadSiniestros);
+        polizaDTO.setPrima(prima);
+        polizaDTO.setDescuento(descuento);
+        polizaDTO.setDerechoEmision(derechoEmision);
+        polizaDTO.setBaseAnualPrima(baseAnualPrima);
+        polizaDTO.setNumeroCliente(numeroCliente);
+        polizaDTO.setIdValorPorcentualHijo(idValorPorcentualHijo);*/
+
+    }
+
+    private int[] getMedidas() {
+        int[] medidas = new int[4];
+        if (alarmaCheckBox.isSelected()) medidas[0] = 1;
+        if (garageCheckBox.isSelected()) medidas[1] = 2;
+        if (rastreoVehicularCheckBox.isSelected()) medidas[2] = 3;
+        if (tuercasAntirroboCheckBox.isSelected()) medidas[3] = 4;
+        return medidas;
+    }
+
+    private int getIdKmPorAnio() {
+       int kmPorAnio = Integer.parseInt(kilometrosTextField.getText());
+       int id = kmPorAnio / 1000 + 1;
+       return id;
     }
 
     public void buscarClienteAction(ActionEvent evento) throws IOException{
@@ -240,13 +295,14 @@ public class AltaPoliza implements Initializable{
         actualizarLocalidadesComboBox(listaDeLocalidades);
     }
     private void actualizarLocalidadesComboBox(List<Localidad> listaDeLocalidades) {
-        ObservableList<String> nombresModelos = observableArrayList();
+        ObservableList<String> nombresLocalidades = observableArrayList();
         for (Localidad localidad : listaDeLocalidades){
-            nombresModelos.add(localidad.getNombre());
+            nombresLocalidades.add(localidad.getNombre());
         }
-        Collections.sort(nombresModelos);
-        localidadComboBox.setItems(nombresModelos);
-        System.out.println("modelos de " + marcaComboBox.getValue() + " cargados");
+        Collections.sort(nombresLocalidades);
+        localidadComboBox.setItems(nombresLocalidades);
+        listaDeLocalidadesCargadas = nombresLocalidades;
+        System.out.println("Localidades de " + provinciaComboBox.getValue() + " cargadas");
     }
 
     public void actualizarModelosComboBox(List<ModeloVehiculo> modelosLista){
