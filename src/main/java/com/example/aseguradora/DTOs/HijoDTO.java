@@ -3,11 +3,12 @@ package com.example.aseguradora.DTOs;
 import com.example.aseguradora.enumeraciones.Sexo;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class HijoDTO {
     private int idHijo;
     private Date fechaNacimiento;
-    private Sexo sexo;
+    private Sexo sexo;  // Debería ser del tipo Sexo, no String
     private int idEstadoCivil;
 
     public HijoDTO(int idHijo, Date fechaNacimiento, Sexo sexo, int idEstadoCivil) {
@@ -15,6 +16,10 @@ public class HijoDTO {
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.idEstadoCivil = idEstadoCivil;
+    }
+
+    public HijoDTO() {
+
     }
 
     public void setIdHijo(int idHijo) {
@@ -25,9 +30,10 @@ public class HijoDTO {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public void setSexo(Sexo sexo) {
+    public void setSexo(Sexo sexo) {  // Cambiado a Sexo en lugar de String
         this.sexo = sexo;
     }
+
 
     public void setIdEstadoCivil(int idEstadoCivil) {
         this.idEstadoCivil = idEstadoCivil;

@@ -2,12 +2,11 @@ package com.example.aseguradora.DTOs;
 
 public class ClienteDTO {
     private int numeroCliente;
-
     private String tipoDocumento;
     private int numeroDocumento;
     private String apellido;
     private String nombre;
-    public ClienteDTO(int numeroCliente, int tipoDocumento, int numeroDocumento, String apellido, String nombre) {
+    public ClienteDTO(int numeroCliente, String tipoDocumento, int numeroDocumento, String apellido, String nombre) {
         this.numeroCliente = numeroCliente;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
@@ -43,7 +42,7 @@ public class ClienteDTO {
         return numeroCliente;
     }
 
-    public int getTipoDocumento() {
+    public String getTipoDocumento() {
         return tipoDocumento;
     }
 

@@ -1,5 +1,6 @@
 package com.example.aseguradora;
-
+import com.example.aseguradora.AltaPoliza;
+import com.example.aseguradora.DTOs.HijoDTO;
 import com.example.aseguradora.enumeraciones.Sexo;
 import com.example.aseguradora.persistentes.Hijo;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import java.time.Period;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -117,6 +119,8 @@ public class AltaPolizaHijoController implements Initializable {
     public void setAltaPolizaController(AltaPoliza altaPolizaController) {
         this.altaPolizaController = altaPolizaController;
     }
+
+
 }
 
 

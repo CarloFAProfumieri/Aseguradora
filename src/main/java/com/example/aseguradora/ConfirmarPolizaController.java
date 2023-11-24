@@ -18,7 +18,7 @@ public class ConfirmarPolizaController implements Initializable {
         titularSeguroLabel.setText("Santino");
     }
 /*
-    public void setPoliza(PolizaDTO unaPoliza, ClienteDTO unCliente,){
+    public void setPoliza(PolizaDTO unaPoliza, ClienteDTO unCliente){
     titularSeguroLabel.setText(unCliente.getNombre());
     marcaVehiculoLabel.setText();
     modeloVehiculoLabel.setText();
@@ -38,6 +38,9 @@ public class ConfirmarPolizaController implements Initializable {
         // Acciones al hacer clic en Cancelar
         System.out.println("Operación cancelada");
     }
+
+
+
 
     @FXML
     private void generarPolizaAction() {

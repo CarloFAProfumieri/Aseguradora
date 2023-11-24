@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
+
 import static javafx.collections.FXCollections.observableArrayList;
 
 public class AltaPoliza implements Initializable{
@@ -265,11 +266,23 @@ public class AltaPoliza implements Initializable{
         clienteDTO.setTipoDocumento(tipoDocumentoComboBox.getValue());
         clienteDTO.setNumeroDocumento(Integer.parseInt(nroDeDocumentoTextField.getText()));
 
-         return null;
+         return clienteDTO;
     }
 
     private HijoDTO getHijoDTO() {
-        return null;
+
+        HijoDTO hijoDTO = new HijoDTO();
+
+        Hijo hijo = new Hijo();
+        hijo = listaHijos.getFirst();
+
+        hijoDTO.setSexo(hijo.getSexo());
+        hijoDTO.setIdHijo(listaHijos.indexOf(hijo));
+        hijoDTO.setIdEstadoCivil(hijo.getIdEstadoCivil());
+        hijoDTO.setFechaNacimiento(hijo.getFechaNacimiento());
+        return hijoDTO;
+
+
     }
 
     public PolizaDTO getPolizaDTO(){
@@ -299,8 +312,8 @@ public class AltaPoliza implements Initializable{
         //polizaDTO.setNumeroCliente(numeroCliente);
         //polizaDTO.setIdValorPorcentualHijo(idValorPorcentualHijo);
 
-        return polizaDTO;*/
-        return null;
+        return polizaDTO;
+
     }
     public void setSumaAsegurada(int sumaAsegurada) {
         String formattedSuma = String.format("$%,d", sumaAsegurada);
