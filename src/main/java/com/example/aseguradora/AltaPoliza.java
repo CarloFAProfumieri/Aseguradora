@@ -260,7 +260,14 @@ public class AltaPoliza implements Initializable{
     }
 
     private ClienteDTO getClienteDTO() {
-        return null;
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setNumeroCliente(Integer.parseInt(nroClienteTextField.getText()));
+        clienteDTO.setNombre(nombreTextField.getText());
+        clienteDTO.setApellido(apellidoTextField.getText());
+        clienteDTO.setTipoDocumento(tipoDocumentoComboBox.getValue());
+        clienteDTO.setNumeroDocumento(Integer.parseInt(nroDeDocumentoTextField.getText()));
+
+         return null;
     }
 
     private HijoDTO getHijoDTO() {
