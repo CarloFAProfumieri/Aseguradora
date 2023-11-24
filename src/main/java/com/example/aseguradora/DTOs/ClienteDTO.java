@@ -14,11 +14,15 @@ public class ClienteDTO {
         this.nombre = nombre;
     }
 
+    public ClienteDTO() {
+
+    }
+
     public void setNumeroCliente(int numeroCliente) {
         this.numeroCliente = numeroCliente;
     }
 
-    public void setTipoDocumento(int tipoDocumento) {
+    public void setTipoDocumento(String tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
