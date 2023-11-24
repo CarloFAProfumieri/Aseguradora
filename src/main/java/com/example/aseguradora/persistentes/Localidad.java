@@ -59,7 +59,9 @@ public class Localidad {
         Localidad localidad = (Localidad) o;
         return idLocalidad == localidad.idLocalidad && Double.compare(valorPorcentual, localidad.valorPorcentual) == 0 && Objects.equals(nombre, localidad.nombre) && Objects.equals(idProvincia, localidad.idProvincia);
     }
-
+    public String toString(){
+        return nombre;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(idLocalidad, nombre, valorPorcentual, idProvincia);

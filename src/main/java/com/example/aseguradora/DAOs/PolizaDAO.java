@@ -70,6 +70,13 @@ public class PolizaDAO {
         }
     }
 
+    public List<TipoCobertura> getAllTiposCobertura() {
+        try (Session session = sessionFactory.openSession()) {
+            Query<TipoCobertura> query = session.createQuery("FROM TipoCobertura", TipoCobertura.class);
+            return query.list();
+        }
+    }
+
     public List<Localidad> getLocalidades(int idProvincia) {
         try (Session session = sessionFactory.openSession()) {
             Query<Localidad> query = session.createQuery("FROM Localidad WHERE idProvincia = :idProvincia", Localidad.class);

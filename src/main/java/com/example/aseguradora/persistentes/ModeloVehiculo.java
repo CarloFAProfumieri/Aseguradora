@@ -70,7 +70,9 @@ public class ModeloVehiculo {
         ModeloVehiculo that = (ModeloVehiculo) o;
         return idModelo == that.idModelo && Objects.equals(nombre, that.nombre) && Objects.equals(valorPorcentual, that.valorPorcentual) && Objects.equals(idMarca, that.idMarca) && Objects.equals(anio, that.anio);
     }
-
+    public String toString(){
+        return nombre;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(idModelo, nombre, valorPorcentual, idMarca, anio);

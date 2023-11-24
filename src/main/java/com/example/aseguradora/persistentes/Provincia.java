@@ -48,7 +48,9 @@ public class Provincia {
         Provincia provincia = (Provincia) o;
         return idProvincia == provincia.idProvincia && Objects.equals(nombre, provincia.nombre) && Objects.equals(idPais, provincia.idPais);
     }
-
+    public String toString(){
+        return nombre;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(idProvincia, nombre, idPais);

@@ -64,4 +64,7 @@ public class TipoCobertura {
     public int hashCode() {
         return Objects.hash(idTipo, nombre, descripcion, valorPorcentual);
     }
+    public String toString(){
+        return nombre;
+    }
 }

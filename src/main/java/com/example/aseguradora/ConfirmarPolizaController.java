@@ -17,7 +17,7 @@ public class ConfirmarPolizaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         titularSeguroLabel.setText("Santino");
     }
-
+/*
     public void setPoliza(PolizaDTO unaPoliza, ClienteDTO unCliente,){
     titularSeguroLabel.setText(unCliente.getNombre());
     marcaVehiculoLabel.setText();
@@ -32,7 +32,7 @@ public class ConfirmarPolizaController implements Initializable {
     importesDescuentosLabel.setText(unaPoliza.getDescuento());
     modalidadPagoLabel.setText();
     montoTotalLabel.setText(unaPoliza.getMontoTotal());
-    }
+    }*/
     @FXML
     private void cancelarAction() {
         // Acciones al hacer clic en Cancelar

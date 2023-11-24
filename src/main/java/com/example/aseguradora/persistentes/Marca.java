@@ -37,7 +37,9 @@ public class Marca {
         Marca marca = (Marca) o;
         return idMarca == marca.idMarca && Objects.equals(nombre, marca.nombre);
     }
-
+    public String toString(){
+        return nombre;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(idMarca, nombre);

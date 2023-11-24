@@ -1,6 +1,8 @@
 package com.example.aseguradora.gestores;
 
 import com.example.aseguradora.DAOs.PolizaDAO;
+import com.example.aseguradora.DTOs.ClienteDTO;
+import com.example.aseguradora.DTOs.HijoDTO;
 import com.example.aseguradora.DTOs.PolizaDTO;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
@@ -31,7 +33,7 @@ public class GestorPolizas {
     public void generarInformeResultadoMensual(){
 
     }
-
+    //pasar recuperacion de listas a un solo metodo
     public List<Marca> getMarcasList(){
         PolizaDAO polizaDao = new PolizaDAO();
         return polizaDao.getAllMarcas();
@@ -52,6 +54,10 @@ public class GestorPolizas {
         PolizaDAO DAO = new PolizaDAO();
         DAO.guardarPoliza(polizaDTO);
     }
+    public List<TipoCobertura> getTiposDeCobertura() {
+        PolizaDAO dao = new PolizaDAO();
+        return dao.getAllTiposCobertura();
+    }
     public static void main(String[] args) {
         PolizaDTO polizaTest = new PolizaDTO(1,500.0, new Date(), new Date(), 1000.35, "ABC123",
                 "123456", new Date(),20000, "XYZ789", 1, 123,
@@ -59,5 +65,9 @@ public class GestorPolizas {
         PolizaDAO DAO = new PolizaDAO();
         DAO.guardarPoliza(polizaTest);
         System.out.println("numero de poliza: " + polizaTest.getNumeroPoliza());
+    }
+
+    public void generarPoliza(PolizaDTO datosPoliza, HijoDTO datosHijo, ClienteDTO datosCliente) {
+        //implementar con diagrama de secuencia :D
     }
 }
