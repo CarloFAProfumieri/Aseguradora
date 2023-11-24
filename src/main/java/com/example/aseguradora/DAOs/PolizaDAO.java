@@ -27,21 +27,7 @@ public class PolizaDAO {
             transaction.commit();
         }
     }
-    public List<Marca> getAllMarcas() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
 
-            Query<Marca> query = session.createQuery("FROM Marca", Marca.class);
-            List<Marca> marcas = query.getResultList();
-
-            transaction.commit();
-
-            return marcas;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     public Poliza getPoliza(int numeroPoliza) {
         try (Session session = sessionFactory.openSession()) {
             return session.get(Poliza.class, numeroPoliza);
@@ -55,33 +41,11 @@ public class PolizaDAO {
         }
     }
 
-    public List<ModeloVehiculo> getModelos(int idMarca) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<ModeloVehiculo> query = session.createQuery("FROM ModeloVehiculo WHERE idMarca = :idMarca", ModeloVehiculo.class);
-            query.setParameter("idMarca", idMarca);
-            return query.list();
-        }
-    }
 
-    public List<Provincia> getAllProvincias() {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Provincia> query = session.createQuery("FROM Provincia", Provincia.class);
-            return query.list();
-        }
-    }
 
-    public List<TipoCobertura> getAllTiposCobertura() {
-        try (Session session = sessionFactory.openSession()) {
-            Query<TipoCobertura> query = session.createQuery("FROM TipoCobertura", TipoCobertura.class);
-            return query.list();
-        }
-    }
 
-    public List<Localidad> getLocalidades(int idProvincia) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Localidad> query = session.createQuery("FROM Localidad WHERE idProvincia = :idProvincia", Localidad.class);
-            query.setParameter("idProvincia", idProvincia);
-            return query.list();
-        }
-    }
+
+
+
+
 }

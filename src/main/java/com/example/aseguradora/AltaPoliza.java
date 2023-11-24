@@ -68,17 +68,17 @@ public class AltaPoliza implements Initializable{
         inicioCoberturaDatePicker.setValue(fechaInicial);
     }
 
-    private void incializarTiposdeCobertura() {
-        tiposCoberturasCargadas = gestorPolizas.getTiposDeCobertura();
-        tipoCoberturaComboBox.setItems(getNombres(tiposCoberturasCargadas));
-    }
-
     private <T> ObservableList<String> getNombres(List<T> objetosLista) {
         ObservableList<String> listaDeStrings = observableArrayList();
         for (T unObjeto : objetosLista) {
             listaDeStrings.add(unObjeto.toString());
         }
         return listaDeStrings;
+    }
+
+    private void incializarTiposdeCobertura() {
+        tiposCoberturasCargadas = gestorPolizas.getTiposDeCobertura();
+        tipoCoberturaComboBox.setItems(getNombres(tiposCoberturasCargadas));
     }
     private void inicializarFormaPagoComboBox() {
         modalidadDePagoComboBox.setItems(formasDePagoLista);
@@ -247,14 +247,14 @@ public class AltaPoliza implements Initializable{
         actualizarQuitarHijobutton();
     }
     public void quitarHijoAction(ActionEvent evento)throws IOException{
-        listaHijos.removeLast();
+        //listaHijos.removeLast();
         actualizarQuitarHijobutton();
     }
     public void calcularPremioAction(ActionEvent evento)throws IOException{
         PolizaDTO datosPoliza = getPolizaDTO();
         ClienteDTO datosCliente = getClienteDTO();
-        HijoDTO datosHijo = getHijoDTO();
-        gestorPolizas.generarPoliza(datosPoliza, datosHijo, datosCliente);
+        List<HijoDTO> datosHijoLista = getHijosDTO();
+        gestorPolizas.generarPoliza(datosPoliza, datosHijoLista, datosCliente);
         System.out.println("POLIZA GENERADA");
     }
 
@@ -265,24 +265,22 @@ public class AltaPoliza implements Initializable{
         clienteDTO.setApellido(apellidoTextField.getText());
         clienteDTO.setTipoDocumento(tipoDocumentoComboBox.getValue());
         clienteDTO.setNumeroDocumento(Integer.parseInt(nroDeDocumentoTextField.getText()));
-
-         return clienteDTO;
+        return clienteDTO;
     }
 
-    private HijoDTO getHijoDTO() {
+    private List<HijoDTO> getHijosDTO() {
+        List<HijoDTO> hijosDTOList = new ArrayList<>();
 
-        HijoDTO hijoDTO = new HijoDTO();
+        for (Hijo hijo : listaHijos) {
+            HijoDTO hijoDTO = new HijoDTO();
+            hijoDTO.setSexo(hijo.getSexo());
+            hijoDTO.setIdHijo(listaHijos.indexOf(hijo));
+            hijoDTO.setIdEstadoCivil(hijo.getIdEstadoCivil());
+            hijoDTO.setFechaNacimiento(hijo.getFechaNacimiento());
+            hijosDTOList.add(hijoDTO);
+        }
 
-        Hijo hijo = new Hijo();
-        hijo = listaHijos.getFirst();
-
-        hijoDTO.setSexo(hijo.getSexo());
-        hijoDTO.setIdHijo(listaHijos.indexOf(hijo));
-        hijoDTO.setIdEstadoCivil(hijo.getIdEstadoCivil());
-        hijoDTO.setFechaNacimiento(hijo.getFechaNacimiento());
-        return hijoDTO;
-
-
+        return hijosDTOList;
     }
 
     public PolizaDTO getPolizaDTO(){

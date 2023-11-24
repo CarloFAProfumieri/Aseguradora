@@ -4,7 +4,6 @@ import com.example.aseguradora.enumeraciones.Sexo;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +12,6 @@ public class Hijo {
     @Enumerated(EnumType.STRING)
     @Column(name = "sexo")
     private Sexo sexo;
-    private String estadoCivil;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idHijo")
@@ -23,9 +21,10 @@ public class Hijo {
     private Date fechaNacimiento;
     @Basic
     @Column(name = "idEstadoCivil")
-    private Integer idEstadoCivil;
+    private int idEstadoCivil;
+    private EstadoCivil estadoCivil;
 
-    public Hijo(Integer edad, Sexo sexo, String estadoCivil) {
+    public Hijo(Integer edad, Sexo sexo, EstadoCivil estadoCivil) {
         this.edad = edad;
         this.sexo = sexo;
         this.estadoCivil = estadoCivil;
@@ -33,6 +32,12 @@ public class Hijo {
 
     public Hijo() {
 
+    }
+
+    public Hijo(Sexo sexo, Date fechaNacimiento, EstadoCivil estadoCivil) {
+        this.sexo = sexo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.estadoCivil = estadoCivil;
     }
 
     public Integer getEdad() {
@@ -47,7 +52,7 @@ public class Hijo {
         this.sexo = sexo;
     }
 
-    public String getEstadoCivil() {
+    public EstadoCivil getEstadoCivil() {
         return estadoCivil;
     }
 
@@ -67,11 +72,11 @@ public class Hijo {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Integer getIdEstadoCivil() {
+    public int getIdEstadoCivil() {
         return idEstadoCivil;
     }
 
-    public void setIdEstadoCivil(Integer idEstadoCivil) {
+    public void setIdEstadoCivil(int idEstadoCivil) {
         this.idEstadoCivil = idEstadoCivil;
     }
 

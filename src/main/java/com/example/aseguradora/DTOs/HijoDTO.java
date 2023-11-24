@@ -3,7 +3,6 @@ package com.example.aseguradora.DTOs;
 import com.example.aseguradora.enumeraciones.Sexo;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class HijoDTO {
     private int idHijo;

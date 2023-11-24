@@ -39,6 +39,11 @@ public class EstadoCivil {
     }
 
     @Override
+    public String toString() {
+        return this.nombre;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(idEstadoCivil, nombre);
     }

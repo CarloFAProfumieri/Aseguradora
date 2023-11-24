@@ -63,4 +63,6 @@ public class ClienteDAO {
         System.out.println("Todos los clientes: " + todosLosClientes);
     }
 
+    public void getCliente(int numeroCliente) {
+    }
 }

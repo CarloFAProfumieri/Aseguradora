@@ -1,4 +1,6 @@
 package com.example.aseguradora.persistentes;
+import com.example.aseguradora.DTOs.ClienteDTO;
+import com.example.aseguradora.DTOs.PolizaDTO;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import jakarta.persistence.*;
@@ -259,5 +261,11 @@ public class Poliza {
     @Override
     public int hashCode() {
         return Objects.hash(numeroPoliza, premio, fechaInicio, fechaFin, montoTotal, patente, codigoMotor, ultimoDiaPago, sumaAsegurada, codigoChasis, idLocalidad, numeroCliente, idModelo, idTipoCobertura, idCantidadSiniestros, idKmPorAnio, idValorPorcentualHijo, formaPago, estadoPoliza);
+    }
+
+    public void setPoliza(PolizaDTO datosPoliza) {
+    }
+
+    public void setCliente(ClienteDTO datosCliente) {
     }
 }
