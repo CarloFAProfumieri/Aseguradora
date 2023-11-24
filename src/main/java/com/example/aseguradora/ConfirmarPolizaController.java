@@ -1,8 +1,20 @@
 package com.example.aseguradora;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
-public class ConfirmarPolizaController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+
+
+public class ConfirmarPolizaController implements Initializable {
+    @FXML Label titularSeguroLabel, marcaVehiculoLabel, modeloVehiculoLabel, motorLabel, chasisLabel, patenteLabel, inicioCoberturaLabel, finalCoberturaLabel, sumaAseguradaLabel, PremioLabel, importesDescuentosLabel, modalidadPagoLabel, montoTotalLabel;
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        titularSeguroLabel.setText("Santino");
+    }
+
 
     @FXML
     private void cancelarAction() {
