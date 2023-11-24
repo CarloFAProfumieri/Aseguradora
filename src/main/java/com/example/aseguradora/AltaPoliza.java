@@ -20,10 +20,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.time.ZoneId;
+import java.util.*;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -277,29 +275,29 @@ public class AltaPoliza implements Initializable{
     public PolizaDTO getPolizaDTO(){
         PolizaDTO polizaDTO = new PolizaDTO();
         polizaDTO.setEstadoPoliza(EstadoPoliza.GENERADA);
-        polizaDTO.setSumaAsegurada(Float.sumaAseguradaTextField.getText());
-        //polizaDTO.setFechaInicio();
+        polizaDTO.setSumaAsegurada(Integer.parseInt(sumaAseguradaTextField.getText()));
+        polizaDTO.setFechaInicio(Date.from(inicioCoberturaDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         //polizaDTO.setFechaFin();
-        /*polizaDTO.setFormaPago(formaPago);
-        polizaDTO.setPremio(premio);
-        polizaDTO.setUltimoDiaPago(ultimoDiaPago);
-        polizaDTO.setPatente(patente);
-        polizaDTO.setCodigoMotor(codigoMotor);
-        polizaDTO.setMontoTotal(montoTotal);
-        polizaDTO.setCodigoChasis(codigoChasis);
-        polizaDTO.setIdTipoCobertura(idTipoCobertura);
-        polizaDTO.setAnio(anio);
-        polizaDTO.setIdModelo(idModelo);
-        polizaDTO.setIdLocalidad(idLocalidad);
-        polizaDTO.setIdMedida(idMedida);
-        polizaDTO.setIdKmPorAnio(idKmPorAnio);
-        polizaDTO.setIdCantidadSiniestros(idCantidadSiniestros);
-        polizaDTO.setPrima(prima);
-        polizaDTO.setDescuento(descuento);
-        polizaDTO.setDerechoEmision(derechoEmision);
-        polizaDTO.setBaseAnualPrima(baseAnualPrima);
-        polizaDTO.setNumeroCliente(numeroCliente);
-        polizaDTO.setIdValorPorcentualHijo(idValorPorcentualHijo);
+        //polizaDTO.setFormaPago(formaPago);
+        //polizaDTO.setPremio(premio);
+        //polizaDTO.setUltimoDiaPago(ultimoDiaPago);
+        polizaDTO.setPatente(patenteTextField.getText());
+        polizaDTO.setCodigoMotor(motorTextField.getText());
+        //polizaDTO.setMontoTotal(montoTotal);
+        polizaDTO.setCodigoChasis(chasisTextField.getText());
+        //polizaDTO.setIdTipoCobertura(idTipoCobertura);
+        polizaDTO.setAnio(Integer.parseInt(anioComboBox.getValue()));
+        //polizaDTO.setIdModelo(idModelo);
+        //polizaDTO.setIdLocalidad(idLocalidad);
+        //polizaDTO.setIdMedida(idMedida);
+        //polizaDTO.setIdKmPorAnio(idKmPorAnio);
+        //polizaDTO.setIdCantidadSiniestros(idCantidadSiniestros);
+        //polizaDTO.setPrima(prima);
+        //polizaDTO.setDescuento(descuento);
+        //polizaDTO.setDerechoEmision(derechoEmision);
+        //polizaDTO.setBaseAnualPrima(baseAnualPrima);
+        //polizaDTO.setNumeroCliente(numeroCliente);
+        //polizaDTO.setIdValorPorcentualHijo(idValorPorcentualHijo);
 
         return polizaDTO;*/
         return null;
