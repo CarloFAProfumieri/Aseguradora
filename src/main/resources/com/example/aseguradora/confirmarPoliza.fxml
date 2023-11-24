@@ -17,7 +17,7 @@
                 <Insets />
             </VBox.margin>
         </Label>
-      <GridPane alignment="CENTER_LEFT" gridLinesVisible="true" translateX="10.0" translateY="35.0">
+      <GridPane alignment="CENTER_LEFT" gridLinesVisible="true" prefHeight="30.0" prefWidth="594.0" translateX="10.0" translateY="35.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -25,7 +25,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="30.0" prefWidth="792.0" text="DATOS DE LA POLIZA" textAlignment="CENTER">
+            <Label prefHeight="30.0" prefWidth="704.0" text="DATOS DE LA POLIZA" textAlignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
@@ -88,7 +88,7 @@
          <Label fx:id="inicioCoberturaLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
          <Label fx:id="finalCoberturaLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
          <Label fx:id="sumaAseguradaLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
-         <Label fx:id="PremioLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+         <Label fx:id="premioLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
          <Label fx:id="importesDescuentosLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
          <Label fx:id="modalidadPagoLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="12" />
