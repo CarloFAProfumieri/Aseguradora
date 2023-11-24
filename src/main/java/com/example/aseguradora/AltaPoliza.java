@@ -277,7 +277,7 @@ public class AltaPoliza implements Initializable{
     public PolizaDTO getPolizaDTO(){
         PolizaDTO polizaDTO = new PolizaDTO();
         polizaDTO.setEstadoPoliza(EstadoPoliza.GENERADA);
-        polizaDTO.setSumaAsegurada(getSumaAsegurada());
+        polizaDTO.setSumaAsegurada(Float.sumaAseguradaTextField.getText());
         //polizaDTO.setFechaInicio();
         //polizaDTO.setFechaFin();
         /*polizaDTO.setFormaPago(formaPago);
