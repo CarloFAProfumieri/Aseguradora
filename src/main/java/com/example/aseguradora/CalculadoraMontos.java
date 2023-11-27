@@ -36,7 +36,7 @@ public class CalculadoraMontos{
         premioyDerechosDTO.setDescuento(anio * 10); // Ejemplo: descuento de 10 por cada año de antigüedad
         premioyDerechosDTO.setDerechoEmision(edadConductor * 5); // Ejemplo: derecho de emisión de 5 por cada año de edad
         premioyDerechosDTO.setBaseAnualPrima(premioyDerechosDTO.getPrima() - premioyDerechosDTO.getDescuento());
-        premioyDerechosDTO.setMontoTotal(premioyDerechosDTO.getBaseAnualPrima() + premioyDerechosDTO.getDerechoEmision());
+        premioyDerechosDTO.setMontoTotal((double) (premioyDerechosDTO.getBaseAnualPrima() + premioyDerechosDTO.getDerechoEmision()));
 
         return premioyDerechosDTO;
     }
