@@ -2,8 +2,6 @@ package com.example.aseguradora.persistentes;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
-
 @Entity
 public class ModeloVehiculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +14,9 @@ public class ModeloVehiculo {
     @Basic
     @Column(name = "valorPorcentual")
     private Double valorPorcentual;
-    @Basic
-    @Column(name = "idMarca")
-    private Integer idMarca;
+    @ManyToOne
+    @JoinColumn(name = "idMarca")
+    private Marca marca;
     @Basic
     @Column(name = "anio")
     private Integer anio;
@@ -47,12 +45,12 @@ public class ModeloVehiculo {
         this.valorPorcentual = valorPorcentual;
     }
 
-    public Integer getIdMarca() {
-        return idMarca;
+    public Marca getMarca() {
+        return marca;
     }
 
-    public void setIdMarca(Integer idMarca) {
-        this.idMarca = idMarca;
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
 
     public Integer getAnio() {
@@ -61,20 +59,5 @@ public class ModeloVehiculo {
 
     public void setAnio(Integer anio) {
         this.anio = anio;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ModeloVehiculo that = (ModeloVehiculo) o;
-        return idModelo == that.idModelo && Objects.equals(nombre, that.nombre) && Objects.equals(valorPorcentual, that.valorPorcentual) && Objects.equals(idMarca, that.idMarca) && Objects.equals(anio, that.anio);
-    }
-    public String toString(){
-        return nombre;
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(idModelo, nombre, valorPorcentual, idMarca, anio);
     }
 }

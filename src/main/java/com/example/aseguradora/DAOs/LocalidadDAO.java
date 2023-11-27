@@ -1,6 +1,5 @@
 package com.example.aseguradora.DAOs;
 
-import com.example.aseguradora.persistentes.CantidadSiniestros;
 import com.example.aseguradora.persistentes.Localidad;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,7 +18,7 @@ public class LocalidadDAO {
     }
     public List<Localidad> getLocalidades(int idProvincia) {
         try (Session session = sessionFactory.openSession()) {
-            Query<Localidad> query = session.createQuery("FROM Localidad WHERE idProvincia = :idProvincia", Localidad.class);
+            Query<Localidad> query = session.createQuery("FROM Localidad WHERE provincia.idProvincia = :idProvincia", Localidad.class);
             query.setParameter("idProvincia", idProvincia);
             return query.list();
         }

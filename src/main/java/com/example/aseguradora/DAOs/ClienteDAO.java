@@ -7,7 +7,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import java.io.File;
 import java.util.List;
 
 public class ClienteDAO {

@@ -1,14 +1,19 @@
 package com.example.aseguradora.DTOs;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Date;
+
 public class ClienteDTO {
     private int numeroCliente;
-    private String tipoDocumento;
+    private int tipoDocumentoId;
     private int numeroDocumento;
     private String apellido;
     private String nombre;
-    public ClienteDTO(int numeroCliente, String tipoDocumento, int numeroDocumento, String apellido, String nombre) {
+    private LocalDate fechaNacimiento;
+    public ClienteDTO(int numeroCliente, int tipoDocumento, int numeroDocumento, String apellido, String nombre) {
         this.numeroCliente = numeroCliente;
-        this.tipoDocumento = tipoDocumento;
+        this.tipoDocumentoId = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -22,8 +27,8 @@ public class ClienteDTO {
         this.numeroCliente = numeroCliente;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
+    public void setTipoDocumento(int tipoDocumentoId) {
+        this.tipoDocumentoId = tipoDocumentoId;
     }
 
     public void setNumeroDocumento(int numeroDocumento) {
@@ -42,8 +47,8 @@ public class ClienteDTO {
         return numeroCliente;
     }
 
-    public String getTipoDocumento() {
-        return tipoDocumento;
+    public int getTipoDocumentoId() {
+        return tipoDocumentoId;
     }
 
     public int getNumeroDocumento() {
@@ -58,4 +63,23 @@ public class ClienteDTO {
         return nombre;
     }
 
+    public String getNumeroClienteString() {
+        return String.valueOf(numeroCliente);
+    }
+
+    public String getNumeroDocumentoString() {
+        return String.valueOf(numeroDocumento);
+    }
+
+    public void setFechaNacimiento(LocalDate unaFechaNacimiento) {
+        fechaNacimiento = unaFechaNacimiento;
+    }
+    public LocalDate getFechaNacimiento(){
+        return this.fechaNacimiento;
+    }
+    public int getEdadConductor() {
+        LocalDate fechaActual = LocalDate.now();
+        Period periodo = Period.between(this.fechaNacimiento, fechaActual);
+        return periodo.getYears();
+    }
 }

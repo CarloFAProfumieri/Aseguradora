@@ -1,11 +1,8 @@
 package com.example.aseguradora.DAOs;
 
 import com.example.aseguradora.persistentes.Provincia;
-import com.example.aseguradora.persistentes.Localidad;
-import com.example.aseguradora.persistentes.Marca;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 

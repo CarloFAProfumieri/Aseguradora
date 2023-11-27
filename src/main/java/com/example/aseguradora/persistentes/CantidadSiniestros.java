@@ -10,6 +10,18 @@ public class CantidadSiniestros {
     @Id
     @Column(name = "idCantidadSiniestros")
     private int idCantidadSiniestros;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Basic
+    @Column(name = "descripcion")
+    private String descripcion;
     @Basic
     @Column(name = "valorPorcentual")
     private Double valorPorcentual;

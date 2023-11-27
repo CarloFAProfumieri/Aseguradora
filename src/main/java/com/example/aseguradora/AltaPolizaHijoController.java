@@ -1,7 +1,5 @@
 package com.example.aseguradora;
-import com.example.aseguradora.AltaPoliza;
 import com.example.aseguradora.DAOs.EstadoCivilDAO;
-import com.example.aseguradora.DTOs.HijoDTO;
 import com.example.aseguradora.enumeraciones.Sexo;
 import com.example.aseguradora.persistentes.EstadoCivil;
 import com.example.aseguradora.persistentes.Hijo;
@@ -18,7 +16,6 @@ import java.time.Period;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -74,63 +71,39 @@ public class AltaPolizaHijoController implements Initializable {
     }
     @FXML
     public void cancelarButtonAction() {
-
         cerrarVentanaActual();
-
     }
 
     @FXML
     private void agregarButtonAction() {
-        // Obtener la información seleccionada en AltaPolizaHijo
         String fechaNacimiento = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
         String sexo = sexoComboBox.getValue();
-        EstadoCivil estadoCivil = null; //= estadoCivilComboBox.getValue();
+        String estadoCivilSeleccionado = estadoCivilComboBox.getValue(); //= estadoCivilComboBox.getValue();
+        EstadoCivil estadoCivil = null;
+        if (fechaNacimiento == null || estadoCivilSeleccionado == null || sexoComboBox.getValue() == null) {
+            altaPolizaController.mostrarVentanaError("Debe completar la información correspondiente");
+            return;
+        }
+
         for (EstadoCivil unEstadoCivil: estadoCivilList) {
             if (estadoCivilComboBox.getValue().equals(unEstadoCivil.toString())) estadoCivil = unEstadoCivil;
         }
+        Sexo ns = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER;
+        LocalDate fechaNacimiento1 = datePicker.getValue();
+        LocalDate fechaActual = LocalDate.now();
+        int edad = Period.between(fechaNacimiento1, fechaActual).getYears();
 
-
-
-        if (fechaNacimiento != null && estadoCivil != null && sexo != null) {
-
-            Sexo ns = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER;
-
-            // Obtener la fecha de nacimiento del DatePicker
-            LocalDate fechaNacimiento1 = datePicker.getValue();
-
-            // Obtener la fecha actual
-            LocalDate fechaActual = LocalDate.now();
-
-            int edad = Period.between(fechaNacimiento1, fechaActual).getYears();
-
-            if(edad<18 || edad >30) {
-
-                altaPolizaController.mostrarVentanaError("La edad debe estar entre 18 y 30 años");
-                return;
-            }
-
-            // Crear un nuevo objeto Hijo
-            Hijo nuevoHijo = new Hijo(edad, ns, estadoCivil);
-
-            // Agregar el nuevo hijo a AltaPoliza
-            altaPolizaController.agregarHijo(nuevoHijo);
-
-            // Cerrar la ventana de AltaPolizaHijo
-            cerrarVentanaActual();
-        } else {
-
-            altaPolizaController.mostrarVentanaError("Debe completar la información correspondiente");
-
+        if(edad<18 || edad >30) {
+            altaPolizaController.mostrarVentanaError("La edad debe estar entre 18 y 30 años");
+            return;
         }
-
-
-
+        Hijo nuevoHijo = new Hijo(edad, ns, estadoCivil);
+        altaPolizaController.agregarHijo(nuevoHijo);
+        cerrarVentanaActual();
     }
 
     private void cerrarVentanaActual() {
-        // Obtén la referencia al escenario (Stage) actual
         Stage stage = (Stage) agregarButton.getScene().getWindow();
-        // Cierra la ventana actual
         stage.close();
     }
 

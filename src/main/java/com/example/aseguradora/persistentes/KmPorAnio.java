@@ -10,6 +10,7 @@ public class KmPorAnio {
     @Id
     @Column(name = "idKmPorAnio")
     private int idKmPorAnio;
+
     @Basic
     @Column(name = "limiteSuperior")
     private Integer limiteSuperior;

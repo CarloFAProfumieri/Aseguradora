@@ -19,9 +19,8 @@ public class Hijo {
     @Basic
     @Column(name = "fechaNacimiento")
     private Date fechaNacimiento;
-    @Basic
-    @Column(name = "idEstadoCivil")
-    private int idEstadoCivil;
+    @ManyToOne
+    @JoinColumn(name = "idEstadoCivil", referencedColumnName = "idEstadoCivil")
     private EstadoCivil estadoCivil;
 
     public Hijo(Integer edad, Sexo sexo, EstadoCivil estadoCivil) {
@@ -72,24 +71,18 @@ public class Hijo {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public int getIdEstadoCivil() {
-        return idEstadoCivil;
-    }
-
-    public void setIdEstadoCivil(int idEstadoCivil) {
-        this.idEstadoCivil = idEstadoCivil;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Hijo hijo = (Hijo) o;
-        return idHijo == hijo.idHijo && Objects.equals(sexo, hijo.sexo) && Objects.equals(fechaNacimiento, hijo.fechaNacimiento) && Objects.equals(idEstadoCivil, hijo.idEstadoCivil);
+        return idHijo == hijo.idHijo && Objects.equals(sexo, hijo.sexo) && Objects.equals(fechaNacimiento, hijo.fechaNacimiento);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idHijo, fechaNacimiento, idEstadoCivil, sexo);
+        return Objects.hash(idHijo, fechaNacimiento, sexo);
     }
+
+
 }

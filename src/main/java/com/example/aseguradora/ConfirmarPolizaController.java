@@ -2,7 +2,6 @@ package com.example.aseguradora;
 
 import com.example.aseguradora.DTOs.ClienteDTO;
 import com.example.aseguradora.DTOs.PolizaDTO;
-import com.example.aseguradora.persistentes.Cliente;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -17,22 +16,22 @@ public class ConfirmarPolizaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         titularSeguroLabel.setText("Santino");
     }
-/*
+
     public void setPoliza(PolizaDTO unaPoliza, ClienteDTO unCliente){
     titularSeguroLabel.setText(unCliente.getNombre());
-    marcaVehiculoLabel.setText();
-    modeloVehiculoLabel.setText();
+    //marcaVehiculoLabel.setText(unaPoliza.getMarcaAux());
+    //modeloVehiculoLabel.setText(ModeloDAO);
     motorLabel.setText(unaPoliza.getCodigoMotor());
     chasisLabel.setText(unaPoliza.getCodigoChasis());
     patenteLabel.setText(unaPoliza.getPatente());
-    inicioCoberturaLabel.setText(unaPoliza.getFechaInicio());
-    finalCoberturaLabel.setText(unaPoliza.getFechaFin());
+    inicioCoberturaLabel.setText(unaPoliza.getFechaInicio().toString());
+    finalCoberturaLabel.setText(unaPoliza.getFechaFin().toString());
     sumaAseguradaLabel.setText(unaPoliza.getSumaAsegurada());
-    premioLabel.setText(unaPoliza.getPremio());
-    importesDescuentosLabel.setText(unaPoliza.getDescuento());
-    modalidadPagoLabel.setText();
-    montoTotalLabel.setText(unaPoliza.getMontoTotal());
-    }*/
+    //premioLabel.setText(unaPoliza.getPremio());
+    //importesDescuentosLabel.setText(unaPoliza.getDescuento());
+    //modalidadPagoLabel.setText();
+    //montoTotalLabel.setText(unaPoliza.getMontoTotal());
+    }
     @FXML
     private void cancelarAction() {
         // Acciones al hacer clic en Cancelar

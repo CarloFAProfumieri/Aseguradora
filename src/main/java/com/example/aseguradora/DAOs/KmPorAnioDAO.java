@@ -1,6 +1,5 @@
 package com.example.aseguradora.DAOs;
 
-import com.example.aseguradora.persistentes.CantidadSiniestros;
 import com.example.aseguradora.persistentes.KmPorAnio;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

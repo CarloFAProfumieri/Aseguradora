@@ -47,7 +47,7 @@
         <Pane fx:id="middlePane" disable="true" layoutY="148.0" prefHeight="445.0" prefWidth="906.0">
             <children>
                 <ComboBox fx:id="marcaComboBox" layoutX="136.0" layoutY="110.0" onAction="#marcaSelectedAction" prefHeight="25.0" prefWidth="136.0" promptText="MARCA" />
-                <ComboBox fx:id="modeloComboBox" disable="true" editable="true" layoutX="136.0" layoutY="147.0" onAction="#modeloSelectedAction" prefHeight="25.0" prefWidth="136.0" promptText="MODELO" />
+                <ComboBox fx:id="modeloComboBox" disable="true" layoutX="136.0" layoutY="147.0" onAction="#modeloSelectedAction" prefHeight="25.0" prefWidth="136.0" promptText="MODELO" />
                 <ComboBox fx:id="anioComboBox" disable="true" editable="true" layoutX="137.0" layoutY="183.0" prefHeight="25.0" prefWidth="136.0" promptText="AÑO" />
                 <TextField fx:id="patenteTextField" layoutX="137.0" layoutY="223.0" prefHeight="25.0" prefWidth="136.0" promptText="PATENTE" />
                 <CheckBox fx:id="alarmaCheckBox" layoutX="345.0" layoutY="113.0" mnemonicParsing="false" text="Tiene alarma" />

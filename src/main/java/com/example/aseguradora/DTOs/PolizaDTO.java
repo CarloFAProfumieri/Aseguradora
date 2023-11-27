@@ -4,6 +4,7 @@ import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class PolizaDTO {
@@ -23,7 +24,7 @@ public class PolizaDTO {
     private int anio;
     private int idModelo;
     private int idLocalidad;
-    private int[] idMedida;
+    private List<Integer> idMedida;
     private int idKmPorAnio;
     private int idCantidadSiniestros;
     private Double prima;
@@ -32,6 +33,7 @@ public class PolizaDTO {
     private Double baseAnualPrima;
     private Integer numeroCliente;
     private Integer idValorPorcentualHijo;
+    private String marca;
 
     public PolizaDTO(int numeroPoliza, Double premio, Date fechaInicio, Date fechaFin, Double montoTotal, String patente, String codigoMotor, Date ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {
         this.numeroPoliza = numeroPoliza;
@@ -83,8 +85,8 @@ public class PolizaDTO {
         this.estadoPoliza = estadoPoliza;
     }
 
-    public int getSumaAsegurada() {
-        return sumaAsegurada;
+    public String getSumaAsegurada() {
+        return String.valueOf(sumaAsegurada);
     }
 
     public void setSumaAsegurada(int sumaAsegurada) {
@@ -195,11 +197,11 @@ public class PolizaDTO {
         this.idLocalidad = idLocalidad;
     }
 
-    public int[] getIdMedida() {
+    public List<Integer> getIdMedida() {
         return idMedida;
     }
 
-    public void setIdMedida(int[] idMedida) {
+    public void setIdMedida(List<Integer> idMedidaLista) {
         this.idMedida = idMedida;
     }
 
@@ -254,4 +256,19 @@ public class PolizaDTO {
     public void setnumeroCliente(int unNumeroCliente) {
         numeroCliente = unNumeroCliente;
     }
+
+    public void setPremioYDerechos(PremioyDerechosDTO premioYDerechosDTO) {
+        //polizaDTO.setPrima();
+        //polizaDTO.setDescuento();
+        //polizaDTO.setDerechoEmision();
+        //polizaDTO.setBaseAnualPrima();
+        montoTotal = premioYDerechosDTO.getMontoTotal();
+        prima = (double) premioYDerechosDTO.getPrima();
+        descuento = (double) premioYDerechosDTO.getDescuento();
+        derechoEmision = (double) premioYDerechosDTO.getDerechoEmision();
+        baseAnualPrima = (double) premioYDerechosDTO.getBaseAnualPrima();
+
+    }
+    //AUXILIARES PARA PRESENTAR
+
 }

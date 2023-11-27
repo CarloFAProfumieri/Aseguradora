@@ -2,6 +2,7 @@ package com.example.aseguradora.persistentes;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,10 +14,12 @@ public class CondicionIva {
     @Basic
     @Column(name = "nombre")
     private String nombre;
-
     public int getIdCondicion() {
         return idCondicion;
     }
+
+    @OneToMany(mappedBy = "condicionIVA")
+    private List<Cliente> clienteList;
 
     public void setIdCondicion(int idCondicion) {
         this.idCondicion = idCondicion;

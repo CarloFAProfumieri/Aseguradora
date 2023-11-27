@@ -2,6 +2,7 @@ package com.example.aseguradora.persistentes;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,9 +14,11 @@ public class Provincia {
     @Basic
     @Column(name = "nombre")
     private String nombre;
-    @Basic
-    @Column(name = "idPais")
-    private Integer idPais;
+    @ManyToOne
+    @JoinColumn(name = "idPais")
+    private Pais pais;
+    @OneToMany(mappedBy = "provincia")
+    private List<Localidad> localidades;
 
     public int getIdProvincia() {
         return idProvincia;
@@ -33,26 +36,19 @@ public class Provincia {
         this.nombre = nombre;
     }
 
-    public Integer getIdPais() {
-        return idPais;
-    }
-
-    public void setIdPais(Integer idPais) {
-        this.idPais = idPais;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Provincia provincia = (Provincia) o;
-        return idProvincia == provincia.idProvincia && Objects.equals(nombre, provincia.nombre) && Objects.equals(idPais, provincia.idPais);
+        return idProvincia == provincia.idProvincia && Objects.equals(nombre, provincia.nombre) && Objects.equals(pais, provincia.pais);
     }
     public String toString(){
         return nombre;
     }
     @Override
     public int hashCode() {
-        return Objects.hash(idProvincia, nombre, idPais);
+        return Objects.hash(idProvincia, nombre, pais);
     }
 }

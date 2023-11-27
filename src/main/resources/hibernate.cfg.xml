@@ -10,7 +10,12 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/Aseguradora</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">gengis100</property>
-
+        <!--
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://pg-33fef877-profu95-3139.a.aivencloud.com:23817/defaultdb?ssl=require</property>
+        <property name="hibernate.connection.username">avnadmin</property>
+        <property name="hibernate.connection.password">AVNS_GyR_xfSsjbA7BojJ-qG</property>
+        -->
         <!-- Dialecto de la base de datos -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
@@ -34,15 +39,12 @@
         <mapping class="com.example.aseguradora.persistentes.Marca"/>
         <mapping class="com.example.aseguradora.persistentes.MedidaSeguridad"/>
         <mapping class="com.example.aseguradora.persistentes.ModeloVehiculo"/>
-        <mapping class="com.example.aseguradora.persistentes.ModificacionProximaPoliza"/>
-        <mapping class="com.example.aseguradora.persistentes.PagoPoliza"/>
         <mapping class="com.example.aseguradora.persistentes.Pais"/>
         <mapping class="com.example.aseguradora.persistentes.ParametrosMonto"/>
         <mapping class="com.example.aseguradora.persistentes.Profesion"/>
         <mapping class="com.example.aseguradora.persistentes.Provincia"/>
         <mapping class="com.example.aseguradora.persistentes.TipoCobertura"/>
         <mapping class="com.example.aseguradora.persistentes.TipoDocumento"/>
-        <mapping class="com.example.aseguradora.persistentes.Usuario"/>
         <mapping class="com.example.aseguradora.persistentes.ValorPorcentualHijo"/>
         <mapping class="com.example.aseguradora.persistentes.AnioFabricacion"/>
     </session-factory>

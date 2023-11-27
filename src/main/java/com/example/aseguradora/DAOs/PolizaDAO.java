@@ -1,7 +1,7 @@
 package com.example.aseguradora.DAOs;
 
 import com.example.aseguradora.DTOs.PolizaDTO;
-import com.example.aseguradora.persistentes.*;
+import com.example.aseguradora.persistentes.Poliza;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
