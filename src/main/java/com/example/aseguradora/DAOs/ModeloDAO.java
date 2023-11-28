@@ -1,5 +1,6 @@
 package com.example.aseguradora.DAOs;
 
+import com.example.aseguradora.persistentes.AnioFabricacion;
 import com.example.aseguradora.persistentes.ModeloVehiculo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,6 +23,12 @@ public class ModeloDAO {
             Query<ModeloVehiculo> query = session.createQuery("FROM ModeloVehiculo WHERE marca.idMarca = :idMarca", ModeloVehiculo.class);
             query.setParameter("idMarca", idMarca);
             return query.list();
+        }
+    }
+
+    public ModeloVehiculo getModelo(int idModelo) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(ModeloVehiculo.class, idModelo);
         }
     }
 }

@@ -35,4 +35,10 @@ public class CantidadSiniestrosDAO {
             return null;
         }
     }
+
+    public CantidadSiniestros getCantidadSiniestros(int idCantidadSiniestros) {
+        try (Session session = sessionFactory.openSession()){
+            return session.get(CantidadSiniestros.class, idCantidadSiniestros);
+        }
+    }
 }

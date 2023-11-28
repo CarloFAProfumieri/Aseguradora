@@ -28,6 +28,13 @@ public class PolizaDAO {
         }
     }
 
+    public void guardarPoliza(Poliza poliza) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(poliza);
+            transaction.commit();
+        }
+    }
     public Poliza getPoliza(int numeroPoliza) {
         try (Session session = sessionFactory.openSession()) {
             return session.get(Poliza.class, numeroPoliza);

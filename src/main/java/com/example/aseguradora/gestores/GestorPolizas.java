@@ -6,6 +6,7 @@ import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import com.example.aseguradora.persistentes.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -171,24 +172,29 @@ public class GestorPolizas {
             poliza.addMedida(medidaSeguridadDAO.getMedida(medidaSeguridadId));
         }
         poliza.setTipoCobertura(tipoCoberturaDAO.getTipoCobertura(datosPolizaDTO.getIdTipoCobertura()));
-        //poliza.setAnio();
-        //poliza.setModelo();
-        //poliza.setLocalidad(localidadDAO.getLocalidad());
-        //poliza.setKmPorAnio();
-        //poliza.setCantidadSiniestros();
-        /*
-        if (datosPolizaDTO.getFormaPago() = FormaPago.SEMESTRAL){
+        poliza.setModeloAnio(datosPolizaDTO.getAnio());
+        poliza.setModelo(modeloDAO.getModelo(datosPolizaDTO.getIdModelo()));
+        poliza.setLocalidad(localidadDAO.getLocalidad(datosPolizaDTO.getIdLocalidad()));
+        poliza.setKmPorAnio(kmPorAnioDAO.getKmPorAnio(datosPolizaDTO.getIdKmPorAnio()));
+        poliza.setCantidadSiniestros(cantidadSiniestrosDAO.getCantidadSiniestros(datosPolizaDTO.getIdCantidadSiniestros()));
+
+        if (datosPolizaDTO.getFormaPago() == FormaPago.MENSUAL){ //SETEAR LOS VALORES DE LAS CUOTAS!
             List<Cuota> cuotasLista = new ArrayList<>();
+            LocalDate fechaInicio = LocalDate.from(datosPolizaDTO.getFechaInicio().toInstant()); //esto esta mal
             for (int i = 0; i <= 6; i++) {
-                Cuota cuota = new Cuota(datosPolizaDTO.getFechaInicio() + meses(i));
+                Cuota cuota = new Cuota(fechaInicio.plusMonths(i));
                 cuotasLista.add(cuota);
             }
+            poliza.addCuotas(cuotasLista);
         }
-        poliza.generarNumeroPoliza()
-        poliza.setvalorporcentual(valorPorcentualHijoDAO.getValorPorcentualHijo())
-
-         */
-
+        if (datosPolizaDTO.getFormaPago() == FormaPago.SEMESTRAL){//SETEAR LOS VALORES DE LAS CUOTAS!
+            List<Cuota> cuotasLista = new ArrayList<>();
+            LocalDate fechaInicio = LocalDate.from(datosPolizaDTO.getFechaInicio().toInstant()); //esto tambien
+            Cuota cuota = new Cuota(fechaInicio.plusMonths(6));
+            poliza.addCuotas(cuotasLista);
+        }
+        poliza.setValorPorcentualHijo(valorPorcentualHijoDAO.getValorPorcentualHijo(datosPolizaDTO.getIdValorPorcentualHijo()));
+        polizaDAO.guardarPoliza(poliza);
     }
 
     public static void main(String[] args) {

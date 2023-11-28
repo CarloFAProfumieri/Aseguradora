@@ -3,6 +3,7 @@ package com.example.aseguradora.persistentes;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Cuota {
@@ -28,6 +29,9 @@ public class Cuota {
     @Basic
     @Column(name = "numeroRecibo")
     private Integer numeroRecibo;
+
+    public Cuota(LocalDate diaDePago) {
+    }
 
     public int getIdCuota() {
         return idCuota;

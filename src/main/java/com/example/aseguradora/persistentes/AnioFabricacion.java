@@ -6,7 +6,6 @@ import java.util.Objects;
 
 @Entity
 public class AnioFabricacion {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "anio")
     private int anio;

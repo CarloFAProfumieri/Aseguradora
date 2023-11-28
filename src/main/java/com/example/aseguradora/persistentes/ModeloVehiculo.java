@@ -1,6 +1,9 @@
 package com.example.aseguradora.persistentes;
 
+import com.example.aseguradora.DAOs.AnioDAO;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class ModeloVehiculo {
@@ -17,10 +20,14 @@ public class ModeloVehiculo {
     @ManyToOne
     @JoinColumn(name = "idMarca")
     private Marca marca;
-    @Basic
-    @Column(name = "anio")
-    private Integer anio;
-
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "modeloAniosFabricacion",
+            joinColumns = @JoinColumn(name = "idModelo"),
+            inverseJoinColumns = @JoinColumn(name = "anio")
+    )
+    private List<AnioFabricacion> aniosFabricadoLista;
+    int anio;
     public int getIdModelo() {
         return idModelo;
     }

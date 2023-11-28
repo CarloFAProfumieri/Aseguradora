@@ -23,4 +23,9 @@ public class LocalidadDAO {
             return query.list();
         }
     }
+    public Localidad getLocalidad(int idLocalidad) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Localidad.class, idLocalidad);
+        }
+    }
 }

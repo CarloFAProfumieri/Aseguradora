@@ -284,7 +284,7 @@ public class AltaPoliza implements Initializable{
     }
 
     public PolizaDTO getPolizaDTO(){
-        PolizaDTO polizaDTO = new PolizaDTO();
+        polizaDTO = new PolizaDTO();
         //polizaDTO.setNumeroPoliza();
         polizaDTO.setEstadoPoliza(EstadoPoliza.GENERADA);
         polizaDTO.setSumaAsegurada(getSumaAsegurada());
@@ -301,6 +301,7 @@ public class AltaPoliza implements Initializable{
         polizaDTO.setIdMedidas(getMedidas());
         polizaDTO.setIdKmPorAnio(getIdKmPorAnio());
         polizaDTO.setIdCantidadSiniestros(siniestrosComboBox.getValue().getIdCantidadSiniestros());
+        polizaDTO.setIdValorPorcentualHijo(getHijosDTO().size()+1);
         //polizaDTO.setPrima();
         //polizaDTO.setDescuento();
         //polizaDTO.setDerechoEmision();

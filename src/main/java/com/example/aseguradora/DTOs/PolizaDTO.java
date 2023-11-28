@@ -32,6 +32,11 @@ public class PolizaDTO {
     private Double derechoEmision;
     private Double baseAnualPrima;
     private Integer numeroCliente;
+
+    public void setIdValorPorcentualHijo(Integer idValorPorcentualHijo) {
+        this.idValorPorcentualHijo = idValorPorcentualHijo;
+    }
+
     private Integer idValorPorcentualHijo;
     private String marca;
 

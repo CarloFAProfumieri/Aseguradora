@@ -5,6 +5,7 @@ import com.example.aseguradora.enumeraciones.FormaPago;
 import jakarta.persistence.*;
 
 import javax.persistence.Entity;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,9 +43,15 @@ public class Poliza {
     @Basic
     @Column(name = "codigoChasis")
     private String codigoChasis;
+
+    @Basic
+    @Column(name = "modeloAnio")
+    private int modeloAnio;
+
     @ManyToOne
     @JoinColumn(name = "numeroCliente")
     private Cliente cliente;
+
     @ManyToOne
     @JoinColumn(name = "idLocalidad")
     private Localidad localidad;
@@ -66,18 +73,16 @@ public class Poliza {
     @Enumerated(EnumType.STRING)
     @Column(name = "formaPago")
     private FormaPago formaPago;
-    @OneToMany(mappedBy = "poliza") // "cliente" es el nombre del atributo en la clase Poliza
+    @OneToMany(mappedBy = "poliza")
     private List<Cuota> cuotas;
     @Enumerated(EnumType.STRING)
     @Column(name = "estadoPoliza")
     private EstadoPoliza estadoPoliza;
     @OneToOne(mappedBy = "poliza", cascade = CascadeType.ALL, orphanRemoval = true)
     private ParametrosMonto parametrosMonto;
-
     public List<MedidaSeguridad> getMedidasSeguridadList() {
         return medidasSeguridadList;
     }
-
     public void addMedida(MedidaSeguridad medidaSeguridad){
         medidasSeguridadList.add(medidaSeguridad);
     }
@@ -86,13 +91,21 @@ public class Poliza {
         this.medidasSeguridadList = medidasSeguridadList;
     }
 
+    public void setModeloAnio(int modeloAnio) {
+        this.modeloAnio = modeloAnio;
+    }
+
+    public int getModeloAnio() {
+        return modeloAnio;
+    }
+
     @ManyToMany
     @JoinTable(
             name = "polizaMedida",
             joinColumns = @JoinColumn(name = "numeroPoliza"),
             inverseJoinColumns = @JoinColumn(name = "idMedida")
     )
-    private List<MedidaSeguridad> medidasSeguridadList;
+    private List<MedidaSeguridad> medidasSeguridadList = new ArrayList<>();
 
     public Poliza() {
 
@@ -277,5 +290,9 @@ public class Poliza {
         this.premio = datosPolizaDTO.getPremio();
         this.patente = datosPolizaDTO.getPatente();
         this.formaPago = datosPolizaDTO.getFormaPago();
+    }
+
+    public void addCuotas(List<Cuota> cuotasLista) {
+        this.cuotas = cuotasLista;
     }
 }
