@@ -31,4 +31,11 @@ public class ModeloDAO {
             return session.get(ModeloVehiculo.class, idModelo);
         }
     }
+
+    public List<AnioFabricacion> getAnios(int idModelo) {//optimizar
+        try (Session session = sessionFactory.openSession()) {
+            ModeloVehiculo modelo = session.get(ModeloVehiculo.class, idModelo);
+            return modelo.getAnios();
+        }
+    }
 }

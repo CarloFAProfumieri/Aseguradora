@@ -27,6 +27,11 @@ public class AnioFabricacion {
     }
 
     @Override
+    public String toString() {
+        return String.valueOf(anio);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(anio);
     }

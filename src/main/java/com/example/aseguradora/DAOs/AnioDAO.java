@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 public class AnioDAO {
 
     private final SessionFactory sessionFactory;
@@ -21,5 +23,6 @@ public class AnioDAO {
             return session.get(AnioFabricacion.class, anio);
         }
     }
+
     //public void guardarAnios();
 }

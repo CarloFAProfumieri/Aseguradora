@@ -146,6 +146,16 @@ public class GestorPolizas {
                     return tipoCoberturaDTO;
                 }).collect(Collectors.toList());
     }
+    public List<AnioDTO> getAnios(int idModelo){
+        return modeloDAO.getAnios(idModelo)
+                .stream()
+                .map(anioFabricacion -> {
+                    AnioDTO anioDTO = new AnioDTO();
+                    anioDTO.setAnio(anioFabricacion.getAnio());
+                    return anioDTO;
+                }).collect(Collectors.toList());
+
+    }
     public List<MedidaSeguridadDTO> getAllMedidasSeguridad() {
         return medidaSeguridadDAO.getAllMedidas()
                 .stream()

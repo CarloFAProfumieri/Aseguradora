@@ -20,7 +20,7 @@ public class ModeloVehiculo {
     @ManyToOne
     @JoinColumn(name = "idMarca")
     private Marca marca;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "modeloAniosFabricacion",
             joinColumns = @JoinColumn(name = "idModelo"),
@@ -66,5 +66,9 @@ public class ModeloVehiculo {
 
     public void setAnio(Integer anio) {
         this.anio = anio;
+    }
+
+    public List<AnioFabricacion> getAnios() {
+        return aniosFabricadoLista;
     }
 }
