@@ -30,6 +30,10 @@ public class Cuota {
     @Column(name = "numeroRecibo")
     private Integer numeroRecibo;
 
+    public Cuota() {
+
+    }
+
     public Cuota(LocalDate diaDePago) {
     }
 
