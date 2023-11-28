@@ -33,4 +33,19 @@ public class MedidaSeguridadDAO {
             return null;
         }
     }
+    public MedidaSeguridad getMedida(int medidaSeguridadId) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            MedidaSeguridad medida = session.get(MedidaSeguridad.class, medidaSeguridadId);
+
+            transaction.commit();
+
+            return medida;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

@@ -85,8 +85,8 @@ public class PolizaDTO {
         this.estadoPoliza = estadoPoliza;
     }
 
-    public String getSumaAsegurada() {
-        return String.valueOf(sumaAsegurada);
+    public int getSumaAsegurada() {
+        return sumaAsegurada;
     }
 
     public void setSumaAsegurada(int sumaAsegurada) {
@@ -197,12 +197,12 @@ public class PolizaDTO {
         this.idLocalidad = idLocalidad;
     }
 
-    public List<Integer> getIdMedida() {
+    public List<Integer> getIdMedidas() {
         return idMedida;
     }
 
-    public void setIdMedida(List<Integer> idMedidaLista) {
-        this.idMedida = idMedida;
+    public void setIdMedidas(List<Integer> idMedidaLista) {
+        this.idMedida = idMedidaLista;
     }
 
     public int getIdKmPorAnio() {

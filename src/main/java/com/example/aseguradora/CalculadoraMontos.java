@@ -28,7 +28,7 @@ public class CalculadoraMontos{
         PremioyDerechosDTO premioyDerechosDTO = new PremioyDerechosDTO();
 
         // Lógica de cálculo (valores de prueba, ajusta según tus necesidades)
-        int montoAsegurado = Integer.parseInt(polizaDTO.getSumaAsegurada());
+        int montoAsegurado = polizaDTO.getSumaAsegurada();
         int anio = polizaDTO.getAnio();
         int edadConductor = clienteDTO.getEdadConductor();
 

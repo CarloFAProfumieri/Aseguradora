@@ -157,17 +157,38 @@ public class GestorPolizas {
                 }).collect(Collectors.toList());
     }
 
-    public void generarPoliza(PolizaDTO datosPoliza, List<HijoDTO> listaHijosDTO, ClienteDTO datosCliente) {
+    public void generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
         Poliza poliza = new Poliza();
         poliza.setEstadoPoliza(EstadoPoliza.GENERADA);
-        Cliente cliente = clienteDAO.obtenerClientePorNumero(datosCliente.getNumeroCliente());
         for (HijoDTO unHijo : listaHijosDTO) {
             EstadoCivil estadoCivil = estadoCivilDAO.getEstadoCivil(unHijo.getIdEstadoCivil());
             Hijo nuevoHijo = new Hijo(unHijo.getSexo(), unHijo.getFechaNacimiento() ,estadoCivil);
         }
-        //poliza.setCliente(datosCliente); // le mando el DTO o creo un cliente y se lo envio como objeto?
+        Cliente cliente = clienteDAO.obtenerClientePorNumero(datosClienteDTO.getNumeroCliente());
+        poliza.setCliente(cliente);
+        poliza.setAtributosPoliza(datosPolizaDTO);
+        for (int medidaSeguridadId : datosPolizaDTO.getIdMedidas()){
+            poliza.addMedida(medidaSeguridadDAO.getMedida(medidaSeguridadId));
+        }
+        poliza.setTipoCobertura(tipoCoberturaDAO.getTipoCobertura(datosPolizaDTO.getIdTipoCobertura()));
+        //poliza.setAnio();
+        //poliza.setModelo();
+        //poliza.setLocalidad(localidadDAO.getLocalidad());
+        //poliza.setKmPorAnio();
+        //poliza.setCantidadSiniestros();
+        /*
+        if (datosPolizaDTO.getFormaPago() = FormaPago.SEMESTRAL){
+            List<Cuota> cuotasLista = new ArrayList<>();
+            for (int i = 0; i <= 6; i++) {
+                Cuota cuota = new Cuota(datosPolizaDTO.getFechaInicio() + meses(i));
+                cuotasLista.add(cuota);
+            }
+        }
+        poliza.generarNumeroPoliza()
+        poliza.setvalorporcentual(valorPorcentualHijoDAO.getValorPorcentualHijo())
 
-        //poliza.setPoliza(datosPoliza);
+         */
+
     }
 
     public static void main(String[] args) {

@@ -58,6 +58,8 @@ public class AltaPoliza implements Initializable{
     List<TipoDocumentoDTO> tiposDeDocumentoLista;
     ObservableList<FormaPago> formasDePagoLista = observableArrayList(FormaPago.SEMESTRAL,FormaPago.MENSUAL);
     PolizaDTO polizaDTO = new PolizaDTO();
+    ClienteDTO clienteDTO = new ClienteDTO();
+    List<HijoDTO> hijoDTOs = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //ACCESO BASE DE DATOS
@@ -296,7 +298,7 @@ public class AltaPoliza implements Initializable{
         polizaDTO.setAnio(Integer.parseInt(anioComboBox.getValue()));
         polizaDTO.setIdModelo(modeloComboBox.getValue().getIdModelo());
         polizaDTO.setIdLocalidad(localidadComboBox.getValue().getIdLocalidad());
-        polizaDTO.setIdMedida(getMedidas());
+        polizaDTO.setIdMedidas(getMedidas());
         polizaDTO.setIdKmPorAnio(getIdKmPorAnio());
         polizaDTO.setIdCantidadSiniestros(siniestrosComboBox.getValue().getIdCantidadSiniestros());
         //polizaDTO.setPrima();
@@ -309,7 +311,6 @@ public class AltaPoliza implements Initializable{
     }
 
     private ClienteDTO getClienteDTO() {
-        ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setNumeroCliente(Integer.parseInt(nroClienteTextField.getText()));
         clienteDTO.setNombre(nombreTextField.getText());
         clienteDTO.setApellido(apellidoTextField.getText());
@@ -328,7 +329,7 @@ public class AltaPoliza implements Initializable{
             hijoDTO.setIdEstadoCivil(hijo.getEstadoCivil().getIdEstadoCivil());
             hijoDTO.setFechaNacimiento(hijo.getFechaNacimiento());
             hijosDTOList.add(hijoDTO);
-            System.out.println("id estado civil: " + hijo.getEstadoCivil().getIdEstadoCivil());
+            System.out.println("id estado civil hijo: " + hijo.getEstadoCivil().getIdEstadoCivil());
         }
 
         return hijosDTOList;
@@ -422,7 +423,7 @@ public class AltaPoliza implements Initializable{
     }
 
     private void busquedaCliente() {
-        ClienteDTO clienteDTO = gestorPolizas.getClienteDTO();
+        clienteDTO = gestorPolizas.getClienteDTO();
         apellidoTextField.setText(clienteDTO.getApellido());
         nombreTextField.setText(clienteDTO.getNombre());
         nroClienteTextField.setText(clienteDTO.getNumeroClienteString());

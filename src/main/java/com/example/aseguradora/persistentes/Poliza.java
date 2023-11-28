@@ -1,4 +1,5 @@
 package com.example.aseguradora.persistentes;
+import com.example.aseguradora.DTOs.PolizaDTO;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import jakarta.persistence.*;
@@ -72,12 +73,209 @@ public class Poliza {
     private EstadoPoliza estadoPoliza;
     @OneToOne(mappedBy = "poliza", cascade = CascadeType.ALL, orphanRemoval = true)
     private ParametrosMonto parametrosMonto;
+
+    public List<MedidaSeguridad> getMedidasSeguridadList() {
+        return medidasSeguridadList;
+    }
+
+    public void addMedida(MedidaSeguridad medidaSeguridad){
+        medidasSeguridadList.add(medidaSeguridad);
+    }
+
+    public void setMedidasSeguridadList(List<MedidaSeguridad> medidasSeguridadList) {
+        this.medidasSeguridadList = medidasSeguridadList;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "polizaMedida",
+            joinColumns = @JoinColumn(name = "numeroPoliza"),
+            inverseJoinColumns = @JoinColumn(name = "idMedida")
+    )
+    private List<MedidaSeguridad> medidasSeguridadList;
+
     public Poliza() {
 
+    }
+
+    public int getNumeroPoliza() {
+        return numeroPoliza;
+    }
+
+    public void setNumeroPoliza(int numeroPoliza) {
+        this.numeroPoliza = numeroPoliza;
+    }
+
+    public Double getPremio() {
+        return premio;
+    }
+
+    public void setPremio(Double premio) {
+        this.premio = premio;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public Double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(Double montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public String getPatente() {
+        return patente;
+    }
+
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
+
+    public String getCodigoMotor() {
+        return codigoMotor;
+    }
+
+    public void setCodigoMotor(String codigoMotor) {
+        this.codigoMotor = codigoMotor;
+    }
+
+    public Date getUltimoDiaPago() {
+        return ultimoDiaPago;
+    }
+
+    public void setUltimoDiaPago(Date ultimoDiaPago) {
+        this.ultimoDiaPago = ultimoDiaPago;
+    }
+
+    public int getSumaAsegurada() {
+        return sumaAsegurada;
+    }
+
+    public void setSumaAsegurada(int sumaAsegurada) {
+        this.sumaAsegurada = sumaAsegurada;
+    }
+
+    public String getCodigoChasis() {
+        return codigoChasis;
+    }
+
+    public void setCodigoChasis(String codigoChasis) {
+        this.codigoChasis = codigoChasis;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
+
+    public ModeloVehiculo getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(ModeloVehiculo modelo) {
+        this.modelo = modelo;
+    }
+
+    public TipoCobertura getTipoCobertura() {
+        return tipoCobertura;
+    }
+
+    public void setTipoCobertura(TipoCobertura tipoCobertura) {
+        this.tipoCobertura = tipoCobertura;
+    }
+
+    public CantidadSiniestros getCantidadSiniestros() {
+        return cantidadSiniestros;
+    }
+
+    public void setCantidadSiniestros(CantidadSiniestros cantidadSiniestros) {
+        this.cantidadSiniestros = cantidadSiniestros;
+    }
+
+    public KmPorAnio getKmPorAnio() {
+        return kmPorAnio;
+    }
+
+    public void setKmPorAnio(KmPorAnio kmPorAnio) {
+        this.kmPorAnio = kmPorAnio;
+    }
+
+    public ValorPorcentualHijo getValorPorcentualHijo() {
+        return valorPorcentualHijo;
+    }
+
+    public void setValorPorcentualHijo(ValorPorcentualHijo valorPorcentualHijo) {
+        this.valorPorcentualHijo = valorPorcentualHijo;
+    }
+
+    public FormaPago getFormaPago() {
+        return formaPago;
+    }
+
+    public void setFormaPago(FormaPago formaPago) {
+        this.formaPago = formaPago;
+    }
+
+    public List<Cuota> getCuotas() {
+        return cuotas;
+    }
+
+    public void setCuotas(List<Cuota> cuotas) {
+        this.cuotas = cuotas;
+    }
+
+    public EstadoPoliza getEstadoPoliza() {
+        return estadoPoliza;
+    }
+
+    public ParametrosMonto getParametrosMonto() {
+        return parametrosMonto;
+    }
+
+    public void setParametrosMonto(ParametrosMonto parametrosMonto) {
+        this.parametrosMonto = parametrosMonto;
     }
 
     public void setEstadoPoliza(EstadoPoliza estadoPoliza) {
         this.estadoPoliza = estadoPoliza;
     }
 
+    public void setAtributosPoliza(PolizaDTO datosPolizaDTO) {
+        this.estadoPoliza = datosPolizaDTO.getEstadoPoliza();
+        this.codigoChasis = datosPolizaDTO.getCodigoChasis();
+        this.codigoMotor = datosPolizaDTO.getCodigoMotor();
+        this.fechaInicio = datosPolizaDTO.getFechaInicio();
+        this.fechaFin = datosPolizaDTO.getFechaFin();
+        this.montoTotal = datosPolizaDTO.getMontoTotal();
+        this.sumaAsegurada = datosPolizaDTO.getSumaAsegurada();
+        this.premio = datosPolizaDTO.getPremio();
+        this.patente = datosPolizaDTO.getPatente();
+        this.formaPago = datosPolizaDTO.getFormaPago();
+    }
 }

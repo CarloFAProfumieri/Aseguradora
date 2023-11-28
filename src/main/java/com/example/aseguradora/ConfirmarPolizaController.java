@@ -26,7 +26,7 @@ public class ConfirmarPolizaController implements Initializable {
     patenteLabel.setText(unaPoliza.getPatente());
     inicioCoberturaLabel.setText(unaPoliza.getFechaInicio().toString());
     finalCoberturaLabel.setText(unaPoliza.getFechaFin().toString());
-    sumaAseguradaLabel.setText(unaPoliza.getSumaAsegurada());
+    sumaAseguradaLabel.setText(String.valueOf(unaPoliza.getSumaAsegurada()));
     //premioLabel.setText(unaPoliza.getPremio());
     //importesDescuentosLabel.setText(unaPoliza.getDescuento());
     //modalidadPagoLabel.setText();
