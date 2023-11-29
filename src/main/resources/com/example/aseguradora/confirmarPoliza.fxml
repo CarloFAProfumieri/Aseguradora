@@ -1,37 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.ConfirmarPolizaController">
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.ConfirmarPolizaController">
     <children>
-        <Label maxWidth="Infinity" style="-fx-font-size: 18px; -fx-font-weight: bold;-fx-border-color: black; -fx-border-width: 0 0 2 0; -fx-padding: 10 10 10 10;-fx-background-color: #CCCCCC;-fx-text-fill: black;" text="DATOS DE LA PÓLIZA">
-            <VBox.margin>
-                <Insets />
-            </VBox.margin>
-        </Label>
-        <GridPane alignment="CENTER_LEFT" gridLinesVisible="true" prefHeight="30.0" prefWidth="594.0" translateX="10.0" translateY="35.0">
+        <GridPane alignment="CENTER_LEFT" gridLinesVisible="true" maxWidth="-Infinity" prefHeight="30.0" prefWidth="779.0" translateX="10.0" translateY="35.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label prefHeight="30.0" prefWidth="704.0" text="DATOS DE LA POLIZA" textAlignment="CENTER">
+                <Label prefHeight="30.0" style="-fx-padding: 2;-fx-background-color: #CCCCCC" prefWidth="805.0" text="DATOS DE LA POLIZA" textAlignment="CENTER">
                     <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                     </font>
-                    <padding>
-                        <Insets left="15.0" />
-                    </padding>
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
@@ -41,69 +28,57 @@
                 <Insets />
             </opaqueInsets>
         </GridPane>
-        <GridPane gridLinesVisible="true" prefHeight="322.0" prefWidth="508.0" style="-fx-padding: 10;" translateY="30.0" VBox.vgrow="NEVER">
+        <GridPane fx:id="datosPolizaGridPane" prefHeight="322.0" prefWidth="508.0" style="-fx-padding: 10;" translateY="30.0" VBox.vgrow="NEVER">
+            <gridLinesVisible>true</gridLinesVisible>
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.9999930224899" minWidth="10.0" prefWidth="331.9999930224899" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="450.89231305184467" minWidth="10.0" prefWidth="436.86155133309467" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <!-- Mantén el mismo número de filas -->
             </rowConstraints>
             <!-- Agregar etiquetas en la columna izquierda -->
-            <Label text="Titular del Seguro:" />
-            <Label text="Marca del Vehiculo:" GridPane.rowIndex="1" />
-            <Label text="Modelo del Vehiculo:" GridPane.rowIndex="2" />
-            <Label text="Motor:" GridPane.rowIndex="3" />
-            <Label text="Chasis:" GridPane.rowIndex="4" />
-            <Label text="Patente:" GridPane.rowIndex="5" />
-            <Label text="Inicio de la cobertura:" GridPane.rowIndex="6" />
-            <Label text="Final de la cobertura:" GridPane.rowIndex="7" />
-            <Label text="Suma Asegurada:" GridPane.rowIndex="8" />
-            <Label text="Premio:" GridPane.rowIndex="9" />
-            <Label text="Importes por descuentos:" GridPane.rowIndex="10" />
-            <Label text="Modalidad de pago:" GridPane.rowIndex="11" />
-            <Label text="Último día de pago:" GridPane.rowIndex="12" />
-            <Label text="Monto por cuota:" GridPane.rowIndex="13" />
-            <Label text="Monto total a abonar:" underline="true" GridPane.rowIndex="14" />
-            <Label fx:id="titularSeguroLabel" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label fx:id="marcaVehiculoLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="modeloVehiculoLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label fx:id="motorLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Label fx:id="chasisLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <Label fx:id="patenteLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-            <Label fx:id="inicioCoberturaLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <Label fx:id="finalCoberturaLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-            <Label fx:id="sumaAseguradaLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
-            <Label fx:id="premioLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
-            <Label fx:id="importesDescuentosLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
-            <Label fx:id="modalidadPagoLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-            <Label fx:id="montoTotalLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="CENTER" />
-            <VBox.margin>
-                <Insets />
-            </VBox.margin>
-        </GridPane>
+            <Label style="-fx-padding: 2;" text="Titular del Seguro:" />
+            <Label style="-fx-padding: 2;" text="Marca del Vehiculo:" GridPane.rowIndex="1" />
+            <Label style="-fx-padding: 2;" text="Modelo del Vehiculo:" GridPane.rowIndex="2" />
+            <Label style="-fx-padding: 2;" text="Motor:" GridPane.rowIndex="3" />
+            <Label style="-fx-padding: 2;" text="Chasis:" GridPane.rowIndex="4" />
+            <Label style="-fx-padding: 2;" text="Patente:" GridPane.rowIndex="5" />
+            <Label style="-fx-padding: 2;" text="Inicio de la cobertura:" GridPane.rowIndex="6" />
+            <Label style="-fx-padding: 2;" text="Final de la cobertura:" GridPane.rowIndex="7" />
+            <Label style="-fx-padding: 2;" text="Suma Asegurada:" GridPane.rowIndex="8" />
+            <Label style="-fx-padding: 2;" text="Premio:" GridPane.rowIndex="9" />
+            <Label style="-fx-padding: 2;" text="Importes por descuentos:" GridPane.rowIndex="10" />
+            <Label style="-fx-padding: 2;" text="Modalidad de pago:" GridPane.rowIndex="11" />
+            <Label style="-fx-padding: 2;" text="Último día de pago:" GridPane.rowIndex="12" />
 
+            <!-- Mantén las etiquetas en la columna derecha -->
+            <Label fx:id="titularSeguroLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-padding: 2;" text="Label" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label fx:id="marcaVehiculoLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="modeloVehiculoLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label fx:id="motorLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label fx:id="chasisLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label fx:id="patenteLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <Label fx:id="inicioCoberturaLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Label fx:id="finalCoberturaLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <Label fx:id="sumaAseguradaLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+            <Label fx:id="premioLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+            <Label fx:id="importesDescuentosLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+            <Label fx:id="modalidadPagoLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
+            <Label style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+
+            <!-- Añade este código para montoPorCuota -->
+            <Label fx:id="montoPorCuotaLabel"  style="-fx-padding: 2;" text="Monto por cuota:" GridPane.rowIndex="13" />
+            <Label fx:id="montoPorCuotaValueLabel"  style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <!-- Añade este código para montoTotal -->
+            <Label fx:id="montoTotalLabel" style="-fx-padding: 2;" text="Monto total a abonar:" GridPane.rowIndex="14" />
+            <Label fx:id="montoTotalValueLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+        </GridPane>
 
         <HBox alignment="BOTTOM_RIGHT" spacing="10.0">
             <children>
-                <Button mnemonicParsing="false" text="Cancelar" translateX="-10.0" translateY="40.0" />
-                <Button mnemonicParsing="false" text="Generar Póliza" translateX="-10.0" translateY="40.0" />
+                <Button fx:id="confirmarPolizaCancelarButton" onAction="#cancelarConfirmarAction" mnemonicParsing="false" text="Cancelar" translateX="-10.0" translateY="40.0" />
+                <Button onAction="#generarPolizaAction" mnemonicParsing="false"  text="Generar Póliza" translateX="-10.0" translateY="40.0" />
             </children>
         </HBox>
     </children>

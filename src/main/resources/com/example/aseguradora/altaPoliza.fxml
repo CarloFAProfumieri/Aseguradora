@@ -165,7 +165,7 @@
       <Pane layoutX="1.0" layoutY="815.0" prefHeight="26.0" prefWidth="906.0">
          <children>
                 <Button fx:id="cancelarButton" cancelButton="true" layoutX="618.0" layoutY="2.0" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="25.0" prefWidth="101.0" text="Cancelar" />
-                <Button fx:id="calcularPremioButton" disable="true" layoutX="727.0" layoutY="2.0" mnemonicParsing="false" onAction="#calcularPremioAction" prefHeight="25.0" prefWidth="174.0" text="Calcular Premio y Derechos" />
+                <Button fx:id="calcularPremioButton" disable="false" layoutX="727.0" layoutY="2.0" mnemonicParsing="false" onAction="#calcularPremioAction" prefHeight="25.0" prefWidth="174.0" text="Calcular Premio y Derechos" />
          </children>
       </Pane>
     </children>

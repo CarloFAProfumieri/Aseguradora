@@ -72,6 +72,8 @@ public class AltaPoliza implements Initializable{
         hijosTabla.setItems(listaHijos);
         LocalDate fechaInicial = LocalDate.now().plusDays(1);
         inicioCoberturaDatePicker.setValue(fechaInicial);
+
+
     }
 
     private void accesosABaseDeDatos() {
@@ -277,15 +279,15 @@ public class AltaPoliza implements Initializable{
             actualizarQuitarHijobutton();
         }
     }
-    public void calcularPremioAction(ActionEvent evento)throws IOException{
-        PolizaDTO datosPoliza = getPolizaDTO();
-        ClienteDTO datosCliente = getClienteDTO();
-        List<HijoDTO> datosHijoLista = getHijosDTO();
-        PremioyDerechosDTO premioYDerechosDTO = CalculadoraMontos.calcularPremioyDerechos(datosPoliza,datosCliente);
-        polizaDTO.setPremioYDerechos(premioYDerechosDTO);
-        gestorPolizas.generarPoliza(datosPoliza, datosHijoLista, datosCliente);
-        System.out.println("POLIZA GENERADA!");
-    }
+    //public void calcularPremioAction(ActionEvent evento)throws IOException{
+     //   PolizaDTO datosPoliza = getPolizaDTO();
+      //  ClienteDTO datosCliente = getClienteDTO();
+      //  List<HijoDTO> datosHijoLista = getHijosDTO();
+      //  PremioyDerechosDTO premioYDerechosDTO = CalculadoraMontos.calcularPremioyDerechos(datosPoliza,datosCliente);
+      //  polizaDTO.setPremioYDerechos(premioYDerechosDTO);
+      //  gestorPolizas.generarPoliza(datosPoliza, datosHijoLista, datosCliente);
+       // System.out.println("POLIZA GENERADA!");
+    // }
     public PolizaDTO getPolizaDTO(){
         polizaDTO = new PolizaDTO();
         //polizaDTO.setNumeroPoliza();
@@ -504,7 +506,89 @@ public class AltaPoliza implements Initializable{
     }
 
 
+
+    public void calcularPremioAction(ActionEvent evento) throws IOException {
+
+        // Llamar al método para cargar la pantalla ConfirmarPolizaController
+        cargarPantallaConfirmarPoliza();
+    }
+
+    // Nuevo método para cargar la pantalla ConfirmarPolizaController
+    private void cargarPantallaConfirmarPoliza() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmarPoliza.fxml"));
+        Parent root = loader.load();
+
+
+        ConfirmarPolizaController confirmarPolizaController = loader.getController();
+
+
+        // Crear la escena y el escenario (Stage)
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Confirmar Póliza");
+        stage.setScene(scene);
+
+        PolizaDTO polizaDTOHardcode = new PolizaDTO(
+                12345,                  // numeroPoliza
+                1500.0,                 // premio
+                new Date(),             // fechaInicio
+                new Date(),             // fechaFin
+                2000.0,                 // montoTotal
+                "ABC123",               // patente
+                "123456",               // codigoMotor
+                new Date(),             // ultimoDiaPago
+                100000,                 // sumaAsegurada
+                "ABCDEF123456",         // codigoChasis
+                1,                      // idLocalidad
+                987654,                 // numeroCliente
+                1,                      // idModelo
+                1,                      // idTipoCobertura
+                2,                      // idCantidadSiniestros
+                3,                      // idKmPorAnio
+                4,                      // idValorPorcentualHijo
+                FormaPago.SEMESTRAL,        // formaPago
+                EstadoPoliza.VIGENTE    // estadoPoliza
+        );
+
+        ClienteDTO clienteDTOHardcode = new ClienteDTO(
+                987654,                 // numeroCliente
+                1,                      // tipoDocumentoId
+                123456789,              // numeroDocumento
+                "Apellido",             // apellido
+                "Nombre"                // nombre
+        );
+
+
+        // Otros métodos para establecer valores adicionales si es necesario
+        clienteDTOHardcode.setFechaNacimiento(LocalDate.of(1990, 1, 1));  // Establecer fecha de nacimiento
+
+        MarcaDTO marcaDTOHC = new MarcaDTO();
+
+        marcaDTOHC.setIdMarca(1);
+        marcaDTOHC.setNombre("PEUGEOT");
+
+        ModeloDTO modeloDTOHC = new ModeloDTO();
+        modeloDTOHC.setIdModelo(1);
+        modeloDTOHC.setAnio(2022);
+        modeloDTOHC.setMarca(marcaDTOHC);
+        modeloDTOHC.setNombre("208");
+
+
+        confirmarPolizaController.setPoliza(polizaDTOHardcode,clienteDTOHardcode,marcaDTOHC,modeloDTOHC);
+
+
+
+        //confirmarPolizaController.setPoliza(polizaDTO,clienteDTO,marcaDTO, modelDTO); ESTE ES EL DEFINITIVO
+
+        // Mostrar la ventana de ConfirmarPolizaController
+        stage.showAndWait();
+    }
 }
+
+
+
+
 
 
 
