@@ -261,9 +261,21 @@ public class AltaPoliza implements Initializable{
         abrirVentanaAltaPolizaHijo();
         actualizarQuitarHijobutton();
     }
-    public void quitarHijoAction(ActionEvent evento)throws IOException{
-        listaHijos.removeLast();
-        actualizarQuitarHijobutton();
+    public void quitarHijoAction(ActionEvent evento) throws IOException {
+        // Obtén el índice del elemento seleccionado en la TableView
+        int selectedIndex = hijosTabla.getSelectionModel().getSelectedIndex();
+
+        // Verifica si se seleccionó un elemento antes de intentar eliminar
+        if (selectedIndex != -1) {
+            // Elimina el elemento correspondiente de la lista
+            listaHijos.remove(selectedIndex);
+
+            // Actualiza la TableView con la nueva lista de hijos
+            hijosTabla.setItems(listaHijos);
+
+            // Actualiza cualquier lógica adicional después de quitar un elemento
+            actualizarQuitarHijobutton();
+        }
     }
     public void calcularPremioAction(ActionEvent evento)throws IOException{
         PolizaDTO datosPoliza = getPolizaDTO();

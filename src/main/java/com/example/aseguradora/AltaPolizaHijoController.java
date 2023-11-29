@@ -60,7 +60,9 @@ public class AltaPolizaHijoController implements Initializable {
     }
     private void inicializarEstadoCivil() {
         estadoCivilList = estadoCivilDAO.getAllEstadosCiviles();
+
         estadoCivilComboBox.setItems(getNombres(estadoCivilList));
+
     }
     private <T> ObservableList<String> getNombres(List<T> objetosLista) {
         ObservableList<String> listaDeStrings = observableArrayList();
@@ -79,6 +81,7 @@ public class AltaPolizaHijoController implements Initializable {
         String fechaNacimiento = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
         String sexo = sexoComboBox.getValue();
         String estadoCivilSeleccionado = estadoCivilComboBox.getValue(); //= estadoCivilComboBox.getValue();
+        estadoCivilSeleccionado="SOLTERO";
         EstadoCivil estadoCivil = null;
         if (fechaNacimiento == null || estadoCivilSeleccionado == null || sexoComboBox.getValue() == null) {
             altaPolizaController.mostrarVentanaError("Debe completar la información correspondiente");
