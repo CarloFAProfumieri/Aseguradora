@@ -3,7 +3,6 @@ import com.example.aseguradora.DTOs.*;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import com.example.aseguradora.gestores.GestorPolizas;
-import com.example.aseguradora.persistentes.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 
@@ -27,7 +25,6 @@ import static javafx.collections.FXCollections.observableArrayList;
 
 public class AltaPoliza implements Initializable{
 
-    @FXML private TableView<Hijo> hijosTabla;
     @FXML private Button editarClienteButton, altaClienteButton, buscarClienteButton, calcularPremioButton, confirmarDatosButton, cancelarButton, modificarDatosButton, quitarHijoButton;
     @FXML private CheckBox alarmaCheckBox, garageCheckBox, rastreoVehicularCheckBox, tuercasAntirroboCheckBox;
     @FXML private ComboBox<AnioDTO> anioComboBox;
@@ -44,10 +41,11 @@ public class AltaPoliza implements Initializable{
     @FXML private Pane middlePane, bottomPane, clientDataPane;
     @FXML private Label successMessage;
     @FXML private TextArea descripcionCoberturaTextArea;
-    @FXML private TableColumn<Hijo,Integer> edadColumn;
-    @FXML private TableColumn<Hijo,Character> sexoColumn;
-    @FXML private TableColumn<Hijo,String> estadoCivilColumn;
-    ObservableList<Hijo> listaHijos = observableArrayList();
+    @FXML private TableView<HijoDTO> hijosTabla;
+    @FXML private TableColumn<HijoDTO,Integer> edadColumn;
+    @FXML private TableColumn<HijoDTO,Character> sexoColumn;
+    @FXML private TableColumn<HijoDTO, String> estadoCivilColumn;
+    ObservableList<HijoDTO> listaHijos = observableArrayList();
     GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
     List<LocalidadDTO>  localidadesCargadas; //cambiar a listas de objetos
     List<ModeloDTO> modelosCargados;
@@ -66,14 +64,12 @@ public class AltaPoliza implements Initializable{
         accesosABaseDeDatos();
         //ACCESO BASE DE DATOS
         inicializarModalidadDePagoComboBox();
-        edadColumn.setCellValueFactory(new PropertyValueFactory<Hijo,Integer>("edad"));
-        sexoColumn.setCellValueFactory(new PropertyValueFactory<Hijo,Character>("sexo"));
-        estadoCivilColumn.setCellValueFactory(new PropertyValueFactory<Hijo,String>("estadoCivil"));
+        edadColumn.setCellValueFactory(new PropertyValueFactory<HijoDTO,Integer>("edad"));
+        sexoColumn.setCellValueFactory(new PropertyValueFactory<HijoDTO,Character>("sexo"));
+        estadoCivilColumn.setCellValueFactory(new PropertyValueFactory<HijoDTO,String>("estadoCivil"));
         hijosTabla.setItems(listaHijos);
         LocalDate fechaInicial = LocalDate.now().plusDays(1);
         inicioCoberturaDatePicker.setValue(fechaInicial);
-
-
     }
 
     private void accesosABaseDeDatos() {
@@ -119,6 +115,7 @@ public class AltaPoliza implements Initializable{
     }
     private void inicializarModalidadDePagoComboBox() {
         modalidadDePagoComboBox.setItems(formasDePagoLista);
+        modalidadDePagoComboBox.setValue(FormaPago.MENSUAL);
     }
 
     private <T> ObservableList<String> getNombres(List<T> objetosLista) {
@@ -279,22 +276,22 @@ public class AltaPoliza implements Initializable{
             actualizarQuitarHijobutton();
         }
     }
-    //public void calcularPremioAction(ActionEvent evento)throws IOException{
-     //   PolizaDTO datosPoliza = getPolizaDTO();
-      //  ClienteDTO datosCliente = getClienteDTO();
-      //  List<HijoDTO> datosHijoLista = getHijosDTO();
-      //  PremioyDerechosDTO premioYDerechosDTO = CalculadoraMontos.calcularPremioyDerechos(datosPoliza,datosCliente);
-      //  polizaDTO.setPremioYDerechos(premioYDerechosDTO);
-      //  gestorPolizas.generarPoliza(datosPoliza, datosHijoLista, datosCliente);
-       // System.out.println("POLIZA GENERADA!");
-    // }
+    public void calcularPremioAction(ActionEvent evento)throws IOException{
+        PolizaDTO datosPoliza = getPolizaDTO();
+        ClienteDTO datosCliente = getClienteDTO();
+        List<HijoDTO> datosHijoLista = getHijosDTO();
+        PremioyDerechosDTO premioYDerechosDTO = CalculadoraMontos.calcularPremioyDerechos(datosPoliza,datosCliente);
+        polizaDTO.setPremioYDerechos(premioYDerechosDTO);
+        gestorPolizas.generarPoliza(datosPoliza, datosHijoLista, datosCliente);
+        System.out.println("POLIZA GENERADA!");
+
+    }
     public PolizaDTO getPolizaDTO(){
         polizaDTO = new PolizaDTO();
-        //polizaDTO.setNumeroPoliza();
         polizaDTO.setEstadoPoliza(EstadoPoliza.GENERADA);
         polizaDTO.setSumaAsegurada(getSumaAsegurada());
-        polizaDTO.setFechaInicio(Date.from(inicioCoberturaDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        polizaDTO.setFechaFin(Date.from(inicioCoberturaDatePicker.getValue().plusMonths(6).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        polizaDTO.setFechaInicio(inicioCoberturaDatePicker.getValue());
+        polizaDTO.setFechaFin(inicioCoberturaDatePicker.getValue().plusMonths(6));
         polizaDTO.setFormaPago(modalidadDePagoComboBox.getValue());
         polizaDTO.setPatente(patenteTextField.getText());
         polizaDTO.setCodigoMotor(motorTextField.getText());
@@ -307,6 +304,9 @@ public class AltaPoliza implements Initializable{
         polizaDTO.setIdKmPorAnio(getIdKmPorAnio());
         polizaDTO.setIdCantidadSiniestros(siniestrosComboBox.getValue().getIdCantidadSiniestros());
         polizaDTO.setIdValorPorcentualHijo(getHijosDTO().size()+1);
+        List <LocalDate> ultimodiapago = new ArrayList<>();
+        ultimodiapago.add(inicioCoberturaDatePicker.getValue().minusDays(1));
+        polizaDTO.setUltimoDiaPago(ultimodiapago);
         //polizaDTO.setPrima();
         //polizaDTO.setDescuento();
         //polizaDTO.setDerechoEmision();
@@ -328,14 +328,13 @@ public class AltaPoliza implements Initializable{
     private List<HijoDTO> getHijosDTO() {
         List<HijoDTO> hijosDTOList = new ArrayList<>();
 
-        for (Hijo hijo : listaHijos) {
+        for (HijoDTO hijo : listaHijos) {
             HijoDTO hijoDTO = new HijoDTO();
             hijoDTO.setSexo(hijo.getSexo());
             hijoDTO.setIdHijo(listaHijos.indexOf(hijo));
-            hijoDTO.setIdEstadoCivil(hijo.getEstadoCivil().getIdEstadoCivil());
+            hijoDTO.setEstadoCivilId(hijo.getEstadoCivilId());
             hijoDTO.setFechaNacimiento(hijo.getFechaNacimiento());
             hijosDTOList.add(hijoDTO);
-            System.out.println("id estado civil hijo: " + hijo.getEstadoCivil().getIdEstadoCivil());
         }
 
         return hijosDTOList;
@@ -474,7 +473,7 @@ public class AltaPoliza implements Initializable{
         }
     }
 
-    public void agregarHijo(Hijo nuevoHijo) {
+    public void agregarHijo(HijoDTO nuevoHijo) {
             listaHijos.add(nuevoHijo);
             actualizarQuitarHijobutton();
         }
@@ -507,11 +506,13 @@ public class AltaPoliza implements Initializable{
 
 
 
-    public void calcularPremioAction(ActionEvent evento) throws IOException {
+    /*public void calcularPremioAction(ActionEvent evento) throws IOException {
 
         // Llamar al método para cargar la pantalla ConfirmarPolizaController
         cargarPantallaConfirmarPoliza();
     }
+
+     */
 
     // Nuevo método para cargar la pantalla ConfirmarPolizaController
     private void cargarPantallaConfirmarPoliza() throws IOException {
@@ -528,16 +529,20 @@ public class AltaPoliza implements Initializable{
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Confirmar Póliza");
         stage.setScene(scene);
+        LocalDate date = LocalDate.now();
+        LocalDate fin = date.plusMonths(1);
+        List<LocalDate> ultimodiadepago = new ArrayList<>();
+        ultimodiadepago.add(date.minusDays(1));
 
         PolizaDTO polizaDTOHardcode = new PolizaDTO(
                 12345,                  // numeroPoliza
                 1500.0,                 // premio
-                new Date(),             // fechaInicio
-                new Date(),             // fechaFin
+                date,             // fechaInicio
+                fin,             // fechaFin
                 2000.0,                 // montoTotal
                 "ABC123",               // patente
                 "123456",               // codigoMotor
-                new Date(),             // ultimoDiaPago
+                ultimodiadepago,             // ultimoDiaPago
                 100000,                 // sumaAsegurada
                 "ABCDEF123456",         // codigoChasis
                 1,                      // idLocalidad

@@ -12,5 +12,6 @@ module com.example.aseguradora {
     opens com.example.aseguradora.enumeraciones;// to javafx.fxml;
     exports com.example.aseguradora.persistentes;
     opens com.example.aseguradora.persistentes;
-
+    exports com.example.aseguradora.DTOs;
+    opens com.example.aseguradora.DTOs;
 }

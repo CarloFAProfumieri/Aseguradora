@@ -6,10 +6,8 @@ import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import com.example.aseguradora.persistentes.*;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -167,12 +165,23 @@ public class GestorPolizas {
                     return medidaSeguridadDTO;
                 }).collect(Collectors.toList());
     }
+    public List<EstadoCivilDTO> getAllEstadosCiviles(){
+        return estadoCivilDAO.getAllEstadosCiviles()
+                .stream()
+                .map(estadoCivil -> {
+                    EstadoCivilDTO estadoCivilDTO = new EstadoCivilDTO();
+                    estadoCivilDTO.setIdEstadoCivil(estadoCivil.getIdEstadoCivil());
+                    estadoCivilDTO.setNombre(estadoCivil.getNombre());
+                    return estadoCivilDTO;
+                }).collect(Collectors.toList());
+    }
 
     public void generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
         Poliza poliza = new Poliza();
         poliza.setEstadoPoliza(EstadoPoliza.GENERADA);
+        poliza.setFormaPago(datosPolizaDTO.getFormaPago());
         for (HijoDTO unHijo : listaHijosDTO) {
-            EstadoCivil estadoCivil = estadoCivilDAO.getEstadoCivil(unHijo.getIdEstadoCivil());
+            EstadoCivil estadoCivil = estadoCivilDAO.getEstadoCivil(unHijo.getEstadoCivilId());
             Hijo nuevoHijo = new Hijo(unHijo.getSexo(), unHijo.getFechaNacimiento() ,estadoCivil);
         }
         Cliente cliente = clienteDAO.obtenerClientePorNumero(datosClienteDTO.getNumeroCliente());
@@ -181,6 +190,7 @@ public class GestorPolizas {
         for (int medidaSeguridadId : datosPolizaDTO.getIdMedidas()){
             poliza.addMedida(medidaSeguridadDAO.getMedida(medidaSeguridadId));
         }
+
         poliza.setTipoCobertura(tipoCoberturaDAO.getTipoCobertura(datosPolizaDTO.getIdTipoCobertura()));
         poliza.setModeloAnio(datosPolizaDTO.getAnio());
         poliza.setModelo(modeloDAO.getModelo(datosPolizaDTO.getIdModelo()));
@@ -190,30 +200,28 @@ public class GestorPolizas {
 
         if (datosPolizaDTO.getFormaPago() == FormaPago.MENSUAL){ //SETEAR LOS VALORES DE LAS CUOTAS!
             List<Cuota> cuotasLista = new ArrayList<>();
-            LocalDate fechaInicio = LocalDate.from(datosPolizaDTO.getFechaInicio().toInstant()); //esto esta mal
+            LocalDate fechaInicio = datosPolizaDTO.getFechaInicio(); //esto esta mal --- ya no!
+            LocalDate primerFechaUltimoDiaPago = datosPolizaDTO.getUltimoDiaPago().getLast();
+            List<LocalDate> listaFechasDeVencimiento = new ArrayList<>();
             for (int i = 0; i <= 6; i++) {
                 Cuota cuota = new Cuota(fechaInicio.plusMonths(i));
+                LocalDate ultimoDiaDePago_i = primerFechaUltimoDiaPago.plusMonths(i);
+                listaFechasDeVencimiento.add(ultimoDiaDePago_i);
                 cuotasLista.add(cuota);
             }
+            poliza.setUltimoDiaPago(listaFechasDeVencimiento);
             poliza.addCuotas(cuotasLista);
         }
         if (datosPolizaDTO.getFormaPago() == FormaPago.SEMESTRAL){//SETEAR LOS VALORES DE LAS CUOTAS!
             List<Cuota> cuotasLista = new ArrayList<>();
-            LocalDate fechaInicio = LocalDate.from(datosPolizaDTO.getFechaInicio().toInstant()); //esto tambien
+            LocalDate fechaInicio = datosPolizaDTO.getFechaInicio(); //esto tambien -- esto tampoco!
             Cuota cuota = new Cuota(fechaInicio.plusMonths(6));
+            poliza.setUltimoDiaPago(datosPolizaDTO.getUltimoDiaPago());
             poliza.addCuotas(cuotasLista);
         }
+
         poliza.setValorPorcentualHijo(valorPorcentualHijoDAO.getValorPorcentualHijo(datosPolizaDTO.getIdValorPorcentualHijo()));
         polizaDAO.guardarPoliza(poliza);
-    }
-
-    public static void main(String[] args) {
-        PolizaDTO polizaTest = new PolizaDTO(1,500.0, new Date(), new Date(), 1000.35, "ABC123",
-                "123456", new Date(),20000, "XYZ789", 1, 123,
-                456, 789, 2, 3, 4, FormaPago.MENSUAL, EstadoPoliza.VIGENTE);
-        PolizaDAO DAO = new PolizaDAO();
-        DAO.guardarPoliza(polizaTest);
-        System.out.println("numero de poliza: " + polizaTest.getNumeroPoliza());
     }
 
     public ClienteDTO getClienteDTO() {

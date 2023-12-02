@@ -5,8 +5,8 @@ import com.example.aseguradora.enumeraciones.FormaPago;
 import jakarta.persistence.*;
 
 import javax.persistence.Entity;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @jakarta.persistence.Entity
@@ -21,10 +21,16 @@ public class Poliza {
     private Double premio;
     @Basic
     @Column(name = "fechaInicio")
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
     @Basic
     @Column(name = "fechaFin")
-    private Date fechaFin;
+    private LocalDate fechaFin;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "ultimoDiaPago")
+    @Temporal(TemporalType.DATE) // Esto especifica el tipo temporal de la columna
+    private List<LocalDate> ultimoDiaPago = new ArrayList<>();
+
     @Basic
     @Column(name = "montoTotal")
     private Double montoTotal;
@@ -35,15 +41,11 @@ public class Poliza {
     @Column(name = "codigoMotor")
     private String codigoMotor;
     @Basic
-    @Column(name = "ultimoDiaPago")
-    private Date ultimoDiaPago;
-    @Basic
     @Column(name = "sumaAsegurada")
     private int sumaAsegurada;
     @Basic
     @Column(name = "codigoChasis")
     private String codigoChasis;
-
     @Basic
     @Column(name = "modeloAnio")
     private int modeloAnio;
@@ -55,6 +57,7 @@ public class Poliza {
     @ManyToOne
     @JoinColumn(name = "idLocalidad")
     private Localidad localidad;
+
     @ManyToOne
     @JoinColumn(name = "idModelo")
     private ModeloVehiculo modelo;
@@ -80,6 +83,13 @@ public class Poliza {
     private EstadoPoliza estadoPoliza;
     @OneToOne(mappedBy = "poliza", cascade = CascadeType.ALL, orphanRemoval = true)
     private ParametrosMonto parametrosMonto;
+    @ManyToMany
+    @JoinTable(
+            name = "polizaMedida",
+            joinColumns = @JoinColumn(name = "numeroPoliza"),
+            inverseJoinColumns = @JoinColumn(name = "idMedida")
+    )
+    private List<MedidaSeguridad> medidasSeguridadList = new ArrayList<>();
     public List<MedidaSeguridad> getMedidasSeguridadList() {
         return medidasSeguridadList;
     }
@@ -98,14 +108,6 @@ public class Poliza {
     public int getModeloAnio() {
         return modeloAnio;
     }
-
-    @ManyToMany
-    @JoinTable(
-            name = "polizaMedida",
-            joinColumns = @JoinColumn(name = "numeroPoliza"),
-            inverseJoinColumns = @JoinColumn(name = "idMedida")
-    )
-    private List<MedidaSeguridad> medidasSeguridadList = new ArrayList<>();
 
     public Poliza() {
 
@@ -127,19 +129,19 @@ public class Poliza {
         this.premio = premio;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -163,16 +165,19 @@ public class Poliza {
         return codigoMotor;
     }
 
-    public void setCodigoMotor(String codigoMotor) {
-        this.codigoMotor = codigoMotor;
-    }
-
-    public Date getUltimoDiaPago() {
+    public List<LocalDate> getUltimoDiaPago() {
         return ultimoDiaPago;
     }
 
-    public void setUltimoDiaPago(Date ultimoDiaPago) {
+    public void setUltimoDiaPago(List<LocalDate> ultimoDiaPago) {
         this.ultimoDiaPago = ultimoDiaPago;
+    }
+    public void addUltimoDiaPago(LocalDate diaDePago){
+        this.ultimoDiaPago.add(diaDePago);
+    }
+
+    public void setCodigoMotor(String codigoMotor) {
+        this.codigoMotor = codigoMotor;
     }
 
     public int getSumaAsegurada() {

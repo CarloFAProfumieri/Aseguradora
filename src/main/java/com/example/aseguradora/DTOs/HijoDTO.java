@@ -2,30 +2,46 @@ package com.example.aseguradora.DTOs;
 
 import com.example.aseguradora.enumeraciones.Sexo;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class HijoDTO {
     private int idHijo;
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private Sexo sexo;  // Debería ser del tipo Sexo, no String
-    private int idEstadoCivil;
 
-    public HijoDTO(int idHijo, Date fechaNacimiento, Sexo sexo, int idEstadoCivil) {
-        this.idHijo = idHijo;
+    private String estadoCivil;
+
+    private int estadoCivilId;
+
+    private int edad;
+    public HijoDTO(LocalDate fechaNacimiento, Sexo sexo, String estadoCivil, int estadoCivilId) {
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
-        this.idEstadoCivil = idEstadoCivil;
+        this.estadoCivilId = estadoCivilId;
+        this.edad = Period.between(fechaNacimiento, LocalDate.now()).getYears();
+        this.estadoCivil = estadoCivil;
+    }
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
     }
 
     public HijoDTO() {
 
+    }
+    public Integer getEdad(){
+        return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
 
     public void setIdHijo(int idHijo) {
         this.idHijo = idHijo;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -33,16 +49,15 @@ public class HijoDTO {
         this.sexo = sexo;
     }
 
-
-    public void setIdEstadoCivil(int idEstadoCivil) {
-        this.idEstadoCivil = idEstadoCivil;
+    public void setEstadoCivilId(int estadoCivilId) {
+        this.estadoCivilId = estadoCivilId;
     }
 
     public int getIdHijo() {
         return idHijo;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -50,7 +65,11 @@ public class HijoDTO {
         return sexo;
     }
 
-    public int getIdEstadoCivil() {
-        return idEstadoCivil;
+    public int getEstadoCivilId() {
+        return estadoCivilId;
+    }
+
+    public String getEstadoCivil() {
+        return estadoCivil;
     }
 }

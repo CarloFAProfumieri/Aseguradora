@@ -1,6 +1,9 @@
 package com.example.aseguradora;
 import com.example.aseguradora.DAOs.EstadoCivilDAO;
+import com.example.aseguradora.DTOs.EstadoCivilDTO;
+import com.example.aseguradora.DTOs.HijoDTO;
 import com.example.aseguradora.enumeraciones.Sexo;
+import com.example.aseguradora.gestores.GestorPolizas;
 import com.example.aseguradora.persistentes.EstadoCivil;
 import com.example.aseguradora.persistentes.Hijo;
 import javafx.collections.ObservableList;
@@ -36,8 +39,8 @@ public class AltaPolizaHijoController implements Initializable {
     private ComboBox<String> sexoComboBox;
 
     @FXML
-    private ComboBox<String> estadoCivilComboBox;
-    private List<EstadoCivil> estadoCivilList;
+    private ComboBox<EstadoCivilDTO> estadoCivilComboBox;
+    private List<EstadoCivilDTO> estadoCivilList;
 
     @FXML
     private Label estadoCivilLabel;
@@ -47,11 +50,10 @@ public class AltaPolizaHijoController implements Initializable {
 
     @FXML
     private Button cancelarButton;
-    EstadoCivilDAO estadoCivilDAO = new EstadoCivilDAO();
+    GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        estadoCivilComboBox.getItems().addAll("SOLTERO", "CASADO", "DIVORCIADO", "VIUDO");
         inicializarEstadoCivil();
         LocalDate fechaInicial = LocalDate.now().minusYears(18);
         datePicker.setValue(fechaInicial);
@@ -59,18 +61,12 @@ public class AltaPolizaHijoController implements Initializable {
 
     }
     private void inicializarEstadoCivil() {
-        estadoCivilList = estadoCivilDAO.getAllEstadosCiviles();
+        estadoCivilList = gestorPolizas.getAllEstadosCiviles();
 
-        estadoCivilComboBox.setItems(getNombres(estadoCivilList));
+        estadoCivilComboBox.getItems().addAll(estadoCivilList);
 
     }
-    private <T> ObservableList<String> getNombres(List<T> objetosLista) {
-        ObservableList<String> listaDeStrings = observableArrayList();
-        for (T unObjeto : objetosLista) {
-            listaDeStrings.add(unObjeto.toString());
-        }
-        return listaDeStrings;
-    }
+
     @FXML
     public void cancelarButtonAction() {
         cerrarVentanaActual();
@@ -80,18 +76,14 @@ public class AltaPolizaHijoController implements Initializable {
     private void agregarButtonAction() {
         String fechaNacimiento = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
         String sexo = sexoComboBox.getValue();
-        String estadoCivilSeleccionado = estadoCivilComboBox.getValue(); //= estadoCivilComboBox.getValue();
-        estadoCivilSeleccionado="SOLTERO";
-        EstadoCivil estadoCivil = null;
+        EstadoCivilDTO estadoCivilSeleccionado = estadoCivilComboBox.getValue();
+
         if (fechaNacimiento == null || estadoCivilSeleccionado == null || sexoComboBox.getValue() == null) {
             altaPolizaController.mostrarVentanaError("Debe completar la información correspondiente");
             return;
         }
 
-        for (EstadoCivil unEstadoCivil: estadoCivilList) {
-            if (estadoCivilComboBox.getValue().equals(unEstadoCivil.toString())) estadoCivil = unEstadoCivil;
-        }
-        Sexo ns = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER;
+        Sexo sexoHijo = (Objects.equals(sexo, "Masculino")) ? Sexo.HOMBRE : Sexo.MUJER;
         LocalDate fechaNacimiento1 = datePicker.getValue();
         LocalDate fechaActual = LocalDate.now();
         int edad = Period.between(fechaNacimiento1, fechaActual).getYears();
@@ -100,7 +92,7 @@ public class AltaPolizaHijoController implements Initializable {
             altaPolizaController.mostrarVentanaError("La edad debe estar entre 18 y 30 años");
             return;
         }
-        Hijo nuevoHijo = new Hijo(edad, ns, estadoCivil);
+        HijoDTO nuevoHijo = new HijoDTO(fechaNacimiento1, sexoHijo, estadoCivilSeleccionado.toString(), estadoCivilSeleccionado.getIdEstadoCivil());
         altaPolizaController.agregarHijo(nuevoHijo);
         cerrarVentanaActual();
     }

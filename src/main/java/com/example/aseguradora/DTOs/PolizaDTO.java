@@ -3,6 +3,7 @@ package com.example.aseguradora.DTOs;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +12,13 @@ public class PolizaDTO {
     private int numeroPoliza;
     private EstadoPoliza estadoPoliza;
     private int sumaAsegurada;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private FormaPago formaPago;
     private Double premio;
-    private Date ultimoDiaPago;
+
+    private List<LocalDate> ultimoDiaPago;
+
     private String patente;
     private String codigoMotor;
     private Double montoTotal;
@@ -32,15 +35,14 @@ public class PolizaDTO {
     private Double derechoEmision;
     private Double baseAnualPrima;
     private Integer numeroCliente;
-
     public void setIdValorPorcentualHijo(Integer idValorPorcentualHijo) {
         this.idValorPorcentualHijo = idValorPorcentualHijo;
     }
 
     private Integer idValorPorcentualHijo;
-    private String marca;
 
-    public PolizaDTO(int numeroPoliza, Double premio, Date fechaInicio, Date fechaFin, Double montoTotal, String patente, String codigoMotor, Date ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {
+    private String marca;
+    public PolizaDTO(int numeroPoliza, Double premio, LocalDate fechaInicio, LocalDate fechaFin, Double montoTotal, String patente, String codigoMotor, List<LocalDate> ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {
         this.numeroPoliza = numeroPoliza;
         this.premio = premio;
         this.fechaInicio = fechaInicio;
@@ -98,19 +100,27 @@ public class PolizaDTO {
         this.sumaAsegurada = sumaAsegurada;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public List<LocalDate> getUltimoDiaPago() {
+        return ultimoDiaPago;
+    }
+
+    public void setUltimoDiaPago(List<LocalDate> ultimoDiaPago) {
+        this.ultimoDiaPago = ultimoDiaPago;
+    }
+
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -128,14 +138,6 @@ public class PolizaDTO {
 
     public void setPremio(Double premio) {
         this.premio = premio;
-    }
-
-    public Date getUltimoDiaPago() {
-        return ultimoDiaPago;
-    }
-
-    public void setUltimoDiaPago(Date ultimoDiaPago) {
-        this.ultimoDiaPago = ultimoDiaPago;
     }
 
     public String getPatente() {

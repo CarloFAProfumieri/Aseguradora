@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -35,11 +36,11 @@ public class ConfirmarPolizaController implements Initializable {
         chasisLabel.setText(unaPoliza.getCodigoChasis());
         patenteLabel.setText(unaPoliza.getPatente());
 
-        Date fechaInicio = unaPoliza.getFechaInicio();
-        Date fechaFin = unaPoliza.getFechaFin();
+        LocalDate fechaInicio = unaPoliza.getFechaInicio();
+        LocalDate fechaFin = unaPoliza.getFechaFin();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("MM/yyyy");
-        String fechaInicioFormateada = formatoFecha.format(fechaInicio);
-        String fechaFinFormateada = formatoFecha.format(fechaFin);
+        String fechaInicioFormateada = fechaInicio.toString();
+        String fechaFinFormateada = fechaFin.toString();
         inicioCoberturaLabel.setText(fechaInicioFormateada);
         finalCoberturaLabel.setText(fechaFinFormateada);
 

@@ -3,12 +3,12 @@ package com.example.aseguradora.persistentes;
 import com.example.aseguradora.enumeraciones.Sexo;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 @Entity
 public class Hijo {
-    private Integer edad;
     @Enumerated(EnumType.STRING)
     @Column(name = "sexo")
     private Sexo sexo;
@@ -18,13 +18,13 @@ public class Hijo {
     private int idHijo;
     @Basic
     @Column(name = "fechaNacimiento")
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     @ManyToOne
     @JoinColumn(name = "idEstadoCivil", referencedColumnName = "idEstadoCivil")
     private EstadoCivil estadoCivil;
 
-    public Hijo(Integer edad, Sexo sexo, EstadoCivil estadoCivil) {
-        this.edad = edad;
+    public Hijo(LocalDate fechaNacimiento, Sexo sexo, EstadoCivil estadoCivil) {
+        this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.estadoCivil = estadoCivil;
     }
@@ -33,14 +33,14 @@ public class Hijo {
 
     }
 
-    public Hijo(Sexo sexo, Date fechaNacimiento, EstadoCivil estadoCivil) {
+    public Hijo(Sexo sexo, LocalDate fechaNacimiento, EstadoCivil estadoCivil) {
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
         this.estadoCivil = estadoCivil;
     }
 
-    public Integer getEdad() {
-        return edad;
+    public Integer edad() {
+        return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
 
     public Sexo getSexo() {
@@ -63,11 +63,11 @@ public class Hijo {
         this.idHijo = idHijo;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
