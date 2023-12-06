@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class CalculadoraMontos{
 
-    public static int calcularSumaAsegurada() {
-        return generarSumaAseguradaAleatoria(3000000, 20000000);
+    public static int calcularSumaAsegurada(int idModelo, int anio) {
+        return generarSumaAseguradaAleatoria(3000000 + idModelo, 20000000 + anio);
     }
 
     private static int generarSumaAseguradaAleatoria(double min, double max) {
@@ -23,7 +23,6 @@ public class CalculadoraMontos{
         long generatedValue = (long) (min + range * random.nextDouble());
         return (int) Math.min(generatedValue, Integer.MAX_VALUE);
     }
-
     public static PremioyDerechosDTO calcularPremioyDerechos(PolizaDTO polizaDTO, ClienteDTO clienteDTO) {
         PremioyDerechosDTO premioyDerechosDTO = new PremioyDerechosDTO();
 

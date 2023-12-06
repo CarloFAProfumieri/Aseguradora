@@ -12,10 +12,9 @@ import java.util.List;
 @jakarta.persistence.Entity
 @Entity
 public class Poliza {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "numeroPoliza")
-    private int numeroPoliza;
+    private String numeroPoliza;
     @Basic
     @Column(name = "premio")
     private Double premio;
@@ -25,12 +24,10 @@ public class Poliza {
     @Basic
     @Column(name = "fechaFin")
     private LocalDate fechaFin;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(name = "ultimoDiaPago")
     @Temporal(TemporalType.DATE) // Esto especifica el tipo temporal de la columna
     private List<LocalDate> ultimoDiaPago = new ArrayList<>();
-
     @Basic
     @Column(name = "montoTotal")
     private Double montoTotal;
@@ -49,15 +46,12 @@ public class Poliza {
     @Basic
     @Column(name = "modeloAnio")
     private int modeloAnio;
-
     @ManyToOne
     @JoinColumn(name = "numeroCliente")
     private Cliente cliente;
-
     @ManyToOne
     @JoinColumn(name = "idLocalidad")
     private Localidad localidad;
-
     @ManyToOne
     @JoinColumn(name = "idModelo")
     private ModeloVehiculo modelo;
@@ -73,6 +67,8 @@ public class Poliza {
     @ManyToOne
     @JoinColumn(name = "idValorPorcentualHijo")
     private ValorPorcentualHijo valorPorcentualHijo;
+    @OneToMany(mappedBy = "poliza")
+    private List<Hijo> hijosLista;
     @Enumerated(EnumType.STRING)
     @Column(name = "formaPago")
     private FormaPago formaPago;
@@ -113,11 +109,11 @@ public class Poliza {
 
     }
 
-    public int getNumeroPoliza() {
+    public String getNumeroPoliza() {
         return numeroPoliza;
     }
 
-    public void setNumeroPoliza(int numeroPoliza) {
+    public void setNumeroPoliza(String numeroPoliza) {
         this.numeroPoliza = numeroPoliza;
     }
 
@@ -283,7 +279,19 @@ public class Poliza {
     public void setEstadoPoliza(EstadoPoliza estadoPoliza) {
         this.estadoPoliza = estadoPoliza;
     }
-
+    public String generarNroPoliza(int idSucursal, int secuenciaRenovacion) {
+        String nroSucursal = String.format("%04d", idSucursal);
+        String secuenciaCliente = String.format("%04d", cliente.getNumeroCliente());
+        String secuencia = secuenciaCliente.substring(Math.max(0, secuenciaCliente.length() - 4));
+        String vehiculoCliente = String.format("%03d",modelo.getIdModelo());
+        String nroSecuenciaSolicitud = secuencia + vehiculoCliente;
+        String nroSecuenciaRenovacion = String.format("%02d", secuenciaRenovacion);
+        String resultado = nroSucursal + nroSecuenciaSolicitud + nroSecuenciaRenovacion;
+        if (resultado.length() != 13){
+            throw new IllegalArgumentException("Revise los datos ingresados para generar numero de poliza");
+        }
+        return resultado;
+    }
     public void setAtributosPoliza(PolizaDTO datosPolizaDTO) {
         this.estadoPoliza = datosPolizaDTO.getEstadoPoliza();
         this.codigoChasis = datosPolizaDTO.getCodigoChasis();
@@ -299,5 +307,21 @@ public class Poliza {
 
     public void addCuotas(List<Cuota> cuotasLista) {
         this.cuotas = cuotasLista;
+    }
+
+    public static void main(String[] args) {
+        Poliza poliza = new Poliza();
+        Cliente cliente = new Cliente();
+        ModeloVehiculo modeloVehiculo = new ModeloVehiculo();
+        modeloVehiculo.setIdModelo(312);
+        cliente.setNumeroCliente(45312);
+        poliza.setCliente(cliente);
+        poliza.setModelo(modeloVehiculo);
+        System.out.println(poliza.generarNroPoliza(1,1));
+    }
+
+
+    public void agregarHijo(Hijo nuevoHijo) {
+        hijosLista.add(nuevoHijo);
     }
 }

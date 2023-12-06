@@ -22,7 +22,9 @@ public class Hijo {
     @ManyToOne
     @JoinColumn(name = "idEstadoCivil", referencedColumnName = "idEstadoCivil")
     private EstadoCivil estadoCivil;
-
+    @ManyToOne
+    @JoinColumn(name = "numeroPoliza")
+    private Poliza poliza;
     public Hijo(LocalDate fechaNacimiento, Sexo sexo, EstadoCivil estadoCivil) {
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;

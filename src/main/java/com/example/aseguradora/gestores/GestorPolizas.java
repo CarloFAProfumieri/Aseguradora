@@ -175,14 +175,14 @@ public class GestorPolizas {
                     return estadoCivilDTO;
                 }).collect(Collectors.toList());
     }
-
     public void generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
         Poliza poliza = new Poliza();
-        poliza.setEstadoPoliza(EstadoPoliza.GENERADA);
         poliza.setFormaPago(datosPolizaDTO.getFormaPago());
+        poliza.setEstadoPoliza(EstadoPoliza.GENERADA);
         for (HijoDTO unHijo : listaHijosDTO) {
             EstadoCivil estadoCivil = estadoCivilDAO.getEstadoCivil(unHijo.getEstadoCivilId());
             Hijo nuevoHijo = new Hijo(unHijo.getSexo(), unHijo.getFechaNacimiento() ,estadoCivil);
+            poliza.agregarHijo(nuevoHijo);
         }
         Cliente cliente = clienteDAO.obtenerClientePorNumero(datosClienteDTO.getNumeroCliente());
         poliza.setCliente(cliente);
@@ -196,8 +196,10 @@ public class GestorPolizas {
         poliza.setModelo(modeloDAO.getModelo(datosPolizaDTO.getIdModelo()));
         poliza.setLocalidad(localidadDAO.getLocalidad(datosPolizaDTO.getIdLocalidad()));
         poliza.setKmPorAnio(kmPorAnioDAO.getKmPorAnio(datosPolizaDTO.getIdKmPorAnio()));
+        System.out.println("-----------------------------------------------------------------------" + kmPorAnioDAO.getKmPorAnio(datosPolizaDTO.getIdKmPorAnio()));
         poliza.setCantidadSiniestros(cantidadSiniestrosDAO.getCantidadSiniestros(datosPolizaDTO.getIdCantidadSiniestros()));
 
+        //CalculadoraMontos.generarprima(datosPolizaDTO)
         if (datosPolizaDTO.getFormaPago() == FormaPago.MENSUAL){ //SETEAR LOS VALORES DE LAS CUOTAS!
             List<Cuota> cuotasLista = new ArrayList<>();
             LocalDate fechaInicio = datosPolizaDTO.getFechaInicio(); //esto esta mal --- ya no!
@@ -221,6 +223,8 @@ public class GestorPolizas {
         }
 
         poliza.setValorPorcentualHijo(valorPorcentualHijoDAO.getValorPorcentualHijo(datosPolizaDTO.getIdValorPorcentualHijo()));
+        String numeroPoliza = poliza.generarNroPoliza(1,2);
+        poliza.setNumeroPoliza(numeroPoliza);
         polizaDAO.guardarPoliza(poliza);
     }
 

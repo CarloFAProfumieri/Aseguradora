@@ -14,21 +14,18 @@ public class Cuota {
     @ManyToOne
     @JoinColumn(name = "numeroPoliza")
     private Poliza poliza;
-    @Basic
+    @Basic // se registra al realizar el pago
     @Column(name = "fechaPago")
-    private Date fechaPago;
+    private LocalDate fechaPago;
     @Basic
     @Column(name = "ultimoDiaDePago")
-    private Date ultimoDiaDePago;
+    private LocalDate ultimoDiaDePago;
     @Basic
     @Column(name = "importeOriginal")
     private Double importeOriginal;
     @Basic
     @Column(name = "importeFinal")
     private Double importeFinal;
-    @Basic
-    @Column(name = "numeroRecibo")
-    private Integer numeroRecibo;
 
     public Cuota() {
 

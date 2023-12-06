@@ -16,9 +16,7 @@ public class PolizaDTO {
     private LocalDate fechaFin;
     private FormaPago formaPago;
     private Double premio;
-
     private List<LocalDate> ultimoDiaPago;
-
     private String patente;
     private String codigoMotor;
     private Double montoTotal;
@@ -35,11 +33,11 @@ public class PolizaDTO {
     private Double derechoEmision;
     private Double baseAnualPrima;
     private Integer numeroCliente;
+    private Integer idValorPorcentualHijo;
+
     public void setIdValorPorcentualHijo(Integer idValorPorcentualHijo) {
         this.idValorPorcentualHijo = idValorPorcentualHijo;
     }
-
-    private Integer idValorPorcentualHijo;
 
     private String marca;
     public PolizaDTO(int numeroPoliza, Double premio, LocalDate fechaInicio, LocalDate fechaFin, Double montoTotal, String patente, String codigoMotor, List<LocalDate> ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {

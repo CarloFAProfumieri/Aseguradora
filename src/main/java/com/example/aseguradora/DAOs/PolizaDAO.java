@@ -48,7 +48,18 @@ public class PolizaDAO {
         }
     }
 
-
+    public int obtenerNumeroRenovacion(String numeroPoliza) {
+        try (Session session = sessionFactory.openSession()) {
+            // Consulta para obtener el número de sucursal desde la base de datos
+            return Integer.parseInt((String) session.createQuery("SELECT SUBSTRING(p.numeroPoliza, 1, 4) FROM Poliza p WHERE p.numeroPoliza = :numeroPoliza")
+                    .setParameter("numeroPoliza", numeroPoliza)
+                    .uniqueResult());
+        } catch (Exception e) {
+            // Manejar excepciones (por ejemplo, loggear o relanzar)
+            e.printStackTrace();
+            return -1; // Valor predeterminado o código de error
+        }
+    }
 
 
 

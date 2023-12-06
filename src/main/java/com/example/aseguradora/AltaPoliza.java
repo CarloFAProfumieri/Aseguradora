@@ -141,7 +141,7 @@ public class AltaPoliza implements Initializable{
             return;
         }
         //gestorPolizas.guardarPoliza(getPolizaDTO());
-        setSumaAsegurada(CalculadoraMontos.calcularSumaAsegurada());
+        setSumaAsegurada(CalculadoraMontos.calcularSumaAsegurada(modeloComboBox.getValue().getIdModelo(), anioComboBox.getValue().getAnio()));
         actualizarPolizaDTO();
         setEstado3();
     }
@@ -317,7 +317,7 @@ public class AltaPoliza implements Initializable{
     }
 
     private ClienteDTO getClienteDTO() {
-        clienteDTO.setNumeroCliente(Integer.parseInt(nroClienteTextField.getText()));
+        clienteDTO.setNumeroCliente(Integer.parseInt(String.valueOf(Integer.valueOf(nroClienteTextField.getText()))));
         clienteDTO.setNombre(nombreTextField.getText());
         clienteDTO.setApellido(apellidoTextField.getText());
         clienteDTO.setTipoDocumento(tipoDocumentoComboBox.getValue().getIdTipoDocumento());
