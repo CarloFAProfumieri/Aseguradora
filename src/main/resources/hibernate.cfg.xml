@@ -9,7 +9,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/Aseguradora</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">1234</property>
+        <property name="hibernate.connection.password">gengis100</property>
         <!--
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://pg-33fef877-profu95-3139.a.aivencloud.com:23817/defaultdb?ssl=require</property>

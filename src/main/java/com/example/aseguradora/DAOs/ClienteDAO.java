@@ -41,6 +41,9 @@ public class ClienteDAO {
     }
 
     // Otros métodos para operaciones CRUD y consultas específicas...
+    public void getCliente(int numeroCliente) {
+    }
+
     public static void main(String[] args) {
         Configuration configuration = new Configuration().configure(ClienteDAO.class.getClassLoader().getResource("hibernate.cfg.xml"));
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -60,8 +63,5 @@ public class ClienteDAO {
         // Obtener todos los clientes
         List<Cliente> todosLosClientes = clienteDAO.obtenerTodosLosClientes();
         System.out.println("Todos los clientes: " + todosLosClientes);
-    }
-
-    public void getCliente(int numeroCliente) {
     }
 }

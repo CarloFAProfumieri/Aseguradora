@@ -6,6 +6,7 @@ public class ParametrosMontoDTO {
     private int descuento;
     private int baseAnualPrima;
     private Double montoTotal;
+    private int premio;
     public int getPrima() {
         return prima;
     }
@@ -47,4 +48,10 @@ public class ParametrosMontoDTO {
     }
 
 
+    public void setPremio(int unPremio) {
+        premio = unPremio;
+    }
+    public int getPremio(){
+        return premio;
+    }
 }

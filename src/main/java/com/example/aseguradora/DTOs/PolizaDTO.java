@@ -267,7 +267,7 @@ public class PolizaDTO {
         descuento = (double) parametrosMontoDTO.getDescuento();
         derechoEmision = (double) parametrosMontoDTO.getDerechoEmision();
         baseAnualPrima = (double) parametrosMontoDTO.getBaseAnualPrima();
-
+        premio = (double) parametrosMontoDTO.getPremio();
     }
 
     public void setMarca(String nombre) {

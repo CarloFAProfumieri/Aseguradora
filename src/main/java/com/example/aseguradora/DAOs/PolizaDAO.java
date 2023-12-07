@@ -31,11 +31,12 @@ public class PolizaDAO {
     public void guardarPoliza(Poliza poliza) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.save(poliza);
+            session.saveOrUpdate(poliza);
             transaction.commit();
         }
     }
-    public Poliza getPoliza(int numeroPoliza) {
+
+    public Poliza getPoliza(String numeroPoliza) {
         try (Session session = sessionFactory.openSession()) {
             return session.get(Poliza.class, numeroPoliza);
         }

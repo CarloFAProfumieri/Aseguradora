@@ -173,11 +173,19 @@ public class Cliente {
         return sexo;
     }
 
+    public List<Poliza> getPolizas() {
+        return polizas;
+    }
+
+    public void setPolizas(List<Poliza> polizas) {
+        this.polizas = polizas;
+    }
+
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 
-    public Object getNumeroCliente() {
+    public int getNumeroCliente() {
         return numeroCliente;
     }
 }

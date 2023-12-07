@@ -65,14 +65,14 @@
             <Label fx:id="premioLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
             <Label fx:id="importesDescuentosLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
             <Label fx:id="modalidadPagoLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
-            <Label fx:id="ultimoDiaPagoValueLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <Label fx:id="ultimoDiaPagoValueLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="12" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
 
             <!-- Añade este código para montoPorCuota -->
             <Label fx:id="montoPorCuotaLabel"  style="-fx-padding: 2;" text="Monto por cuota:" GridPane.rowIndex="13" />
-            <Label fx:id="montoPorCuotaValueLabel"  style="-fx-padding: 2;" text="Label here " GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <Label fx:id="montoPorCuotaValueLabel"  style="-fx-padding: 2;" text="Label here" GridPane.columnIndex="1" GridPane.rowIndex="13" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <!-- Añade este código para montoTotal -->
             <Label fx:id="montoTotalLabel" style="-fx-padding: 2;" text="Monto total a abonar:" GridPane.rowIndex="14" />
-            <Label fx:id="montoTotalValueLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+            <Label fx:id="montoTotalValueLabel" style="-fx-padding: 2;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="14" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
         </GridPane>
 
         <HBox alignment="BOTTOM_RIGHT" spacing="10.0">

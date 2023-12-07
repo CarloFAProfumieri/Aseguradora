@@ -5,6 +5,7 @@ import com.example.aseguradora.persistentes.Cliente;
 import com.example.aseguradora.persistentes.Poliza;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfirmarPolizaDTO {
@@ -24,21 +25,16 @@ public class ConfirmarPolizaDTO {
     private FormaPago modalidadDePagoFormaPago;
     private List<LocalDate> ultimoDiaPagoLocalDateList;
 
-    public ConfirmarPolizaDTO() {
+    private List<Double> pagosPorCuotaList = new ArrayList<>();
 
-    }
-
-    public List<Double> getPagosPorCuotaList() {
-        return pagosPorCuotaList;
-    }
-
-    public void setPagosPorCuotaList(List<Double> pagosPorCuotaList) {
-        this.pagosPorCuotaList = pagosPorCuotaList;
-    }
-
-    private List<Double> pagosPorCuotaList;
     private Double montoTotal;
+
+    private int idCliente;
+
     public ConfirmarPolizaDTO(Poliza poliza, Cliente cliente) {
+        idCliente = cliente.getNumeroCliente();
+        titularSeguroNombre = cliente.getNombre();
+        titularSeguroApellido = cliente.getApellido();
         numeroPoliza = poliza.getNumeroPoliza();
         vehiculoMarca = poliza.getMarcaString();
         vehiculoModelo = poliza.getModelo().getNombre();
@@ -53,10 +49,37 @@ public class ConfirmarPolizaDTO {
         modalidadDePagoFormaPago = poliza.getFormaPago();
         ultimoDiaPagoLocalDateList = poliza.getUltimoDiaPago();
         montoTotal = poliza.getMontoTotal();
+
+        if (modalidadDePagoFormaPago.equals(FormaPago.SEMESTRAL)){
+            pagosPorCuotaList.add(montoTotal);
+        }
+
+        if (modalidadDePagoFormaPago.equals(FormaPago.MENSUAL)){
+            for(int i = 0;i<=6;i++) {
+                pagosPorCuotaList.add(montoTotal/6.0);
+            }
+        }
     }
 
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+    public int getIdCliente() {
+        return idCliente;
+    }
     public String getNumeroPoliza() {
         return numeroPoliza;
+    }
+
+    public ConfirmarPolizaDTO() {
+
+    }
+
+    public List<Double> getPagosPorCuotaList() {
+        return pagosPorCuotaList;
+    }
+    public void setPagosPorCuotaList(List<Double> pagosPorCuotaList) {
+        this.pagosPorCuotaList = pagosPorCuotaList;
     }
 
     public void setNumeroPoliza(String numeroPoliza) {

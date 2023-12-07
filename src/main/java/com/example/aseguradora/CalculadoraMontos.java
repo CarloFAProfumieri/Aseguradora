@@ -29,7 +29,6 @@ public class CalculadoraMontos{
         int montoAsegurado = polizaDTO.getSumaAsegurada();
         int anio = polizaDTO.getAnio();
         int edadConductor = clienteDTO.getEdadConductor();
-
         parametrosMontoDTO.setPrima(montoAsegurado / 100); // Ejemplo: prima del 1% del monto asegurado
         parametrosMontoDTO.setDescuento(anio * 10); // Ejemplo: descuento de 10 por cada año de antigüedad
         parametrosMontoDTO.setDerechoEmision(edadConductor * 5); // Ejemplo: derecho de emisión de 5 por cada año de edad

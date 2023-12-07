@@ -2,8 +2,10 @@ package com.example.aseguradora;
 
 import com.example.aseguradora.DTOs.*;
 import com.example.aseguradora.enumeraciones.FormaPago;
+import com.example.aseguradora.gestores.GestorPolizas;
 import com.example.aseguradora.persistentes.Cliente;
 import com.example.aseguradora.persistentes.Poliza;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,12 +34,13 @@ public class ConfirmarPolizaController implements Initializable {
     public Label montoTotalValueLabel;
     @FXML
     Label titularSeguroLabel, marcaVehiculoLabel, modeloVehiculoLabel, motorLabel, chasisLabel, patenteLabel, inicioCoberturaLabel, finalCoberturaLabel, sumaAseguradaLabel, premioLabel, importesDescuentosLabel, modalidadPagoLabel, montoTotalLabel, ultimoDiaPagoValueLabel;
-
+    ConfirmarPolizaDTO valoresDePolizaDTO;
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
     public void setPoliza(ConfirmarPolizaDTO confirmarPolizaDTO) {
-        titularSeguroLabel.setText(confirmarPolizaDTO.getTitularSeguroNombre());
+        valoresDePolizaDTO = confirmarPolizaDTO;
+        titularSeguroLabel.setText(confirmarPolizaDTO.getTitularSeguroApellido() + ", " + confirmarPolizaDTO.getTitularSeguroNombre());
         motorLabel.setText(confirmarPolizaDTO.getVehiculoMotor());
         chasisLabel.setText(confirmarPolizaDTO.getVehiculoChasis());
         patenteLabel.setText(confirmarPolizaDTO.getVehiculoPatente());
@@ -50,17 +53,11 @@ public class ConfirmarPolizaController implements Initializable {
         inicioCoberturaLabel.setText(fechaInicioFormateada);
         finalCoberturaLabel.setText(fechaFinFormateada);
 
-        sumaAseguradaLabel.setText(String.valueOf(confirmarPolizaDTO.getSumaAsegurada()));
+        sumaAseguradaLabel.setText("$" + String.valueOf(confirmarPolizaDTO.getSumaAsegurada()));
         marcaVehiculoLabel.setText(confirmarPolizaDTO.getVehiculoMarca());
         modeloVehiculoLabel.setText(confirmarPolizaDTO.getVehiculoModelo());
-        premioLabel.setText(String.valueOf(confirmarPolizaDTO.getPremio()));
-        importesDescuentosLabel.setText(String.valueOf(confirmarPolizaDTO.getImportePorDescuento()));
-        if (confirmarPolizaDTO.getModalidadDePagoFormaPago() == FormaPago.SEMESTRAL){
-            List<LocalDate> fechasPago = confirmarPolizaDTO.getUltimoDiaPagoLocalDateList();
-            for (LocalDate fechaDePago : fechasPago){
-                //resolver
-            }
-        }
+        premioLabel.setText("$" + String.valueOf(confirmarPolizaDTO.getPremio()));
+        importesDescuentosLabel.setText("$" + String.valueOf(confirmarPolizaDTO.getImportePorDescuento()));
         modalidadPagoLabel.setText(String.valueOf(confirmarPolizaDTO.getModalidadDePagoFormaPago()));
 
         FormaPago formaPago = confirmarPolizaDTO.getModalidadDePagoFormaPago();
@@ -69,7 +66,7 @@ public class ConfirmarPolizaController implements Initializable {
         List<Double> pagosPorCuota = confirmarPolizaDTO.getPagosPorCuotaList();
         StringBuilder montosPorCuota = new StringBuilder();
         for (Double monto : pagosPorCuota) {
-            montosPorCuota.append(monto).append(" ");
+            montosPorCuota.append("$").append(String.format("%.2f", monto)).append("   "); //trim to 2 significant values!!!!
         }
 
         montoPorCuotaValueLabel.setText(montosPorCuota.toString());
@@ -84,17 +81,17 @@ public class ConfirmarPolizaController implements Initializable {
             //montoPorCuotaValueLabel.setVisible(false);
         // }
 
-        montoTotalValueLabel.setText(String.valueOf(confirmarPolizaDTO.getMontoTotal()));
 
 
         List<LocalDate> ultimoDiaDePagoList = confirmarPolizaDTO.getUltimoDiaPagoLocalDateList();
         StringBuilder ultimoDiaDePago = new StringBuilder();
         for (LocalDate fecha : ultimoDiaDePagoList) {
-            ultimoDiaDePago.append(fecha.toString()).append(" ");
+            ultimoDiaDePago.append(fecha.getMonthValue()).append("/").append(fecha.getDayOfMonth()).append(" ");
         }
 
         ultimoDiaPagoValueLabel.setText(ultimoDiaDePago.toString());
 
+        montoTotalValueLabel.setText(String.valueOf(confirmarPolizaDTO.getMontoTotal()));
 
 
     }
@@ -119,8 +116,12 @@ public class ConfirmarPolizaController implements Initializable {
     }
 
     @FXML
-    private void generarPolizaAction() {
+    private void generarPolizaAction(ActionEvent evento) {
+        GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
+        gestorPolizas.emitirPoliza(valoresDePolizaDTO);
         System.out.println("Generando la póliza...");
+        Stage stage = (Stage) ((javafx.scene.Node) evento.getSource()).getScene().getWindow();
+        stage.close();
     }
 
     public static void main(String[] args) throws IOException {

@@ -38,7 +38,7 @@ public class Main extends Application {
         stage.show();
     }*/
     //version sin scrollbar
-    /*
+
     public void start(Stage stage) throws IOException {
         stg = stage;
         stage.setResizable(false);
@@ -48,7 +48,8 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    */
+
+    /*
     public void start(Stage stage) throws IOException{
         stg = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("confirmarPoliza.fxml"));
@@ -78,13 +79,18 @@ public class Main extends Application {
         pagosPorCuota.add(14.2);
         confirmarPolizaDTO.setPagosPorCuotaList(pagosPorCuota);
         ultimoDiaDePagoList.add(LocalDate.of(2023, 12, 7));
+
+        List<Double> pagosPorCuota = new ArrayList<>();
+        pagosPorCuota.add(14.2);
+        confirmarPolizaDTO.setPagosPorCuotaList(pagosPorCuota);
+
         confirmarPolizaDTO.setUltimoDiaPagoLocalDateList(ultimoDiaDePagoList);
         confirmarPolizaDTO.setMontoTotal(1342312.45);
-
         confirmarPolizaController.setPoliza(confirmarPolizaDTO);
     }
+    */
     public static void main(String[] args) {
-        //Main.setHibernate(Level.SEVERE);
+        Main.setHibernate(Level.SEVERE);
         launch();
     }
     public static void setHibernate(Level unNivel){

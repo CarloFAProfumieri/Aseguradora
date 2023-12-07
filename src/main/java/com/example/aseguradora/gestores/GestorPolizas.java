@@ -3,6 +3,7 @@ package com.example.aseguradora.gestores;
 import com.example.aseguradora.CalculadoraMontos;
 import com.example.aseguradora.DAOs.*;
 import com.example.aseguradora.DTOs.*;
+import com.example.aseguradora.enumeraciones.EstadoCliente;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import com.example.aseguradora.persistentes.*;
@@ -51,8 +52,20 @@ public class GestorPolizas {
     public void darAltaPoliza(PolizaDTO unaPolizaDTO){
         polizaDAO.guardarPoliza(unaPolizaDTO);
     }
-    public void emitirPoliza(){
+    public void emitirPoliza(ConfirmarPolizaDTO valoresDePolizaDTO){
+        Poliza estaPoliza = polizaDAO.getPoliza(valoresDePolizaDTO.getNumeroPoliza());
+        estaPoliza.setEstadoPoliza(EstadoPoliza.GENERADA);
+        estaPoliza.getCliente().setEstadoCliente(EstadoCliente.NORMAL);
+        //actualizarCondicionCliente(valoresDePolizaDTO.getIdCliente());
+        //polizaDAO.guardarPoliza(estaPoliza);
+    }
+    public void actualizarCondicionCliente(Cliente cliente){
+        for (Poliza poliza : cliente.getPolizas()){
+            List<Cuota> cuotasViejas = poliza.getCuotas();
+            for (Cuota cuota : cuotasViejas){
 
+            }
+        }
     }
     public void consultarPoliza(){
 
@@ -251,7 +264,6 @@ public class GestorPolizas {
         List<KmPorAnio> kmPorAnioList = kmPorAnioDAO.getAllKmPorAnio();
         for (KmPorAnio kmPorAnio : kmPorAnioList){
             if (kmPorAnio.getLimiteInferior() <= kilometrosCantidad && kmPorAnio.getLimiteSuperior() >= kilometrosCantidad) return kmPorAnio.getIdKmPorAnio();
-            System.out.println("------------" + kmPorAnio.getIdKmPorAnio() + "----------" + kmPorAnio.getLimiteInferior() + ">=" + kilometrosCantidad);
             }
         return 0;
         }
