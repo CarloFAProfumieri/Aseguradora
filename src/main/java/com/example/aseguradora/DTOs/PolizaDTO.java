@@ -4,12 +4,11 @@ import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 
 public class PolizaDTO {
-    private int numeroPoliza;
+    private String numeroPoliza;
     private EstadoPoliza estadoPoliza;
     private int sumaAsegurada;
     private LocalDate fechaInicio;
@@ -40,7 +39,7 @@ public class PolizaDTO {
     }
 
     private String marca;
-    public PolizaDTO(int numeroPoliza, Double premio, LocalDate fechaInicio, LocalDate fechaFin, Double montoTotal, String patente, String codigoMotor, List<LocalDate> ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {
+    public PolizaDTO(String numeroPoliza, Double premio, LocalDate fechaInicio, LocalDate fechaFin, Double montoTotal, String patente, String codigoMotor, List<LocalDate> ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {
         this.numeroPoliza = numeroPoliza;
         this.premio = premio;
         this.fechaInicio = fechaInicio;
@@ -74,11 +73,7 @@ public class PolizaDTO {
         return idValorPorcentualHijo;
     }
 
-    public int getNumeroPoliza() {
-        return numeroPoliza;
-    }
-
-    public void setNumeroPoliza(int numeroPoliza) {
+    public void setNumeroPoliza(String numeroPoliza) {
         this.numeroPoliza = numeroPoliza;
     }
 
@@ -262,18 +257,21 @@ public class PolizaDTO {
         numeroCliente = unNumeroCliente;
     }
 
-    public void setPremioYDerechos(PremioyDerechosDTO premioYDerechosDTO) {
+    public void setPremioYDerechos(ParametrosMontoDTO parametrosMontoDTO) {
         //polizaDTO.setPrima();
         //polizaDTO.setDescuento();
         //polizaDTO.setDerechoEmision();
         //polizaDTO.setBaseAnualPrima();
-        montoTotal = premioYDerechosDTO.getMontoTotal();
-        prima = (double) premioYDerechosDTO.getPrima();
-        descuento = (double) premioYDerechosDTO.getDescuento();
-        derechoEmision = (double) premioYDerechosDTO.getDerechoEmision();
-        baseAnualPrima = (double) premioYDerechosDTO.getBaseAnualPrima();
+        montoTotal = parametrosMontoDTO.getMontoTotal();
+        prima = (double) parametrosMontoDTO.getPrima();
+        descuento = (double) parametrosMontoDTO.getDescuento();
+        derechoEmision = (double) parametrosMontoDTO.getDerechoEmision();
+        baseAnualPrima = (double) parametrosMontoDTO.getBaseAnualPrima();
 
     }
-    //AUXILIARES PARA PRESENTAR
+
+    public void setMarca(String nombre) {
+        marca = nombre;
+    }
 
 }

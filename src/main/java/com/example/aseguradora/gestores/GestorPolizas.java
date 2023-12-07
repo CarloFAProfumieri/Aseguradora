@@ -1,5 +1,6 @@
 package com.example.aseguradora.gestores;
 
+import com.example.aseguradora.CalculadoraMontos;
 import com.example.aseguradora.DAOs.*;
 import com.example.aseguradora.DTOs.*;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
@@ -175,18 +176,21 @@ public class GestorPolizas {
                     return estadoCivilDTO;
                 }).collect(Collectors.toList());
     }
-    public void generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
+    public ConfirmarPolizaDTO generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
+
         Poliza poliza = new Poliza();
+        poliza.setAtributosPoliza(datosPolizaDTO); //verificar con el profesor
         poliza.setFormaPago(datosPolizaDTO.getFormaPago());
         poliza.setEstadoPoliza(EstadoPoliza.GENERADA);
+        Cliente cliente = clienteDAO.obtenerClientePorNumero(datosClienteDTO.getNumeroCliente());
+        poliza.setCliente(cliente);
+
         for (HijoDTO unHijo : listaHijosDTO) {
             EstadoCivil estadoCivil = estadoCivilDAO.getEstadoCivil(unHijo.getEstadoCivilId());
             Hijo nuevoHijo = new Hijo(unHijo.getSexo(), unHijo.getFechaNacimiento() ,estadoCivil);
             poliza.agregarHijo(nuevoHijo);
         }
-        Cliente cliente = clienteDAO.obtenerClientePorNumero(datosClienteDTO.getNumeroCliente());
-        poliza.setCliente(cliente);
-        poliza.setAtributosPoliza(datosPolizaDTO);
+
         for (int medidaSeguridadId : datosPolizaDTO.getIdMedidas()){
             poliza.addMedida(medidaSeguridadDAO.getMedida(medidaSeguridadId));
         }
@@ -196,36 +200,40 @@ public class GestorPolizas {
         poliza.setModelo(modeloDAO.getModelo(datosPolizaDTO.getIdModelo()));
         poliza.setLocalidad(localidadDAO.getLocalidad(datosPolizaDTO.getIdLocalidad()));
         poliza.setKmPorAnio(kmPorAnioDAO.getKmPorAnio(datosPolizaDTO.getIdKmPorAnio()));
-        System.out.println("-----------------------------------------------------------------------" + kmPorAnioDAO.getKmPorAnio(datosPolizaDTO.getIdKmPorAnio()));
         poliza.setCantidadSiniestros(cantidadSiniestrosDAO.getCantidadSiniestros(datosPolizaDTO.getIdCantidadSiniestros()));
 
-        //CalculadoraMontos.generarprima(datosPolizaDTO)
-        if (datosPolizaDTO.getFormaPago() == FormaPago.MENSUAL){ //SETEAR LOS VALORES DE LAS CUOTAS!
+        if (datosPolizaDTO.getFormaPago() == FormaPago.MENSUAL){
             List<Cuota> cuotasLista = new ArrayList<>();
-            LocalDate fechaInicio = datosPolizaDTO.getFechaInicio(); //esto esta mal --- ya no!
+            LocalDate fechaInicio = datosPolizaDTO.getFechaInicio();
             LocalDate primerFechaUltimoDiaPago = datosPolizaDTO.getUltimoDiaPago().getLast();
             List<LocalDate> listaFechasDeVencimiento = new ArrayList<>();
+            double montoPorCuota = (datosPolizaDTO.getPrima()/6);
             for (int i = 0; i <= 6; i++) {
                 Cuota cuota = new Cuota(fechaInicio.plusMonths(i));
                 LocalDate ultimoDiaDePago_i = primerFechaUltimoDiaPago.plusMonths(i);
+                cuota.setImporte(montoPorCuota);
                 listaFechasDeVencimiento.add(ultimoDiaDePago_i);
                 cuotasLista.add(cuota);
             }
             poliza.setUltimoDiaPago(listaFechasDeVencimiento);
             poliza.addCuotas(cuotasLista);
         }
-        if (datosPolizaDTO.getFormaPago() == FormaPago.SEMESTRAL){//SETEAR LOS VALORES DE LAS CUOTAS!
+        if (datosPolizaDTO.getFormaPago() == FormaPago.SEMESTRAL){
             List<Cuota> cuotasLista = new ArrayList<>();
-            LocalDate fechaInicio = datosPolizaDTO.getFechaInicio(); //esto tambien -- esto tampoco!
-            Cuota cuota = new Cuota(fechaInicio.plusMonths(6));
+            LocalDate fechaInicio = datosPolizaDTO.getFechaInicio();
+            Cuota cuota = new Cuota(fechaInicio.minusDays(1));
+            cuota.setImporte(datosPolizaDTO.getPrima());
             poliza.setUltimoDiaPago(datosPolizaDTO.getUltimoDiaPago());
             poliza.addCuotas(cuotasLista);
         }
-
-        poliza.setValorPorcentualHijo(valorPorcentualHijoDAO.getValorPorcentualHijo(datosPolizaDTO.getIdValorPorcentualHijo()));
-        String numeroPoliza = poliza.generarNroPoliza(1,2);
+        String numeroPoliza = poliza.generarNroPoliza(1, CalculadoraMontos.getSecuenciaRenovacion());
         poliza.setNumeroPoliza(numeroPoliza);
+        ValorPorcentualHijo valorPorcentualHijo = valorPorcentualHijoDAO.getValorPorcentualHijo(datosPolizaDTO.getIdValorPorcentualHijo());
+        poliza.setValorPorcentualHijo(valorPorcentualHijo);
+        ParametrosMonto parametrosMonto = new ParametrosMonto(datosPolizaDTO, poliza);
+        poliza.setParametrosMonto(parametrosMonto);
         polizaDAO.guardarPoliza(poliza);
+        return new ConfirmarPolizaDTO(poliza, cliente);
     }
 
     public ClienteDTO getClienteDTO() {
@@ -238,4 +246,14 @@ public class GestorPolizas {
         cliente.setFechaNacimiento(LocalDate.now().minusYears(25));
         return cliente;
     }
-}
+
+    public int getIdKmPorAnio(Integer kilometrosCantidad) {
+        List<KmPorAnio> kmPorAnioList = kmPorAnioDAO.getAllKmPorAnio();
+        for (KmPorAnio kmPorAnio : kmPorAnioList){
+            if (kmPorAnio.getLimiteInferior() <= kilometrosCantidad && kmPorAnio.getLimiteSuperior() >= kilometrosCantidad) return kmPorAnio.getIdKmPorAnio();
+            System.out.println("------------" + kmPorAnio.getIdKmPorAnio() + "----------" + kmPorAnio.getLimiteInferior() + ">=" + kilometrosCantidad);
+            }
+        return 0;
+        }
+    }
+

@@ -324,4 +324,9 @@ public class Poliza {
     public void agregarHijo(Hijo nuevoHijo) {
         hijosLista.add(nuevoHijo);
     }
+
+    public String getMarcaString() {
+        return modelo.getMarca().getNombre();
+    }
+
 }

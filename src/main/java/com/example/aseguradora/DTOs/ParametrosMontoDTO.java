@@ -1,9 +1,9 @@
 package com.example.aseguradora.DTOs;
 
-public class PremioyDerechosDTO {
+public class ParametrosMontoDTO {
+    private int derechoEmision;
     private int prima;
     private int descuento;
-    private int derechoEmision;
     private int baseAnualPrima;
     private Double montoTotal;
     public int getPrima() {

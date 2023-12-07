@@ -142,7 +142,6 @@ public class AltaPoliza implements Initializable{
         }
         //gestorPolizas.guardarPoliza(getPolizaDTO());
         setSumaAsegurada(CalculadoraMontos.calcularSumaAsegurada(modeloComboBox.getValue().getIdModelo(), anioComboBox.getValue().getAnio()));
-        actualizarPolizaDTO();
         setEstado3();
     }
     private boolean validarDatosIngresadosVehiculo() {
@@ -216,10 +215,8 @@ public class AltaPoliza implements Initializable{
         return 0;
     }
 
-    private int getIdKmPorAnio() { //ARREGLAR TABLA
-       int kmPorAnio = Integer.parseInt(kilometrosTextField.getText());
-       int id = kmPorAnio / 1000 + 1;
-       return id;
+    private int getIdKmPorAnio() {
+        return gestorPolizas.getIdKmPorAnio(Integer.valueOf(kilometrosTextField.getText()));
     }
 
     public void buscarClienteAction(ActionEvent evento) throws IOException{
@@ -280,9 +277,10 @@ public class AltaPoliza implements Initializable{
         PolizaDTO datosPoliza = getPolizaDTO();
         ClienteDTO datosCliente = getClienteDTO();
         List<HijoDTO> datosHijoLista = getHijosDTO();
-        PremioyDerechosDTO premioYDerechosDTO = CalculadoraMontos.calcularPremioyDerechos(datosPoliza,datosCliente);
+        ParametrosMontoDTO premioYDerechosDTO = CalculadoraMontos.calcularPremioyDerechos(datosPoliza,datosCliente);
         polizaDTO.setPremioYDerechos(premioYDerechosDTO);
-        gestorPolizas.generarPoliza(datosPoliza, datosHijoLista, datosCliente);
+        ConfirmarPolizaDTO confirmarPolizaDTO = gestorPolizas.generarPoliza(datosPoliza, datosHijoLista, datosCliente);
+        cargarPantallaConfirmarPoliza();
         System.out.println("POLIZA GENERADA!");
 
     }
@@ -307,6 +305,7 @@ public class AltaPoliza implements Initializable{
         List <LocalDate> ultimodiapago = new ArrayList<>();
         ultimodiapago.add(inicioCoberturaDatePicker.getValue().minusDays(1));
         polizaDTO.setUltimoDiaPago(ultimodiapago);
+        polizaDTO.setMarca(marcaComboBox.getValue().getNombre());
         //polizaDTO.setPrima();
         //polizaDTO.setDescuento();
         //polizaDTO.setDerechoEmision();
@@ -535,7 +534,7 @@ public class AltaPoliza implements Initializable{
         ultimodiadepago.add(date.minusDays(1));
 
         PolizaDTO polizaDTOHardcode = new PolizaDTO(
-                12345,                  // numeroPoliza
+                "12345",                  // numeroPoliza
                 1500.0,                 // premio
                 date,             // fechaInicio
                 fin,             // fechaFin

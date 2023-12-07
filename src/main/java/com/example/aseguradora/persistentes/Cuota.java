@@ -2,7 +2,6 @@ package com.example.aseguradora.persistentes;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -31,7 +30,8 @@ public class Cuota {
 
     }
 
-    public Cuota(LocalDate diaDePago) {
+    public Cuota(LocalDate vencimiento) {
+        ultimoDiaDePago = vencimiento;
     }
 
     public int getIdCuota() {
@@ -42,4 +42,43 @@ public class Cuota {
         this.idCuota = idCuota;
     }
 
+    public Poliza getPoliza() {
+        return poliza;
+    }
+
+    public void setPoliza(Poliza poliza) {
+        this.poliza = poliza;
+    }
+
+    public LocalDate getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDate fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
+    public LocalDate getUltimoDiaDePago() {
+        return ultimoDiaDePago;
+    }
+
+    public void setUltimoDiaDePago(LocalDate ultimoDiaDePago) {
+        this.ultimoDiaDePago = ultimoDiaDePago;
+    }
+
+    public Double getImporteOriginal() {
+        return importeOriginal;
+    }
+
+    public void setImporte(Double importeOriginal) {
+        this.importeOriginal = importeOriginal;
+    }
+
+    public Double getImporteFinal() {
+        return importeFinal;
+    }
+
+    public void setImporteFinal(Double importeFinal) {
+        this.importeFinal = importeFinal;
+    }
 }

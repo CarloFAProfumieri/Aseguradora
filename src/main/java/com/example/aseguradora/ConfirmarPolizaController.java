@@ -31,7 +31,7 @@ public class ConfirmarPolizaController implements Initializable {
     }
 
     public void setPoliza(PolizaDTO unaPoliza, ClienteDTO unCliente, MarcaDTO unaMarca, ModeloDTO unModelo) {
-        titularSeguroLabel.setText(unCliente.getNombre());
+        titularSeguroLabel.setText(unCliente.getApellido() + ", " + unCliente.getNombre());
         motorLabel.setText(unaPoliza.getCodigoMotor());
         chasisLabel.setText(unaPoliza.getCodigoChasis());
         patenteLabel.setText(unaPoliza.getPatente());

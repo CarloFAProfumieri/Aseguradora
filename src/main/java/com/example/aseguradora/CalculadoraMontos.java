@@ -2,8 +2,7 @@ package com.example.aseguradora;
 
 import com.example.aseguradora.DTOs.ClienteDTO;
 import com.example.aseguradora.DTOs.PolizaDTO;
-import com.example.aseguradora.DTOs.PremioyDerechosDTO;
-import com.example.aseguradora.persistentes.Cliente;
+import com.example.aseguradora.DTOs.ParametrosMontoDTO;
 
 import java.util.Random;
 
@@ -23,21 +22,25 @@ public class CalculadoraMontos{
         long generatedValue = (long) (min + range * random.nextDouble());
         return (int) Math.min(generatedValue, Integer.MAX_VALUE);
     }
-    public static PremioyDerechosDTO calcularPremioyDerechos(PolizaDTO polizaDTO, ClienteDTO clienteDTO) {
-        PremioyDerechosDTO premioyDerechosDTO = new PremioyDerechosDTO();
+    public static ParametrosMontoDTO calcularPremioyDerechos(PolizaDTO polizaDTO, ClienteDTO clienteDTO) {
+        ParametrosMontoDTO parametrosMontoDTO = new ParametrosMontoDTO();
 
         // Lógica de cálculo (valores de prueba, ajusta según tus necesidades)
         int montoAsegurado = polizaDTO.getSumaAsegurada();
         int anio = polizaDTO.getAnio();
         int edadConductor = clienteDTO.getEdadConductor();
 
-        premioyDerechosDTO.setPrima(montoAsegurado / 100); // Ejemplo: prima del 1% del monto asegurado
-        premioyDerechosDTO.setDescuento(anio * 10); // Ejemplo: descuento de 10 por cada año de antigüedad
-        premioyDerechosDTO.setDerechoEmision(edadConductor * 5); // Ejemplo: derecho de emisión de 5 por cada año de edad
-        premioyDerechosDTO.setBaseAnualPrima(premioyDerechosDTO.getPrima() - premioyDerechosDTO.getDescuento());
-        premioyDerechosDTO.setMontoTotal((double) (premioyDerechosDTO.getBaseAnualPrima() + premioyDerechosDTO.getDerechoEmision()));
+        parametrosMontoDTO.setPrima(montoAsegurado / 100); // Ejemplo: prima del 1% del monto asegurado
+        parametrosMontoDTO.setDescuento(anio * 10); // Ejemplo: descuento de 10 por cada año de antigüedad
+        parametrosMontoDTO.setDerechoEmision(edadConductor * 5); // Ejemplo: derecho de emisión de 5 por cada año de edad
+        parametrosMontoDTO.setBaseAnualPrima(parametrosMontoDTO.getPrima() - parametrosMontoDTO.getDescuento());
+        parametrosMontoDTO.setMontoTotal((double) (parametrosMontoDTO.getBaseAnualPrima() + parametrosMontoDTO.getDerechoEmision()));
 
-        return premioyDerechosDTO;
+        return parametrosMontoDTO;
     }
 
+    public static int getSecuenciaRenovacion() {
+        Random random = new Random();
+        return random.nextInt(100);
+    }
 }
