@@ -15,7 +15,7 @@ public class LocalidadDAO {
         Configuration configuration = new Configuration().configure(Localidad.class.getClassLoader().getResource("hibernate.cfg.xml"));
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         this.sessionFactory = sessionFactory;
-    }
+    }//cambio de preuba
     public List<Localidad> getLocalidades(int idProvincia) {
         try (Session session = sessionFactory.openSession()) {
             Query<Localidad> query = session.createQuery("FROM Localidad WHERE provincia.idProvincia = :idProvincia", Localidad.class);

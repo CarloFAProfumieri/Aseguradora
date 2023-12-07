@@ -16,7 +16,7 @@ public class EstadoCivilDAO {
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         this.sessionFactory = sessionFactory;
     }
-
+    //cambio de preuba
     public List<EstadoCivil> getAllEstadosCiviles() {
         try (Session session = sessionFactory.openSession()) {
             Query<EstadoCivil> query = session.createQuery("FROM EstadoCivil", EstadoCivil.class);
