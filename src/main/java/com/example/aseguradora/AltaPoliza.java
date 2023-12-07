@@ -280,7 +280,7 @@ public class AltaPoliza implements Initializable{
         ParametrosMontoDTO premioYDerechosDTO = CalculadoraMontos.calcularPremioyDerechos(datosPoliza,datosCliente);
         polizaDTO.setPremioYDerechos(premioYDerechosDTO);
         ConfirmarPolizaDTO confirmarPolizaDTO = gestorPolizas.generarPoliza(datosPoliza, datosHijoLista, datosCliente);
-        cargarPantallaConfirmarPoliza();
+        //cargarPantallaConfirmarPoliza(confirmarPolizaDTO);
         System.out.println("POLIZA GENERADA!");
 
     }
@@ -514,7 +514,7 @@ public class AltaPoliza implements Initializable{
      */
 
     // Nuevo método para cargar la pantalla ConfirmarPolizaController
-    private void cargarPantallaConfirmarPoliza() throws IOException {
+   /* private void cargarPantallaConfirmarPoliza(ConfirmarPolizaDTO confirmarPolizaDTO) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmarPoliza.fxml"));
         Parent root = loader.load();
 
@@ -587,7 +587,7 @@ public class AltaPoliza implements Initializable{
 
         // Mostrar la ventana de ConfirmarPolizaController
         stage.showAndWait();
-    }
+    }*/
 }
 
 
