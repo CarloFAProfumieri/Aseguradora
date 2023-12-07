@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="dd1cc57c-0049-44c1-a4bf-e05a75f180ec" name="Aseguradora@localhost Mapping">
+      <data-sources ddl="d48146c4-92a9-4b33-9579-b68c654e0810" />
+      <scope>
+        <node kind="database" qname="Aseguradora">
+          <node kind="schema" qname="public" />
+        </node>
+      </scope>
+    </mapping>
+    <mapping uuid="8f2f1180-32d5-4bc9-9bf6-4d80f37319c1" name="postgres@localhost Mapping">
+      <data-sources db="6dedcf7f-2386-44f1-960d-166e6a926fa6" ddl="12c0cc22-3250-4e89-802a-c28330bdf94d" />
+    </mapping>
+  </component>
+</project>

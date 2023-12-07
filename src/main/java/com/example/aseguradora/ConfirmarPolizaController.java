@@ -31,7 +31,7 @@ public class ConfirmarPolizaController implements Initializable {
     public Label montoPorCuotaValueLabel;
     public Label montoTotalValueLabel;
     @FXML
-    Label titularSeguroLabel, marcaVehiculoLabel, modeloVehiculoLabel, motorLabel, chasisLabel, patenteLabel, inicioCoberturaLabel, finalCoberturaLabel, sumaAseguradaLabel, premioLabel, importesDescuentosLabel, modalidadPagoLabel, montoTotalLabel;
+    Label titularSeguroLabel, marcaVehiculoLabel, modeloVehiculoLabel, motorLabel, chasisLabel, patenteLabel, inicioCoberturaLabel, finalCoberturaLabel, sumaAseguradaLabel, premioLabel, importesDescuentosLabel, modalidadPagoLabel, montoTotalLabel, ultimoDiaPagoValueLabel;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -65,16 +65,38 @@ public class ConfirmarPolizaController implements Initializable {
 
         FormaPago formaPago = confirmarPolizaDTO.getModalidadDePagoFormaPago();
 
-        if (formaPago == FormaPago.MENSUAL) {
-            montoPorCuotaLabel.setVisible(true);
-            montoPorCuotaValueLabel.setText("Monto por cuota"); //unaPoliza.getMontoPorCuota()
-            montoPorCuotaValueLabel.setVisible(true);
-        } else {
-            montoPorCuotaLabel.setVisible(false);
-            montoPorCuotaValueLabel.setVisible(false);
+
+        List<Double> pagosPorCuota = confirmarPolizaDTO.getPagosPorCuotaList();
+        StringBuilder montosPorCuota = new StringBuilder();
+        for (Double monto : pagosPorCuota) {
+            montosPorCuota.append(monto).append(" ");
         }
 
+        montoPorCuotaValueLabel.setText(montosPorCuota.toString());
+
+
+        //if (formaPago == FormaPago.MENSUAL) {
+
+          //  montoPorCuotaValueLabel.setText("Monto por cuota"); //unaPoliza.getMontoPorCuota()
+
+        // } else {
+            //montoPorCuotaLabel.setVisible(false);
+            //montoPorCuotaValueLabel.setVisible(false);
+        // }
+
         montoTotalValueLabel.setText(String.valueOf(confirmarPolizaDTO.getMontoTotal()));
+
+
+        List<LocalDate> ultimoDiaDePagoList = confirmarPolizaDTO.getUltimoDiaPagoLocalDateList();
+        StringBuilder ultimoDiaDePago = new StringBuilder();
+        for (LocalDate fecha : ultimoDiaDePagoList) {
+            ultimoDiaDePago.append(fecha.toString()).append(" ");
+        }
+
+        ultimoDiaPagoValueLabel.setText(ultimoDiaDePago.toString());
+
+
+
     }
 
     private Label obtenerLabelPorTexto(String texto) {

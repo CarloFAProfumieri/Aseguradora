@@ -71,8 +71,12 @@ public class Main extends Application {
         confirmarPolizaDTO.setFinalCoberturaLocalDate(LocalDate.of(2024, 5, 7));
         confirmarPolizaDTO.setSumaAsegurada(123123);
         confirmarPolizaDTO.setPremio(23123.2);
-        confirmarPolizaDTO.setModalidadDePagoFormaPago(FormaPago.SEMESTRAL);
+        confirmarPolizaDTO.setModalidadDePagoFormaPago(FormaPago.MENSUAL);
         List<LocalDate> ultimoDiaDePagoList = new ArrayList<>();
+
+        List<Double> pagosPorCuota = new ArrayList<>();
+        pagosPorCuota.add(14.2);
+        confirmarPolizaDTO.setPagosPorCuotaList(pagosPorCuota);
         ultimoDiaDePagoList.add(LocalDate.of(2023, 12, 7));
         confirmarPolizaDTO.setUltimoDiaPagoLocalDateList(ultimoDiaDePagoList);
         confirmarPolizaDTO.setMontoTotal(1342312.45);

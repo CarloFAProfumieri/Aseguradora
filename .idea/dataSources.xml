@@ -22,5 +22,12 @@
       <jdbc-url>jdbc:postgresql://pg-33fef877-profu95-3139.a.aivencloud.com:23817/defaultdb?ssl=require</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="postgres@localhost" uuid="e30e6909-297b-4ec2-8798-e4a0d115d660">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
