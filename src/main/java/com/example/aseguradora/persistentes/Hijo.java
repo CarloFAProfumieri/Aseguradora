@@ -9,13 +9,13 @@ import java.util.Objects;
 
 @Entity
 public class Hijo {
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sexo")
-    private Sexo sexo;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idHijo")
     private int idHijo;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sexo")
+    private Sexo sexo;
     @Basic
     @Column(name = "fechaNacimiento")
     private LocalDate fechaNacimiento;
@@ -87,4 +87,7 @@ public class Hijo {
     }
 
 
+    public void setPoliza(Poliza poliza) {
+        this.poliza = poliza;
+    }
 }

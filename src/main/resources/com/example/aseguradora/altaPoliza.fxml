@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.AltaPoliza">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.AltaPolizaController">
     <children>
         <Pane fx:id="upperPane" layoutX="1.0" prefHeight="147.0" prefWidth="906.0">
             <children>
@@ -48,29 +48,25 @@
             <children>
                 <ComboBox fx:id="marcaComboBox" layoutX="136.0" layoutY="110.0" onAction="#marcaSelectedAction" prefHeight="25.0" prefWidth="136.0" promptText="MARCA" />
                 <ComboBox fx:id="modeloComboBox" disable="true" layoutX="136.0" layoutY="147.0" onAction="#modeloSelectedAction" prefHeight="25.0" prefWidth="136.0" promptText="MODELO" />
-                <ComboBox fx:id="anioComboBox" disable="true" layoutX="137.0" layoutY="183.0" prefHeight="25.0" prefWidth="136.0" promptText="AÑO" />
+                <ComboBox fx:id="anioComboBox" disable="true" layoutX="137.0" layoutY="183.0" onAction="#anioComboBoxSelected" prefHeight="25.0" prefWidth="136.0" promptText="AÑO" />
                 <TextField fx:id="patenteTextField" layoutX="137.0" layoutY="223.0" prefHeight="25.0" prefWidth="136.0" promptText="PATENTE" />
                 <CheckBox fx:id="alarmaCheckBox" layoutX="345.0" layoutY="113.0" mnemonicParsing="false" text="Tiene alarma" />
                 <CheckBox fx:id="garageCheckBox" layoutX="345.0" layoutY="153.0" mnemonicParsing="false" text="Se guarda en garage" />
                 <CheckBox fx:id="rastreoVehicularCheckBox" layoutX="345.0" layoutY="191.0" mnemonicParsing="false" text="Posee dispositivo de Rastreo Vehicular" />
                 <CheckBox fx:id="tuercasAntirroboCheckBox" layoutX="345.0" layoutY="227.0" mnemonicParsing="false" text="Posee tuercas antirrobo en las cuatro ruedas" />
+                    <TableView fx:id="hijosTabla" layoutX="649.0" layoutY="108.0" prefHeight="134.0" prefWidth="237.0">
+                        <columns>
+                            <TableColumn fx:id="edadColumn" editable="false" prefWidth="47.0" resizable="false" sortable="false" text="Edad" />
+                            <TableColumn fx:id="sexoColumn" editable="false" minWidth="0.0" prefWidth="76.0" resizable="false" sortable="false" text="Sexo" />
+                            <TableColumn fx:id="estadoCivilColumn" editable="false" prefWidth="113.0" sortable="false" text="Estado civil" />
+                        </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+                    </TableView>
                 <Button fx:id="quitarHijoButton" layoutX="774.0" layoutY="242.0" mnemonicParsing="false" onAction="#quitarHijoAction" prefHeight="25.0" prefWidth="51.0" text="Quitar" />
                 <Button fx:id="agregarHijoButton" layoutX="827.0" layoutY="242.0" mnemonicParsing="false" onAction="#agregarHijoAction" text="Agregar" />
-                <ScrollPane layoutX="649.0" layoutY="108.0" prefHeight="134.0" prefWidth="237.0">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="312.0" prefWidth="222.0">
-                            <children>
-                                <TableView fx:id="hijosTabla" layoutY="-1.0" prefHeight="314.0" prefWidth="225.0">
-                                    <columns>
-                                        <TableColumn fx:id="edadColumn" editable="false" prefWidth="47.0" resizable="false" sortable="false" text="Edad" />
-                                        <TableColumn fx:id="sexoColumn" editable="false" minWidth="0.0" prefWidth="76.0" resizable="false" sortable="false" text="Sexo" />
-                                        <TableColumn fx:id="estadoCivilColumn" editable="false" prefWidth="97.0" sortable="false" text="Estado civil" />
-                                    </columns>
-                                </TableView>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </ScrollPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="132.0" prefWidth="222.0" />
                 <Label layoutX="307.0" layoutY="14.0" text="Datos del Vehículo y Usuarios">
                     <font>
                         <Font name="System Bold" size="17.0" />
@@ -144,7 +140,7 @@
                 <Label layoutX="609.0" layoutY="137.0" text="Modalidad de pago" />
                 <ScrollPane layoutX="249.0" layoutY="78.0" prefHeight="110.0" prefWidth="343.0">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="173.0" prefWidth="328.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="137.0" prefWidth="328.0">
                             <children>
                                 <TextArea fx:id="descripcionCoberturaTextArea" disable="true" editable="false" prefHeight="173.0" prefWidth="328.0" promptText="Aquí podrá ver una descripción de la cobertura de la póliza una vez que seleccione un tipo de cobertura " wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children>

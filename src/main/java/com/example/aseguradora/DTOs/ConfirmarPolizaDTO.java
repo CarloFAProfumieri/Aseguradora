@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfirmarPolizaDTO {
-    private String numeroPoliza;
-    private String titularSeguroNombre;
     private String titularSeguroApellido;
-    private String vehiculoModelo;
+    private String titularSeguroNombre;
     private String vehiculoMarca;
+    private String vehiculoModelo;
     private String vehiculoMotor;
     private String vehiculoChasis;
     private String vehiculoPatente;
@@ -31,13 +30,11 @@ public class ConfirmarPolizaDTO {
 
     private int idCliente;
 
-    public ConfirmarPolizaDTO(Poliza poliza, Cliente cliente) {
-        idCliente = cliente.getNumeroCliente();
+    public ConfirmarPolizaDTO(PolizaDTO poliza, ClienteDTO cliente) {
         titularSeguroNombre = cliente.getNombre();
         titularSeguroApellido = cliente.getApellido();
-        numeroPoliza = poliza.getNumeroPoliza();
-        vehiculoMarca = poliza.getMarcaString();
-        vehiculoModelo = poliza.getModelo().getNombre();
+        vehiculoMarca = poliza.getMarca();
+        vehiculoModelo = poliza.getModelo();
         vehiculoMotor = poliza.getCodigoMotor();
         vehiculoChasis = poliza.getCodigoChasis();
         vehiculoPatente = poliza.getPatente();
@@ -45,7 +42,7 @@ public class ConfirmarPolizaDTO {
         finalCoberturaLocalDate = poliza.getFechaFin();
         sumaAsegurada = poliza.getSumaAsegurada();
         premio = poliza.getPremio();
-        //importePorDescuento = poliza.getImportePorDescuento();!!!!!!!
+        importePorDescuento = 4231;
         modalidadDePagoFormaPago = poliza.getFormaPago();
         ultimoDiaPagoLocalDateList = poliza.getUltimoDiaPago();
         montoTotal = poliza.getMontoTotal();
@@ -67,9 +64,6 @@ public class ConfirmarPolizaDTO {
     public int getIdCliente() {
         return idCliente;
     }
-    public String getNumeroPoliza() {
-        return numeroPoliza;
-    }
 
     public ConfirmarPolizaDTO() {
 
@@ -80,10 +74,6 @@ public class ConfirmarPolizaDTO {
     }
     public void setPagosPorCuotaList(List<Double> pagosPorCuotaList) {
         this.pagosPorCuotaList = pagosPorCuotaList;
-    }
-
-    public void setNumeroPoliza(String numeroPoliza) {
-        this.numeroPoliza = numeroPoliza;
     }
 
     public String getTitularSeguroNombre() {

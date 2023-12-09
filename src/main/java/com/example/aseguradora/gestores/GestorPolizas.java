@@ -1,9 +1,8 @@
 package com.example.aseguradora.gestores;
 
-import com.example.aseguradora.CalculadoraMontos;
+import com.example.aseguradora.SistemaAutoscoring;
 import com.example.aseguradora.DAOs.*;
 import com.example.aseguradora.DTOs.*;
-import com.example.aseguradora.enumeraciones.EstadoCliente;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import com.example.aseguradora.persistentes.*;
@@ -52,6 +51,7 @@ public class GestorPolizas {
     public void darAltaPoliza(PolizaDTO unaPolizaDTO){
         polizaDAO.guardarPoliza(unaPolizaDTO);
     }
+    /*
     public void emitirPoliza(ConfirmarPolizaDTO valoresDePolizaDTO){
         Poliza estaPoliza = polizaDAO.getPoliza(valoresDePolizaDTO.getNumeroPoliza());
         estaPoliza.setEstadoPoliza(EstadoPoliza.GENERADA);
@@ -59,6 +59,8 @@ public class GestorPolizas {
         //actualizarCondicionCliente(valoresDePolizaDTO.getIdCliente());
         //polizaDAO.guardarPoliza(estaPoliza);
     }
+
+     */
     public void actualizarCondicionCliente(Cliente cliente){
         for (Poliza poliza : cliente.getPolizas()){
             List<Cuota> cuotasViejas = poliza.getCuotas();
@@ -189,7 +191,7 @@ public class GestorPolizas {
                     return estadoCivilDTO;
                 }).collect(Collectors.toList());
     }
-    public ConfirmarPolizaDTO generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
+    public void generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
 
         Poliza poliza = new Poliza();
         poliza.setAtributosPoliza(datosPolizaDTO); //verificar con el profesor
@@ -239,17 +241,16 @@ public class GestorPolizas {
             poliza.setUltimoDiaPago(datosPolizaDTO.getUltimoDiaPago());
             poliza.addCuotas(cuotasLista);
         }
-        String numeroPoliza = poliza.generarNroPoliza(1, CalculadoraMontos.getSecuenciaRenovacion());
+        String numeroPoliza = poliza.generarNroPoliza(1, SistemaAutoscoring.getSecuenciaRenovacion());
         poliza.setNumeroPoliza(numeroPoliza);
         ValorPorcentualHijo valorPorcentualHijo = valorPorcentualHijoDAO.getValorPorcentualHijo(datosPolizaDTO.getIdValorPorcentualHijo());
         poliza.setValorPorcentualHijo(valorPorcentualHijo);
         ParametrosMonto parametrosMonto = new ParametrosMonto(datosPolizaDTO, poliza);
         poliza.setParametrosMonto(parametrosMonto);
         polizaDAO.guardarPoliza(poliza);
-        return new ConfirmarPolizaDTO(poliza, cliente);
     }
 
-    public ClienteDTO getClienteDTO() {
+    public ClienteDTO getClienteDTO() { //hardcode
         ClienteDTO cliente = new ClienteDTO();
         cliente.setNombre("Carlo");
         cliente.setApellido("Profumieri");
@@ -267,5 +268,10 @@ public class GestorPolizas {
             }
         return 0;
         }
+
+    public boolean existePatente(String numeroDePatente) {
+        System.out.println("EXISTE LA PATENTE?: " + polizaDAO.existePatente(numeroDePatente));
+        return polizaDAO.existePatente(numeroDePatente);
     }
+}
 

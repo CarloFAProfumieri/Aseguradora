@@ -31,13 +31,16 @@ public class ConfirmarPolizaController implements Initializable {
     public GridPane datosPolizaGridPane;
     public Label montoPorCuotaLabel;
     public Label montoPorCuotaValueLabel;
+    private AltaPolizaController altaPolizaController;
     public Label montoTotalValueLabel;
     @FXML
     Label titularSeguroLabel, marcaVehiculoLabel, modeloVehiculoLabel, motorLabel, chasisLabel, patenteLabel, inicioCoberturaLabel, finalCoberturaLabel, sumaAseguradaLabel, premioLabel, importesDescuentosLabel, modalidadPagoLabel, montoTotalLabel, ultimoDiaPagoValueLabel;
     ConfirmarPolizaDTO valoresDePolizaDTO;
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-
+    public void setAltaPolizaController(AltaPolizaController controlador){
+        altaPolizaController = controlador;
+    }
     public void setPoliza(ConfirmarPolizaDTO confirmarPolizaDTO) {
         valoresDePolizaDTO = confirmarPolizaDTO;
         titularSeguroLabel.setText(confirmarPolizaDTO.getTitularSeguroApellido() + ", " + confirmarPolizaDTO.getTitularSeguroNombre());
@@ -96,18 +99,6 @@ public class ConfirmarPolizaController implements Initializable {
 
     }
 
-    private Label obtenerLabelPorTexto(String texto) {
-        for (javafx.scene.Node node : datosPolizaGridPane.getChildren()) {
-            if (node instanceof Label) {
-                Label label = (Label) node;
-                if (label.getText().equals(texto)) {
-                    return label;
-                }
-            }
-        }
-        return null;
-    }
-
     @FXML
     private void cancelarConfirmarAction() {
         Stage stage = (Stage) confirmarPolizaCancelarButton.getScene().getWindow();
@@ -116,15 +107,17 @@ public class ConfirmarPolizaController implements Initializable {
     }
 
     @FXML
-    private void generarPolizaAction(ActionEvent evento) {
+    private void generarPolizaAction(ActionEvent evento) throws IOException {
         GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
-        gestorPolizas.emitirPoliza(valoresDePolizaDTO);
+        //gestorPolizas.emitirPoliza(valoresDePolizaDTO);
         System.out.println("Generando la póliza...");
         Stage stage = (Stage) ((javafx.scene.Node) evento.getSource()).getScene().getWindow();
         stage.close();
+        altaPolizaController.confirmarPolizaAction(evento);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { //deprecated test case
+        /*
         Stage stage = new Stage();
         stage.setResizable(false);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("confirmarPoliza.fxml"));
@@ -156,5 +149,6 @@ public class ConfirmarPolizaController implements Initializable {
         confirmarPolizaDTO.setMontoTotal(1342312.45);
 
         confirmarPolizaController.setPoliza(confirmarPolizaDTO);
+        */
     }
 }
