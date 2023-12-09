@@ -31,7 +31,7 @@ public class PolizaDAO {
     public void guardarPoliza(Poliza poliza) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.saveOrUpdate(poliza);
+            session.save(poliza);
             transaction.commit();
         }
     }
@@ -41,7 +41,16 @@ public class PolizaDAO {
             return session.get(Poliza.class, numeroPoliza);
         }
     }
+    public boolean existePatente(String numeroDePatente) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT COUNT(*) FROM Poliza p WHERE p.patente = :patente";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("patente", numeroDePatente);
 
+            Long count = query.uniqueResult();
+            return count > 0;
+        }
+    }
     public List<Poliza> getAllPolizas() {
         try (Session session = sessionFactory.openSession()) {
             Query<Poliza> query = session.createQuery("FROM Poliza ", Poliza.class);

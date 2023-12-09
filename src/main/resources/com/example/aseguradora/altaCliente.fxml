@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="671.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.altaClienteController">
+   <children>
+      <Pane layoutY="2.0" prefHeight="671.0" prefWidth="800.0">
+         <children>
+            <Pane layoutX="1.0" layoutY="51.0" prefHeight="189.0" prefWidth="800.0">
+               <children>
+                  <TextField fx:id="nombreTextField" layoutX="407.0" layoutY="67.0" prefHeight="25.0" prefWidth="164.0" promptText="NOMBRE" />
+                  <TextField fx:id="apellidoTextField" layoutX="212.0" layoutY="67.0" prefHeight="25.0" prefWidth="164.0" promptText="APELLIDO" />
+                  <ComboBox fx:id="tipoDeDocumentoComboBox" layoutX="212.0" layoutY="131.0" prefHeight="25.0" prefWidth="164.0" promptText="TIPO DE DOCUMENTO" />
+                  <TextField fx:id="numeroDeDocumentoTextField" layoutX="408.0" layoutY="132.0" prefHeight="25.0" prefWidth="164.0" promptText="NUMERO DE DOCUMENTO" />
+                  <TextField fx:id="numeroDeClienteTextField" disable="true" layoutX="15.0" layoutY="67.0" prefHeight="25.0" prefWidth="164.0" promptText="NRO CLIENTE" />
+                  <Label layoutX="16.0" layoutY="47.0" prefHeight="17.0" prefWidth="111.0" text="Numero de Cliente" />
+                  <Label layoutX="213.0" layoutY="111.0" prefHeight="17.0" prefWidth="111.0" text="Tipo de Documento*" />
+                  <Label layoutX="409.0" layoutY="112.0" prefHeight="17.0" prefWidth="133.0" text="Numero de Documento*" />
+                  <Label layoutX="213.0" layoutY="47.0" prefHeight="17.0" prefWidth="111.0" text="Apellido*" />
+                  <Label layoutX="408.0" layoutY="47.0" prefHeight="17.0" prefWidth="111.0" text="Nombre*" />
+                  <ComboBox fx:id="sexoComboBox" layoutX="16.0" layoutY="131.0" prefHeight="25.0" prefWidth="164.0" promptText="SEXO" />
+                  <Label layoutX="17.0" layoutY="111.0" prefHeight="17.0" prefWidth="111.0" text="Sexo*" />
+                  <DatePicker fx:id="fechaNacimientoDatePicker" layoutX="604.0" layoutY="67.0" prefHeight="25.0" prefWidth="164.0" promptText="mm/dd/aaaa" />
+                  <Label layoutX="605.0" layoutY="47.0" prefHeight="17.0" prefWidth="122.0" text="Fecha de Nacimiento*" />
+                  <Label layoutX="14.0" layoutY="7.0" text="Datos Personales">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="numeroDeCuilTextField" layoutX="604.0" layoutY="132.0" prefHeight="25.0" prefWidth="164.0" promptText="NUMERO DE CUIL" />
+                  <Label layoutX="605.0" layoutY="112.0" prefHeight="17.0" prefWidth="111.0" text="Numero de CUIL*" />
+               </children>
+            </Pane>
+            <Pane layoutX="4.0" layoutY="232.0" prefHeight="176.0" prefWidth="800.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="8.0" text="Dirección">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="paisComboBox" layoutX="14.0" layoutY="64.0" prefHeight="25.0" prefWidth="164.0" promptText="PAIS" />
+                  <Label layoutX="15.0" layoutY="45.0" prefHeight="17.0" prefWidth="57.0" text="Pais*" />
+                  <ComboBox fx:id="provinciaComboBox" layoutX="211.0" layoutY="64.0" prefHeight="25.0" prefWidth="164.0" promptText="PROVINCIA" />
+                  <Label layoutX="211.0" layoutY="42.0" prefHeight="17.0" prefWidth="57.0" text="Provincia*" />
+                  <ComboBox fx:id="localidadComboBox" layoutX="404.0" layoutY="64.0" prefHeight="25.0" prefWidth="164.0" promptText="LOCALIDAD" />
+                  <Label layoutX="402.0" layoutY="42.0" prefHeight="17.0" prefWidth="57.0" text="Localidad*" />
+                  <TextField fx:id="codigoPostalTextField" layoutX="601.0" layoutY="64.0" prefHeight="25.0" prefWidth="164.0" promptText="CODIGO POSTAL" />
+                  <Label layoutX="602.0" layoutY="45.0" prefHeight="17.0" prefWidth="83.0" text="Codigo Postal*" />
+                  <TextField fx:id="calleTextField" layoutX="15.0" layoutY="126.0" prefHeight="25.0" prefWidth="164.0" promptText="CALLE" />
+                  <TextField fx:id="numeroDeCalleTextField" layoutX="211.0" layoutY="126.0" prefHeight="25.0" prefWidth="164.0" promptText="NUMERO" />
+                  <TextField fx:id="pisoTextField" layoutX="404.0" layoutY="126.0" prefHeight="25.0" prefWidth="164.0" promptText="PISO" />
+                  <TextField fx:id="departamentoTextField" layoutX="602.0" layoutY="126.0" prefHeight="25.0" prefWidth="164.0" promptText="DEPARTAMENTO" />
+                  <Label layoutX="16.0" layoutY="107.0" prefHeight="17.0" prefWidth="57.0" text="Calle*" />
+                  <Label layoutX="212.0" layoutY="107.0" prefHeight="17.0" prefWidth="57.0" text="Numero*" />
+                  <Label layoutX="405.0" layoutY="107.0" prefHeight="17.0" prefWidth="57.0" text="Piso" />
+                  <Label layoutX="603.0" layoutY="107.0" prefHeight="17.0" prefWidth="83.0" text="Departamento" />
+               </children>
+            </Pane>
+            <Pane layoutY="408.0" prefHeight="176.0" prefWidth="800.0">
+               <children>
+                  <Label layoutX="19.0" layoutY="8.0" text="Datos de Facturación">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="correoElectronicoTextField" layoutX="216.0" layoutY="65.0" prefHeight="25.0" prefWidth="164.0" promptText="CORREO ELECTRÓNICO" />
+                  <Label layoutX="18.0" layoutY="46.0" prefHeight="17.0" prefWidth="133.0" text="Condición frente al IVA*" />
+                  <Label layoutX="216.0" layoutY="46.0" prefHeight="17.0" prefWidth="105.0" text="Correo Electrónico*" />
+                  <ComboBox fx:id="estadoCivilComboBox" layoutX="408.0" layoutY="65.0" prefHeight="25.0" prefWidth="164.0" promptText="ESTADO CIVIL" />
+                  <Label layoutX="408.0" layoutY="46.0" prefHeight="17.0" prefWidth="66.0" text="Estado Civil*" />
+                  <TextField fx:id="profesionTextField" layoutX="607.0" layoutY="65.0" prefHeight="25.0" prefWidth="164.0" promptText="PROFESION" />
+                  <Label layoutX="607.0" layoutY="45.0" prefHeight="17.0" prefWidth="83.0" text="Profesion*" />
+                  <TextField fx:id="anioTextField" layoutX="18.0" layoutY="127.0" prefHeight="25.0" prefWidth="164.0" promptText="AÑO" />
+                  <Label layoutX="19.0" layoutY="108.0" prefHeight="17.0" prefWidth="92.0" text="Año de Registro*" />
+                  <ComboBox fx:id="condicionIVAComboBox" layoutX="19.0" layoutY="65.0" prefHeight="25.0" prefWidth="164.0" promptText="CONDICION IVA" />
+               </children>
+            </Pane>
+            <Label layoutX="265.0" layoutY="10.0" prefHeight="30.0" prefWidth="231.0" text="Registro de Nuevo Cliente">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="638.0" layoutY="627.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Dar de Alta Cliente" />
+            <Label layoutX="546.0" layoutY="584.0" prefHeight="17.0" prefWidth="225.0" text="Verifique los datos ingresados antes de continuar">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Button layoutX="546.0" layoutY="627.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Cancelar" />
+            <Label layoutX="546.0" layoutY="605.0" prefHeight="17.0" prefWidth="201.0" text="Los campos marcados con * son obligatorios">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

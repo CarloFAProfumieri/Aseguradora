@@ -15,6 +15,12 @@ public class HijoDTO {
     private int estadoCivilId;
 
     private int edad;
+
+    @Override
+    public String toString() {
+        return "id: " + String.valueOf(idHijo)+ "- " + "fecha de nacimiento: "+fechaNacimiento.toString() + " sexo: " + sexo + " estado civil:"+ estadoCivil + " id: "+String.valueOf(estadoCivilId) + "Edad:"+String.valueOf(edad);
+    }
+
     public HijoDTO(LocalDate fechaNacimiento, Sexo sexo, String estadoCivil, int estadoCivilId) {
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;

@@ -67,8 +67,8 @@ public class Poliza {
     @ManyToOne
     @JoinColumn(name = "idValorPorcentualHijo")
     private ValorPorcentualHijo valorPorcentualHijo;
-    @OneToMany(mappedBy = "poliza")
-    private List<Hijo> hijosLista;
+    @OneToMany(mappedBy = "poliza", cascade = CascadeType.ALL)
+    private List<Hijo> hijosLista= new ArrayList<>();
     @Enumerated(EnumType.STRING)
     @Column(name = "formaPago")
     private FormaPago formaPago;
@@ -322,6 +322,7 @@ public class Poliza {
 
 
     public void agregarHijo(Hijo nuevoHijo) {
+        nuevoHijo.setPoliza(this);
         hijosLista.add(nuevoHijo);
     }
 

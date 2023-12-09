@@ -34,11 +34,12 @@ public class PolizaDTO {
     private Integer numeroCliente;
     private Integer idValorPorcentualHijo;
 
+    private String marca;
+    private String modelo;
+
     public void setIdValorPorcentualHijo(Integer idValorPorcentualHijo) {
         this.idValorPorcentualHijo = idValorPorcentualHijo;
     }
-
-    private String marca;
     public PolizaDTO(String numeroPoliza, Double premio, LocalDate fechaInicio, LocalDate fechaFin, Double montoTotal, String patente, String codigoMotor, List<LocalDate> ultimoDiaPago, int sumaAsegurada, String codigoChasis, Integer idLocalidad, Integer numeroCliente, Integer idModelo, Integer idTipoCobertura, Integer idCantidadSiniestros, Integer idKmPorAnio, Integer idValorPorcentualHijo, FormaPago formaPago, EstadoPoliza estadoPoliza) {
         this.numeroPoliza = numeroPoliza;
         this.premio = premio;
@@ -61,8 +62,20 @@ public class PolizaDTO {
         this.estadoPoliza = estadoPoliza;
     }
 
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
     public PolizaDTO() {
 
+    }
+
+    public String getMarca() {
+        return marca;
     }
 
     public Integer getNumeroCliente() {

@@ -1,12 +1,8 @@
 package com.example.aseguradora;
-import com.example.aseguradora.DAOs.EstadoCivilDAO;
 import com.example.aseguradora.DTOs.EstadoCivilDTO;
 import com.example.aseguradora.DTOs.HijoDTO;
 import com.example.aseguradora.enumeraciones.Sexo;
 import com.example.aseguradora.gestores.GestorPolizas;
-import com.example.aseguradora.persistentes.EstadoCivil;
-import com.example.aseguradora.persistentes.Hijo;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,7 +23,7 @@ import static javafx.collections.FXCollections.observableArrayList;
 
 public class AltaPolizaHijoController implements Initializable {
 
-    private AltaPoliza altaPolizaController;
+    private AltaPolizaController altaPolizaController;
 
     @FXML
     private DatePicker datePicker;
@@ -102,7 +98,7 @@ public class AltaPolizaHijoController implements Initializable {
         stage.close();
     }
 
-    public void setAltaPolizaController(AltaPoliza altaPolizaController) {
+    public void setAltaPolizaController(AltaPolizaController altaPolizaController) {
         this.altaPolizaController = altaPolizaController;
     }
 

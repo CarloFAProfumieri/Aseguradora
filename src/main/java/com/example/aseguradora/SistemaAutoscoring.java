@@ -6,7 +6,7 @@ import com.example.aseguradora.DTOs.ParametrosMontoDTO;
 
 import java.util.Random;
 
-public class CalculadoraMontos{
+public class SistemaAutoscoring {
 
     public static int calcularSumaAsegurada(int idModelo, int anio) {
         return generarSumaAseguradaAleatoria(3000000 + idModelo, 20000000 + anio);
@@ -41,5 +41,10 @@ public class CalculadoraMontos{
     public static int getSecuenciaRenovacion() {
         Random random = new Random();
         return random.nextInt(100);
+    }
+
+    public static int getCantidadSiniestros() {
+        Random random = new Random();
+        return random.nextInt(4)+1;
     }
 }
