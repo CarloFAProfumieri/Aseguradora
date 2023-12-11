@@ -37,8 +37,18 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }*/
-    //version sin scrollbar
 
+    //version sin scrollbar
+    public void start(Stage stage) throws IOException {
+        stg = stage;
+        stage.setResizable(false);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menuInicio.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 500);
+        stage.setTitle("Menu de Inicio");
+        stage.setScene(scene);
+        stage.show();
+    }
+    /*
     public void start(Stage stage) throws IOException {
         stg = stage;
         stage.setResizable(false);
@@ -49,46 +59,7 @@ public class Main extends Application {
         stage.show();
     }
 
-    /*
-    public void start(Stage stage) throws IOException{
-        stg = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("confirmarPoliza.fxml"));
-        Parent root = fxmlLoader.load();
-
-        Scene scene = new Scene(root, 906, 844);
-        stage.setTitle("Alta Poliza");
-        stage.setScene(scene);
-        stage.show();
-        ConfirmarPolizaController confirmarPolizaController = fxmlLoader.getController();
-
-        ConfirmarPolizaDTO confirmarPolizaDTO = new ConfirmarPolizaDTO();
-        confirmarPolizaDTO.setNumeroPoliza("123123");
-        confirmarPolizaDTO.setVehiculoMarca("pepeugeot");
-        confirmarPolizaDTO.setVehiculoModelo("50008");
-        confirmarPolizaDTO.setVehiculoMotor("312312");
-        confirmarPolizaDTO.setVehiculoChasis("143232");
-        confirmarPolizaDTO.setVehiculoPatente("ad13423");
-        confirmarPolizaDTO.setInicioCoberturaLocalDate(LocalDate.of(2023, 12, 7));
-        confirmarPolizaDTO.setFinalCoberturaLocalDate(LocalDate.of(2024, 5, 7));
-        confirmarPolizaDTO.setSumaAsegurada(123123);
-        confirmarPolizaDTO.setPremio(23123.2);
-        confirmarPolizaDTO.setModalidadDePagoFormaPago(FormaPago.MENSUAL);
-        List<LocalDate> ultimoDiaDePagoList = new ArrayList<>();
-
-        List<Double> pagosPorCuota = new ArrayList<>();
-        pagosPorCuota.add(14.2);
-        confirmarPolizaDTO.setPagosPorCuotaList(pagosPorCuota);
-        ultimoDiaDePagoList.add(LocalDate.of(2023, 12, 7));
-
-        List<Double> pagosPorCuota = new ArrayList<>();
-        pagosPorCuota.add(14.2);
-        confirmarPolizaDTO.setPagosPorCuotaList(pagosPorCuota);
-
-        confirmarPolizaDTO.setUltimoDiaPagoLocalDateList(ultimoDiaDePagoList);
-        confirmarPolizaDTO.setMontoTotal(1342312.45);
-        confirmarPolizaController.setPoliza(confirmarPolizaDTO);
-    }
-    */
+     */
     public static void main(String[] args) {
         Main.setHibernate(Level.SEVERE);
         launch();
