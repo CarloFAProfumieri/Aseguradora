@@ -151,8 +151,7 @@ public class AltaPolizaController implements Initializable{
         if (modeloComboBox.getValue()==null) return false;
         if (provinciaComboBox.getValue()==null) return false;
         if (localidadComboBox.getValue()==null) return false;
-        if (patenteTextField.getText()==null) return false;
-        if (chasisTextField.getText()==null) return false;
+        if (chasisTextField.getText().isEmpty()) return false;
         if (motorTextField.getText().isEmpty()) return false;
         if (kilometrosTextField.getText().isEmpty()) return false;
         if (siniestrosComboBox.getValue()==null) return false;
@@ -345,6 +344,8 @@ public class AltaPolizaController implements Initializable{
             clientDataPane.setDisable(false);
             middlePane.setDisable(true);
             buscarClienteButton.setDisable(false);
+            confirmarDatosButton.setDisable(true);
+            editarClienteButton.setDisable(true);
             successMessage.setVisible(false);
         }
         else {
