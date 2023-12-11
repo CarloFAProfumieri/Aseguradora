@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="671.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.altaClienteController">
+<AnchorPane prefHeight="628.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.altaClienteController">
    <children>
-      <Pane layoutY="2.0" prefHeight="671.0" prefWidth="800.0">
+      <Pane layoutY="2.0" prefHeight="614.0" prefWidth="800.0">
          <children>
             <Pane layoutX="1.0" layoutY="51.0" prefHeight="189.0" prefWidth="800.0">
                <children>
@@ -80,6 +80,11 @@
                   <TextField fx:id="anioTextField" layoutX="18.0" layoutY="127.0" prefHeight="25.0" prefWidth="164.0" promptText="AÑO" />
                   <Label layoutX="19.0" layoutY="108.0" prefHeight="17.0" prefWidth="92.0" text="Año de Registro*" />
                   <ComboBox fx:id="condicionIVAComboBox" layoutX="19.0" layoutY="65.0" prefHeight="25.0" prefWidth="164.0" promptText="CONDICION IVA" />
+                  <Label layoutX="673.0" layoutY="136.0" prefHeight="17.0" prefWidth="98.0" text="(*) Datos obligatorios">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Label layoutX="265.0" layoutY="10.0" prefHeight="30.0" prefWidth="231.0" text="Registro de Nuevo Cliente">
@@ -87,18 +92,8 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button layoutX="638.0" layoutY="627.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Dar de Alta Cliente" />
-            <Label layoutX="546.0" layoutY="584.0" prefHeight="17.0" prefWidth="225.0" text="Verifique los datos ingresados antes de continuar">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-            <Button layoutX="546.0" layoutY="627.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Cancelar" />
-            <Label layoutX="546.0" layoutY="605.0" prefHeight="17.0" prefWidth="201.0" text="Los campos marcados con * son obligatorios">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
+            <Button layoutX="638.0" layoutY="581.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Dar de Alta Cliente" />
+            <Button layoutX="546.0" layoutY="581.0" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="25.0" prefWidth="83.0" text="Cancelar" />
          </children>
       </Pane>
    </children>

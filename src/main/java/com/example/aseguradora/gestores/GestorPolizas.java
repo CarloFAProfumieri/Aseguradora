@@ -255,7 +255,7 @@ public class GestorPolizas {
         cliente.setNombre("Carlo");
         cliente.setApellido("Profumieri");
         cliente.setNumeroDocumento(412456332);
-        cliente.setTipoDocumento(1);
+        cliente.setTipoDocumentoId(1);
         cliente.setNumeroCliente(42059);
         cliente.setFechaNacimiento(LocalDate.now().minusYears(25));
         return cliente;

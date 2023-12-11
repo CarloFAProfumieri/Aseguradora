@@ -1,9 +1,11 @@
 package com.example.aseguradora;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class altaClienteController {
 
@@ -20,5 +22,10 @@ public class altaClienteController {
 
     public static void main(String[] args) {
 
+    }
+
+    public void cancelarAction(ActionEvent event) {
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

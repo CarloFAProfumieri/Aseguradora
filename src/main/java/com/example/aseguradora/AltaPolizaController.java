@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -295,12 +296,11 @@ public class AltaPolizaController implements Initializable{
         datosPolizaDTO.setUltimoDiaPago(ultimodiapago);
         datosPolizaDTO.setMarca(marcaComboBox.getValue().getNombre());
     }
-
     private void actualizarDatosClienteDTO() {
         clienteDTO.setNumeroCliente(Integer.parseInt(String.valueOf(Integer.valueOf(nroClienteTextField.getText()))));
         clienteDTO.setNombre(nombreTextField.getText());
         clienteDTO.setApellido(apellidoTextField.getText());
-        clienteDTO.setTipoDocumento(tipoDocumentoComboBox.getValue().getIdTipoDocumento());
+        clienteDTO.setTipoDocumentoId(tipoDocumentoComboBox.getValue().getIdTipoDocumento());
         clienteDTO.setNumeroDocumento(Integer.parseInt(nroDeDocumentoTextField.getText()));
     }
 
@@ -506,6 +506,9 @@ public class AltaPolizaController implements Initializable{
         stage.showAndWait();
 
 
+    }
+
+    public void revisarPatente(KeyEvent keyEvent) {
     }
 }
 

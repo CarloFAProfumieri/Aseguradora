@@ -2,7 +2,6 @@ package com.example.aseguradora.DTOs;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 
 public class ClienteDTO {
     private int numeroCliente;
@@ -11,6 +10,7 @@ public class ClienteDTO {
     private String apellido;
     private String nombre;
     private LocalDate fechaNacimiento;
+    private String tipoDocumento;
     public ClienteDTO(int numeroCliente, int tipoDocumento, int numeroDocumento, String apellido, String nombre) {
         this.numeroCliente = numeroCliente;
         this.tipoDocumentoId = tipoDocumento;
@@ -27,7 +27,7 @@ public class ClienteDTO {
         this.numeroCliente = numeroCliente;
     }
 
-    public void setTipoDocumento(int tipoDocumentoId) {
+    public void setTipoDocumentoId(int tipoDocumentoId) {
         this.tipoDocumentoId = tipoDocumentoId;
     }
 
@@ -77,6 +77,15 @@ public class ClienteDTO {
     public LocalDate getFechaNacimiento(){
         return this.fechaNacimiento;
     }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
     public int getEdadConductor() {
         LocalDate fechaActual = LocalDate.now();
         Period periodo = Period.between(this.fechaNacimiento, fechaActual);
