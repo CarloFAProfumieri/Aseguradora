@@ -25,6 +25,9 @@ public class Cuota {
     @Basic
     @Column(name = "importeFinal")
     private Double importeFinal;
+    @ManyToOne
+    @JoinColumn(name = "pagoPoliza")
+    private PagoPoliza pagoPoliza;
 
     public Cuota() {
 
@@ -80,5 +83,13 @@ public class Cuota {
 
     public void setImporteFinal(Double importeFinal) {
         this.importeFinal = importeFinal;
+    }
+
+    public PagoPoliza getPagoPoliza() {
+        return pagoPoliza;
+    }
+
+    public void setPagoPoliza(PagoPoliza pagoPoliza) {
+        this.pagoPoliza = pagoPoliza;
     }
 }
