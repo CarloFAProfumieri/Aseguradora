@@ -49,5 +49,13 @@
         <mapping class="com.example.aseguradora.persistentes.AnioFabricacion"/>
         <mapping class="com.example.aseguradora.persistentes.PagoPoliza"/>
         <mapping class="com.example.aseguradora.persistentes.Usuario"/>
+        <mapping class="com.example.aseguradora.persistentes.ModificacionProximaPoliza"/>
+        <mapping class="com.example.aseguradora.persistentes.HistoriaCantSiniestros"/>
+        <mapping class="com.example.aseguradora.persistentes.HistoriaCobertura"/>
+        <mapping class="com.example.aseguradora.persistentes.HistoriaHijos"/>
+        <mapping class="com.example.aseguradora.persistentes.HistoriaKmPorAnio"/>
+        <mapping class="com.example.aseguradora.persistentes.HistoriaLocalidad"/>
+        <mapping class="com.example.aseguradora.persistentes.HistoriaMedidaSeguridad"/>
+        <mapping class="com.example.aseguradora.persistentes.HistoriaModelo"/>
     </session-factory>
 </hibernate-configuration>
