@@ -89,12 +89,12 @@ public class ConfirmarPolizaController implements Initializable {
         List<LocalDate> ultimoDiaDePagoList = confirmarPolizaDTO.getUltimoDiaPagoLocalDateList();
         StringBuilder ultimoDiaDePago = new StringBuilder();
         for (LocalDate fecha : ultimoDiaDePagoList) {
-            ultimoDiaDePago.append(fecha.getMonthValue()).append("/").append(fecha.getDayOfMonth()).append(" ");
+            ultimoDiaDePago.append(fecha.getYear()).append("/").append(fecha.getMonthValue()).append("/").append(fecha.getDayOfMonth()).append("  ");
         }
 
         ultimoDiaPagoValueLabel.setText(ultimoDiaDePago.toString());
 
-        montoTotalValueLabel.setText(String.valueOf(confirmarPolizaDTO.getMontoTotal()));
+        montoTotalValueLabel.setText("$" + String.valueOf(confirmarPolizaDTO.getMontoTotal()));
 
 
     }

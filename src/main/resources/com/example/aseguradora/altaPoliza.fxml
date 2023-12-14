@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.AltaPolizaController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.AltaPolizaController">
     <children>
         <Pane fx:id="upperPane" layoutX="1.0" prefHeight="147.0" prefWidth="906.0">
             <children>
@@ -106,9 +94,9 @@
                 <ComboBox fx:id="localidadComboBox" disable="true" layoutX="137.0" layoutY="367.0" prefHeight="25.0" prefWidth="136.0" promptText="LOCALIDAD" />
                 <Label layoutX="20.0" layoutY="326.0" text="Provincia" />
                 <Label layoutX="20.0" layoutY="371.0" text="Localidad" />
-                <TextField fx:id="chasisTextField" layoutX="431.0" layoutY="319.0" prefHeight="25.0" prefWidth="136.0" promptText="Chasis" />
-                <TextField fx:id="motorTextField" layoutX="431.0" layoutY="367.0" prefHeight="25.0" prefWidth="136.0" promptText="Motor" />
-                <TextField fx:id="kilometrosTextField" layoutX="749.0" layoutY="318.0" prefHeight="25.0" prefWidth="136.0" promptText="Kilometros" />
+                <TextField fx:id="chasisTextField" layoutX="431.0" layoutY="319.0" onKeyTyped="#verificarCodigoChasis" prefHeight="25.0" prefWidth="136.0" promptText="Chasis" />
+                <TextField fx:id="motorTextField" layoutX="431.0" layoutY="367.0" onKeyTyped="#verificarCodigoMotor" prefHeight="25.0" prefWidth="136.0" promptText="Motor" />
+                <TextField fx:id="kilometrosTextField" layoutX="749.0" layoutY="318.0" onKeyTyped="#verificarKmPorAnio" prefHeight="25.0" prefWidth="136.0" promptText="Kilometros" />
             <ComboBox fx:id="siniestrosComboBox" layoutX="749.0" layoutY="367.0" prefHeight="25.0" prefWidth="136.0" promptText="Siniestros" />
                 <TextField fx:id="sumaAseguradaTextField" disable="true" layoutX="711.0" layoutY="415.0" prefHeight="25.0" prefWidth="174.0" promptText="\$" />
                 <Label layoutX="600.0" layoutY="419.0" text="Suma asegurada" />

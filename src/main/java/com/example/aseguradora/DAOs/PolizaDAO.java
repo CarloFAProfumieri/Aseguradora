@@ -54,6 +54,30 @@ public class PolizaDAO {
             return count > 0;
         }
     }
+    public boolean existeChasisVigente(String codigoChasis) {
+        EstadoPoliza estadoPoliza = EstadoPoliza.GENERADA;
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT COUNT(*) FROM Poliza p WHERE p.codigoChasis = :chasis AND p.estadoPoliza = :estadoPoliza";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("chasis", codigoChasis);
+            query.setParameter("estadoPoliza",estadoPoliza);
+
+            Long count = query.uniqueResult();
+            return count > 0;
+        }
+    }
+    public boolean existeMotorVigente(String codigoMotor) {
+        EstadoPoliza estadoPoliza = EstadoPoliza.GENERADA;
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT COUNT(*) FROM Poliza p WHERE p.codigoMotor = :motor AND p.estadoPoliza = :estadoPoliza";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("motor", codigoMotor);
+            query.setParameter("estadoPoliza",estadoPoliza);
+
+            Long count = query.uniqueResult();
+            return count > 0;
+        }
+    }
     public List<Poliza> getAllPolizas() {
         try (Session session = sessionFactory.openSession()) {
             Query<Poliza> query = session.createQuery("FROM Poliza ", Poliza.class);

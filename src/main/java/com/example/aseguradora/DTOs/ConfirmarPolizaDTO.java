@@ -54,6 +54,9 @@ public class ConfirmarPolizaDTO {
         if (modalidadDePagoFormaPago.equals(FormaPago.MENSUAL)){
             for(int i = 0;i<6;i++) {
                 pagosPorCuotaList.add(montoTotal/6.0);
+                if(i>0) {
+                    ultimoDiaPagoLocalDateList.add(ultimoDiaPagoLocalDateList.getLast().plusMonths(1));
+                }
             }
         }
     }

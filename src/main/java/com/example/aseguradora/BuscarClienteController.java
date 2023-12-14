@@ -131,7 +131,6 @@ public class BuscarClienteController implements Initializable {
         System.out.println("Texto ingresado: " + nroDocumentoTextField.getText());
     }
 
-
     @FXML
     private void verificarNroCliente() {
         try {
@@ -157,6 +156,53 @@ public class BuscarClienteController implements Initializable {
 
         // Puedes seguir con la lógica adicional aquí
         System.out.println("Texto ingresado: " + nroClienteTextField.getText());
+    }
+
+    @FXML
+    private void verificarApellido() {
+        try {
+            int posicionCursor = apellidoTextField.getCaretPosition();
+            String textoActual = apellidoTextField.getText();
+            StringBuilder nuevoTexto = new StringBuilder();
+
+            for (char caracter : textoActual.toCharArray()) {
+                if (Character.isAlphabetic(caracter) || Character.isWhitespace(caracter) || caracter=='-') {
+                    nuevoTexto.append(caracter);
+                }
+            }
+            if (nuevoTexto.length() > 40) {
+                nuevoTexto.setLength(40);
+            }
+
+            apellidoTextField.setText(nuevoTexto.toString());
+            apellidoTextField.positionCaret(posicionCursor);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Texto ingresado: " + apellidoTextField.getText());
+    }
+    @FXML
+    private void verificarNombre() {
+        try {
+            int posicionCursor = nombreTextField.getCaretPosition();
+            String textoActual = nombreTextField.getText();
+            StringBuilder nuevoTexto = new StringBuilder();
+
+            for (char caracter : textoActual.toCharArray()) {
+                if (Character.isAlphabetic(caracter) || Character.isWhitespace(caracter) || caracter=='-') {
+                    nuevoTexto.append(caracter);
+                }
+            }
+            if (nuevoTexto.length() > 40) {
+                nuevoTexto.setLength(40);
+            }
+
+            nombreTextField.setText(nuevoTexto.toString());
+            nombreTextField.positionCaret(posicionCursor);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Texto ingresado: " + nombreTextField.getText());
     }
 
     public void cancelarAction(ActionEvent event) {

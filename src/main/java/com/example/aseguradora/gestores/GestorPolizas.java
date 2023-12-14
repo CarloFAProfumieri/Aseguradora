@@ -272,6 +272,12 @@ public class GestorPolizas {
     public boolean existePatenteVigente(String numeroDePatente) {
         return polizaDAO.existePatenteVigente(numeroDePatente);
     }
+    public boolean existeChasisVigente(String codigoChasis) {
+        return polizaDAO.existeChasisVigente(codigoChasis);
+    }
+    public boolean existeMotorVigente(String codigoMotor) {
+        return polizaDAO.existeMotorVigente(codigoMotor);
+    }
 
 }
 

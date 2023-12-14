@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="554.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.BuscarClienteController">
+<AnchorPane prefHeight="554.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.BuscarClienteController">
    <children>
       <Pane prefHeight="554.0" prefWidth="814.0">
          <children>
             <TextField fx:id="nroClienteTextField" layoutX="32.0" layoutY="46.0" onKeyTyped="#verificarNroCliente" prefHeight="25.0" prefWidth="174.0" promptText="NRO DE CLIENTE" />
             <ComboBox fx:id="tipoDocumentoDTOComboBox" layoutX="320.0" layoutY="46.0" prefHeight="25.0" prefWidth="174.0" promptText="TIPO DE DOCUMENTO" />
             <TextField fx:id="nroDocumentoTextField" layoutX="606.0" layoutY="46.0" onKeyTyped="#verificarNroDocumento" prefHeight="25.0" prefWidth="174.0" promptText="NUMERO DE DOCUMENTO" />
-            <TextField fx:id="apellidoTextField" layoutX="32.0" layoutY="111.0" prefHeight="25.0" prefWidth="174.0" promptText="APELLIDO" />
-            <TextField fx:id="nombreTextField" layoutX="320.0" layoutY="111.0" prefHeight="25.0" prefWidth="174.0" promptText="NOMBRE" />
+            <TextField fx:id="apellidoTextField" layoutX="32.0" layoutY="111.0" onKeyTyped="#verificarApellido" prefHeight="25.0" prefWidth="174.0" promptText="APELLIDO" />
+            <TextField fx:id="nombreTextField" layoutX="320.0" layoutY="111.0" onKeyTyped="#verificarNombre" prefHeight="25.0" prefWidth="174.0" promptText="NOMBRE" />
             <ComboBox fx:id="numeroDePaginasComboBox" layoutX="606.0" layoutY="111.0" prefHeight="25.0" prefWidth="44.0" />
             <Button layoutX="686.0" layoutY="136.0" mnemonicParsing="false" onAction="#buscarClienteAction" prefHeight="25.0" prefWidth="94.0" text="Buscar" />
             <Label layoutX="320.0" layoutY="94.0" text="Nombre" />
