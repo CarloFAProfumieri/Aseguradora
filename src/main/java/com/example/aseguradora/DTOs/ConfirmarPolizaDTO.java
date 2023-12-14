@@ -52,7 +52,7 @@ public class ConfirmarPolizaDTO {
         }
 
         if (modalidadDePagoFormaPago.equals(FormaPago.MENSUAL)){
-            for(int i = 0;i<=6;i++) {
+            for(int i = 0;i<6;i++) {
                 pagosPorCuotaList.add(montoTotal/6.0);
             }
         }

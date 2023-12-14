@@ -1,5 +1,6 @@
 package com.example.aseguradora.DAOs;
 
+import com.example.aseguradora.DTOs.ClienteDTO;
 import com.example.aseguradora.persistentes.Cliente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,24 +45,54 @@ public class ClienteDAO {
     public void getCliente(int numeroCliente) {
     }
 
-    public static void main(String[] args) {
-        Configuration configuration = new Configuration().configure(ClienteDAO.class.getClassLoader().getResource("hibernate.cfg.xml"));
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
+    public List<Cliente> getClientes(ClienteDTO unClienteDTO, int cantidadMaximaDeResultados) {
+        try (Session session = sessionFactory.openSession()) {
+            StringBuilder queryString = new StringBuilder("FROM Cliente c WHERE 1=1");
 
-        ClienteDAO clienteDAO = new ClienteDAO();
+            if (unClienteDTO.getNumeroCliente() != 0) {
+                queryString.append(" AND c.numeroCliente = :numeroCliente");
+            }
 
-        // Ahora puedes usar clienteDAO para interactuar con la base de datos
-        // por ejemplo, guardar un nuevo cliente
-        Cliente nuevoCliente = new Cliente(/* Datos del cliente */);
-        clienteDAO.guardarCliente(nuevoCliente);
+            if (unClienteDTO.getTipoDocumentoId() != 0) {
+                queryString.append(" AND c.tipoDocumento.idTipoDocumento = :idTipoDocumento");
+            }
 
-        // Obtener un cliente por número
-        int numeroCliente = 1;
-        Cliente clienteObtenido = clienteDAO.obtenerClientePorNumero(numeroCliente);
-        System.out.println("Cliente obtenido: " + clienteObtenido);
+            if (unClienteDTO.getNumeroDocumento() != 0){
+                queryString.append(" AND c.numeroDocumento = :numeroDocumento");
+            }
 
-        // Obtener todos los clientes
-        List<Cliente> todosLosClientes = clienteDAO.obtenerTodosLosClientes();
-        System.out.println("Todos los clientes: " + todosLosClientes);
+            if (unClienteDTO.getApellido() != null){
+                queryString.append(" AND LOWER(c.apellido) LIKE LOWER(:apellido)");
+            }
+            if (unClienteDTO.getNombre() != null){
+                queryString.append(" AND LOWER(c.nombre) LIKE LOWER(:nombre)");
+            }
+
+            // Agrega condiciones similares para otros campos
+
+            Query<Cliente> query = session.createQuery(queryString.toString(), Cliente.class);
+
+            if (unClienteDTO.getNumeroCliente() != 0) {
+                query.setParameter("numeroCliente", unClienteDTO.getNumeroCliente());
+            }
+
+            if (unClienteDTO.getTipoDocumentoId() != 0) {
+                query.setParameter("idTipoDocumento", unClienteDTO.getTipoDocumentoId());
+            }
+
+            if (unClienteDTO.getNumeroDocumento() != 0){
+                query.setParameter("numeroDocumento", unClienteDTO.getNumeroDocumento());
+            }
+            if (unClienteDTO.getApellido() != null){
+                query.setParameter("apellido","%" + unClienteDTO.getApellido() + "%");
+            }
+            if (unClienteDTO.getNombre() != null){
+                query.setParameter("nombre", "%" + unClienteDTO.getNombre() + "%");
+            }
+            // Setea parámetros similares para otros campos
+
+            return query.getResultList();
+        }
     }
+
 }

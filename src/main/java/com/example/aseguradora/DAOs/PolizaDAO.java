@@ -1,6 +1,7 @@
 package com.example.aseguradora.DAOs;
 
 import com.example.aseguradora.DTOs.PolizaDTO;
+import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.persistentes.Poliza;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,11 +42,13 @@ public class PolizaDAO {
             return session.get(Poliza.class, numeroPoliza);
         }
     }
-    public boolean existePatente(String numeroDePatente) {
+    public boolean existePatenteVigente(String numeroDePatente) {
+        EstadoPoliza estadoPoliza = EstadoPoliza.GENERADA;
         try (Session session = sessionFactory.openSession()) {
-            String hql = "SELECT COUNT(*) FROM Poliza p WHERE p.patente = :patente";
+            String hql = "SELECT COUNT(*) FROM Poliza p WHERE p.patente = :patente AND p.estadoPoliza = :estadoPoliza";
             Query<Long> query = session.createQuery(hql, Long.class);
             query.setParameter("patente", numeroDePatente);
+            query.setParameter("estadoPoliza",estadoPoliza);
 
             Long count = query.uniqueResult();
             return count > 0;

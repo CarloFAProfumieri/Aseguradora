@@ -269,9 +269,9 @@ public class GestorPolizas {
         return 0;
         }
 
-    public boolean existePatente(String numeroDePatente) {
-        System.out.println("EXISTE LA PATENTE?: " + polizaDAO.existePatente(numeroDePatente));
-        return polizaDAO.existePatente(numeroDePatente);
+    public boolean existePatenteVigente(String numeroDePatente) {
+        return polizaDAO.existePatenteVigente(numeroDePatente);
     }
+
 }
 

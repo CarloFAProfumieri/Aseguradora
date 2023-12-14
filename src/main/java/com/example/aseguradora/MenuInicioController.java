@@ -1,18 +1,31 @@
 package com.example.aseguradora;
 
+import com.example.aseguradora.DAOs.MarcaDAO;
+import com.example.aseguradora.gestores.GestorClientes;
+import com.example.aseguradora.gestores.GestorPolizas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MenuInicioController {
+public class MenuInicioController implements Initializable {
     @FXML Button darAltaPolizaButton, darAltaClienteButton;
+    GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
+    GestorClientes gestorClientes = GestorClientes.obtenerInstancia();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
     private static Stage stg;
     public void darAltaPolizaAction(ActionEvent evento) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("altaPoliza.fxml"));
@@ -20,6 +33,8 @@ public class MenuInicioController {
 
         Stage altaPolizaStage = new Stage();
         altaPolizaStage.setTitle("Alta Poliza");
+        Image imagen = new Image("com/example/aseguradora/iconoMedium.png");
+        altaPolizaStage.getIcons().add(imagen);
         altaPolizaStage.initModality(Modality.WINDOW_MODAL);
         altaPolizaStage.initOwner(stg);
 
@@ -27,14 +42,17 @@ public class MenuInicioController {
         altaPolizaStage.setScene(scene);
         altaPolizaStage.setResizable(false);
 
-        altaPolizaStage.show();
+        altaPolizaStage.showAndWait();
     }
+
     public void darAltaClienteAction(ActionEvent evento) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("altaCliente.fxml"));
         Parent altaClienteParent = fxmlLoader.load();
 
         Stage altaClienteStage = new Stage();
         altaClienteStage.setTitle("Alta Cliente");
+        Image imagen = new Image("com/example/aseguradora/iconoMedium.png");
+        altaClienteStage.getIcons().add(imagen);
         altaClienteStage.initModality(Modality.WINDOW_MODAL);
         altaClienteStage.initOwner(stg);
 
@@ -42,7 +60,7 @@ public class MenuInicioController {
         altaClienteStage.setScene(scene);
         altaClienteStage.setResizable(false);
 
-        altaClienteStage.show();
+        altaClienteStage.showAndWait();
     }
 
     public void consultarClienteAction(ActionEvent evento) throws IOException {
@@ -51,14 +69,16 @@ public class MenuInicioController {
 
         Stage buscarClienteStage = new Stage();
         buscarClienteStage.setTitle("Buscar Cliente");
+        Image imagen = new Image("com/example/aseguradora/iconoMedium.png");
+        buscarClienteStage.getIcons().add(imagen);
         buscarClienteStage.initModality(Modality.WINDOW_MODAL);
         buscarClienteStage.initOwner(stg);
 
-        Scene scene = new Scene(buscarClienteParent, 815, 554);  // Ajusta ANCHO y ALTO según tus preferencias
+        Scene scene = new Scene(buscarClienteParent, 815, 554);
         buscarClienteStage.setScene(scene);
         buscarClienteStage.setResizable(false);
 
-        buscarClienteStage.show();
+        buscarClienteStage.showAndWait();
     }
 
 

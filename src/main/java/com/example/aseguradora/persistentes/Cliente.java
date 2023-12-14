@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class Cliente {
     private String apellido;
     @Basic
     @Column(name = "fechaNacimiento")
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     @Basic
     @Column(name = "cuil")
     private String cuil;
@@ -80,11 +81,11 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

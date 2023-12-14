@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -45,6 +46,8 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menuInicio.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 500);
         stage.setTitle("Menu de Inicio");
+        Image imagen = new Image("com/example/aseguradora/iconoMedium.png");
+        stage.getIcons().add(imagen);
         stage.setScene(scene);
         stage.show();
     }

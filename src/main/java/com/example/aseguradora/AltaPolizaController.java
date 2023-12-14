@@ -3,6 +3,9 @@ import com.example.aseguradora.DTOs.*;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import com.example.aseguradora.gestores.GestorPolizas;
+import javafx.animation.PauseTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,14 +15,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
 
 import static javafx.collections.FXCollections.observableArrayList;
@@ -40,12 +48,13 @@ public class AltaPolizaController implements Initializable{
     @FXML private DatePicker inicioCoberturaDatePicker;
     @FXML private TextField sumaAseguradaTextField, apellidoTextField, kilometrosTextField, motorTextField, nombreTextField, nroClienteTextField, nroDeDocumentoTextField, patenteTextField, chasisTextField;
     @FXML private Pane middlePane, bottomPane, clientDataPane;
-    @FXML private Label successMessage;
     @FXML private TextArea descripcionCoberturaTextArea;
     @FXML private TableView<HijoDTO> hijosTabla;
     @FXML private TableColumn<HijoDTO,Integer> edadColumn;
     @FXML private TableColumn<HijoDTO,Character> sexoColumn;
     @FXML private TableColumn<HijoDTO, String> estadoCivilColumn;
+    @FXML private Label patenteErrorLabel, chasisErrorLabel, motorErrorLabel;
+    @FXML private Tooltip patenteErrorTooltip, chasisErrorTooltip, motorErrorTooltip;
     ObservableList<HijoDTO> listaHijos = observableArrayList();
     GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
     List<LocalidadDTO>  localidadesCargadas; //cambiar a listas de objetos
@@ -60,11 +69,19 @@ public class AltaPolizaController implements Initializable{
     PolizaDTO datosPolizaDTO = new PolizaDTO();
     ClienteDTO clienteDTO = new ClienteDTO();
     List<HijoDTO> hijoDTOs = new ArrayList<>();
+    private boolean busquedaExitosa = false;
+    private boolean patenteValida = true;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //ACCESO BASE DE DATOS
         accesosABaseDeDatos();
         //ACCESO BASE DE DATOS
+        listeners();
+        clientDataPane.setDisable(true);
+        patenteErrorLabel.setVisible(false);
+        chasisErrorLabel.setVisible(false);
+        motorErrorLabel.setVisible(false);
         inicializarModalidadDePagoComboBox();
         calcularPremioButton.setDisable(true);
         edadColumn.setStyle("-fx-alignment: CENTER;");
@@ -76,6 +93,111 @@ public class AltaPolizaController implements Initializable{
         hijosTabla.setItems(listaHijos);
         LocalDate fechaInicial = LocalDate.now().plusDays(1);
         inicioCoberturaDatePicker.setValue(fechaInicial);
+    }
+
+    private void listeners() {
+        listenerPatente();
+    }
+
+    private void listenerPatente() {
+        patenteTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    quitarErrorViewer(patenteErrorLabel);
+                } else {
+                    patenteValida = formatearVerificarPatenteIngresada();
+                }
+            }
+        });
+    }
+
+    private void quitarErrorViewer(Label label){
+        label.setVisible(false);
+    }
+    private boolean formatearVerificarPatenteIngresada() {
+        String input = patenteTextField.getText().toUpperCase();
+        // Use a regular expression to check if the input matches the format AA-999-AA
+        if (input.matches("[A-Z]{2}-\\d{3}-[A-Z]{2}")) {
+            formatearPatente(1);
+            return true;
+        }
+        if (input.matches("[A-Z]{2}\\d{3}[A-Z]{2}")){
+            formatearPatente(2);
+            return true;
+        }
+        if (input.matches("[A-Z]{3}-\\d{3}")){
+            formatearPatente(1);
+            return true;
+        }
+        if (input.matches("[A-Z]{3}\\d{3}")){
+            formatearPatente(2);
+            return true;
+        }
+        if ("".equals(input)){
+            return true;
+        }
+        mostrarErrorViewer("MODERADO", patenteErrorLabel, patenteErrorTooltip,"Por favor ingrese un formato de patente válido", true);
+        return false;
+    }
+    private void mostrarErrorViewer(String severidad, Label label, Tooltip tooltip, String mensaje, boolean mostrar) {
+        double screenY = getYCoordinate(tooltip,label);
+        double screenX = getXCoordinate(tooltip,label);
+        Stage stage = (Stage) label.getScene().getWindow();
+
+        if ("GRAVE".equals(severidad)) {
+            label.setTextFill(Color.RED);
+        } else if ("MODERADO".equals(severidad)) {
+            label.setTextFill(Color.ORANGE);
+        }
+        tooltip.setText(mensaje);
+        tooltip.setShowDelay(Duration.ZERO);
+        label.setVisible(true);
+        if (mostrar) {
+            tooltip.show(stage, screenX, screenY);
+            Duration delay = Duration.seconds(1.5);
+            PauseTransition delayTransition = new PauseTransition(delay);
+            delayTransition.setOnFinished(event -> tooltip.hide());
+            delayTransition.play();
+        }
+    }
+    private double getXCoordinate(Tooltip tooltip, Label label){
+        double screenX = label.localToScreen(label.getBoundsInLocal()).getMinX();
+        double maxX = Screen.getPrimary().getVisualBounds().getMaxX();
+        if (screenX + tooltip.getWidth() > maxX) {
+            screenX = maxX - tooltip.getWidth();
+        }
+        return screenX;
+    }
+    private double getYCoordinate(Tooltip tooltip, Label label){
+        double screenY = label.localToScreen(label.getBoundsInLocal()).getMinY();
+        double maxY = Screen.getPrimary().getVisualBounds().getMaxY();
+        if (screenY + tooltip.getHeight() > maxY) {
+            screenY = maxY - tooltip.getHeight();
+        }
+        return screenY;
+    }
+    private void formatearPatente(int caso) {
+        switch (caso) {
+            case 1: //tiene guiones
+                patenteTextField.setText((patenteTextField.getText().toUpperCase()));
+                return;
+            case 2: //no tiene guiones
+                patenteTextField.setText((agregarGuionesPatente(patenteTextField.getText().toUpperCase())));
+                return;
+        }
+    }
+    private String agregarGuionesPatente(String patente) {
+        patente = patente.replaceAll("-", "");
+
+        // Verificar la longitud del texto y agregar guiones según el formato AA-999-AA
+        if (patente.length() == 7) {
+            return patente.substring(0, 2) + "-" + patente.substring(2, 5) + "-" + patente.substring(5);
+        }
+        if (patente.length() == 6){
+            return patente.substring(0,3) + "-" + patente.substring(3,6);
+        }
+        return patente;
     }
 
     private void accesosABaseDeDatos() {
@@ -135,10 +257,10 @@ public class AltaPolizaController implements Initializable{
     }
     public void confirmarDatosAction(ActionEvent evento) throws IOException{
         if (!validarDatosIngresadosVehiculo()) {
-            mostrarVentanaError("No se completaron todos los campos");
+            mostrarVentanaError("Los campos no fueron completados correctamente");
             return;
         }
-        if (gestorPolizas.existePatente(patenteTextField.getText())){ //AGREGAR: DE UNA POLIZA ACTIVA!
+        if (gestorPolizas.existePatenteVigente(patenteTextField.getText())){
             mostrarVentanaError("Patente ya existente en la base de datos");
             return;
         }
@@ -155,6 +277,7 @@ public class AltaPolizaController implements Initializable{
         if (motorTextField.getText().isEmpty()) return false;
         if (kilometrosTextField.getText().isEmpty()) return false;
         if (siniestrosComboBox.getValue()==null) return false;
+        if (!patenteValida) return false;
         return true;
     }
 
@@ -180,11 +303,38 @@ public class AltaPolizaController implements Initializable{
     }
 
     public void buscarClienteAction(ActionEvent evento) throws IOException{
-        busquedaCliente();
+        abrirVentanaBuscarCliente();
+        if (!busquedaExitosa){
+            return;
+        }
+        setCamposCliente();
         int idCantidadSiniestros = SistemaAutoscoring.getCantidadSiniestros();
         setCantidadSiniestros(idCantidadSiniestros);
         setEstado2();
+        busquedaExitosa = false;
     }
+    private void abrirVentanaBuscarCliente() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("buscarCliente.fxml"));
+            Parent root = loader.load();
+
+            BuscarClienteController buscarClienteController = loader.getController();
+
+            // Configurar una referencia a AltaPoliza en AltaPolizaHijoController
+            buscarClienteController.setAltaPolizaController(this);
+            Stage stage = new Stage();
+            Image imagen = new Image("com/example/aseguradora/iconoMedium.png");
+            stage.setTitle("Busqueda de Cliente");
+            stage.getIcons().add(imagen);
+            stage.setScene(new Scene(root, 815, 554));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Manejar la excepción según sea necesario
+        }
+    }
+
     private void setCantidadSiniestros(int cantidadSiniestrosId){
         for(CantidadSiniestrosDTO unaCantSiniestrosIterada : cantidadDeSiniestrosList){
             if (unaCantSiniestrosIterada.getIdCantidadSiniestros() == cantidadSiniestrosId){
@@ -329,9 +479,9 @@ public class AltaPolizaController implements Initializable{
         try {
             return Integer.parseInt(numericValue);
         } catch (NumberFormatException e) {
-            System.err.println("Error al convertir a entero: " + e.getMessage());
-            return 0;
+            mostrarVentanaError("Error al obtener la suma asegurada. Reinicie el programa para continuar");
         }
+        return 0;
     }
     public void actualizarQuitarHijobutton(){
         if (listaHijos.isEmpty()) quitarHijoButton.setDisable(true);
@@ -340,19 +490,18 @@ public class AltaPolizaController implements Initializable{
 
 
     public void editarClienteToggle(){
-        if (clientDataPane.isDisabled()){
-            clientDataPane.setDisable(false);
+        if (buscarClienteButton.isDisabled()){
+            //clientDataPane.setDisable(false);
             middlePane.setDisable(true);
             buscarClienteButton.setDisable(false);
-            confirmarDatosButton.setDisable(true);
             editarClienteButton.setDisable(true);
-            successMessage.setVisible(false);
+            confirmarDatosButton.setDisable(true);
         }
         else {
-            clientDataPane.setDisable(true);
+            //clientDataPane.setDisable(true);
             middlePane.setDisable(false);
             buscarClienteButton.setDisable(true);
-            successMessage.setVisible(true);
+            confirmarDatosButton.setDisable(false);
         }
     }
     private void setEstado2() {
@@ -364,7 +513,6 @@ public class AltaPolizaController implements Initializable{
         modificarDatosButton.setDisable(true);
         confirmarDatosButton.setDisable(false);
         bottomPane.setDisable(true);
-        successMessage.setVisible(false); // este mensaje se podria quitar despues de unos segundos usando threads...
         actualizarQuitarHijobutton();
         calcularPremioButton.setDisable(true);
     }
@@ -375,7 +523,6 @@ public class AltaPolizaController implements Initializable{
         confirmarDatosButton.setDisable(true);
         bottomPane.setDisable(false);
         editarClienteButton.setDisable(true);
-        successMessage.setVisible(false);
         calcularPremioButton.setDisable(false);
     }
     private void habilitarLocalidades() {
@@ -411,14 +558,12 @@ public class AltaPolizaController implements Initializable{
         setEstado2();
     }
 
-    private void busquedaCliente() {
-        clienteDTO = gestorPolizas.getClienteDTO();
+    private void setCamposCliente() {
         apellidoTextField.setText(clienteDTO.getApellido());
         nombreTextField.setText(clienteDTO.getNombre());
         nroClienteTextField.setText(clienteDTO.getNumeroClienteString());
         seleccionarTipoDocumento(clienteDTO.getTipoDocumentoId());
         nroDeDocumentoTextField.setText(clienteDTO.getNumeroDocumentoString());
-        //editarClienteButton.setDisable(false);
     }
     private void seleccionarTipoDocumento(int tipoDocumentoId){
         for (TipoDocumentoDTO tipoDocumento : tipoDocumentoComboBox.getItems()) {
@@ -440,12 +585,13 @@ public class AltaPolizaController implements Initializable{
             altaPolizaHijoController.setAltaPolizaController(this);
             Stage stage = new Stage();
             stage.setTitle("Alta de Póliza para Hijo");
+            Image imagen = new Image("com/example/aseguradora/iconoMedium.png");
+            stage.getIcons().add(imagen);
             stage.setScene(new Scene(root, 422, 201));
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
-            // Manejar la excepción según sea necesario
+            mostrarVentanaError("Error fatal. Reinicie el programa para continuar");
         }
     }
 
@@ -469,7 +615,9 @@ public class AltaPolizaController implements Initializable{
             // Crear la escena y el escenario (Stage)
             Scene scene = new Scene(root);
             Stage stage = new Stage();
+            Image imagen = new Image("com/example/aseguradora/error.png");
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.getIcons().add(imagen);
             stage.setTitle("Error");
             stage.setScene(scene);
 
@@ -480,17 +628,6 @@ public class AltaPolizaController implements Initializable{
         }
     }
 
-
-
-    /*public void calcularPremioAction(ActionEvent evento) throws IOException {
-
-        // Llamar al método para cargar la pantalla ConfirmarPolizaController
-        cargarPantallaConfirmarPoliza();
-    }
-
-     */
-
-    // Nuevo método para cargar la pantalla ConfirmarPolizaController
     private void cargarPantallaConfirmarPoliza(ConfirmarPolizaDTO confirmarPolizaDTO) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmarPoliza.fxml"));
         Parent root = loader.load();
@@ -501,6 +638,8 @@ public class AltaPolizaController implements Initializable{
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("DATOS DE LA PÓLIZA");
+        Image imagen = new Image("com/example/aseguradora/iconoMedium.png");
+        stage.getIcons().add(imagen);
         stage.setScene(scene);
 
         confirmarPolizaController.setPoliza(confirmarPolizaDTO);
@@ -510,6 +649,11 @@ public class AltaPolizaController implements Initializable{
     }
 
     public void revisarPatente(KeyEvent keyEvent) {
+    }
+
+    public void setClienteDTO(ClienteDTO clienteSeleccionado) {
+        busquedaExitosa = true;
+        clienteDTO = clienteSeleccionado;
     }
 }
 
