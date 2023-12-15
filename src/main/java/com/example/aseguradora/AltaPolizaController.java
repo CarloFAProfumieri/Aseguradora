@@ -2,6 +2,7 @@ package com.example.aseguradora;
 import com.example.aseguradora.DTOs.*;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
+import com.example.aseguradora.gestores.GestorClientes;
 import com.example.aseguradora.gestores.GestorPolizas;
 import javafx.animation.PauseTransition;
 import javafx.beans.value.ChangeListener;
@@ -58,6 +59,7 @@ public class AltaPolizaController implements Initializable{
     @FXML private Tooltip patenteErrorTooltip, chasisErrorTooltip, motorErrorTooltip;
     ObservableList<HijoDTO> listaHijos = observableArrayList();
     GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
+    GestorClientes gestorClientes = GestorClientes.obtenerInstancia();
     List<LocalidadDTO>  localidadesCargadas; //cambiar a listas de objetos
     List<ModeloDTO> modelosCargados;
     List <TipoCoberturaDTO> tiposDeCoberturaLista;
@@ -501,6 +503,7 @@ public class AltaPolizaController implements Initializable{
         String numeroDePolizaGenerada;
         try{
             numeroDePolizaGenerada = gestorPolizas.generarPoliza(datosPolizaDTO, getHijosDTO(), clienteDTO);
+            gestorClientes.actualizarEstadoCliente(clienteDTO);
         }catch (Exception e){
             PopupController.mostrarVentanaError("Error al guardar la Poliza" + e.getMessage());
             return;

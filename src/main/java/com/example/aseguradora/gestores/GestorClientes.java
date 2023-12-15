@@ -56,4 +56,7 @@ public class GestorClientes {
                 }).collect(Collectors.toList());
     }
 
+    public void actualizarEstadoCliente(ClienteDTO clienteDTO) {
+        System.out.println("ACTUALIZAR ESTADO CLIENTE");
+    }
 }
