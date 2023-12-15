@@ -139,13 +139,13 @@ public class BuscarClienteController implements Initializable {
                     nuevoTexto.append(caracter);
                 }
             }
+            nuevoTexto.setLength(10);
 
             nroDocumentoTextField.setText(nuevoTexto.toString());
             nroDocumentoTextField.positionCaret(posicionCursor);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Texto ingresado: " + nroDocumentoTextField.getText());
     }
 
     @FXML
@@ -162,6 +162,7 @@ public class BuscarClienteController implements Initializable {
                     nuevoTexto.append(caracter);
                 }
             }
+            nuevoTexto.setLength(10);
 
             // Establecer el nuevo texto en el campo de texto
             nroClienteTextField.setText(nuevoTexto.toString());
@@ -170,9 +171,6 @@ public class BuscarClienteController implements Initializable {
             // Manejar excepciones, si es necesario
             e.printStackTrace();
         }
-
-        // Puedes seguir con la lógica adicional aquí
-        System.out.println("Texto ingresado: " + nroClienteTextField.getText());
     }
 
     @FXML
@@ -187,16 +185,13 @@ public class BuscarClienteController implements Initializable {
                     nuevoTexto.append(caracter);
                 }
             }
-            if (nuevoTexto.length() > 40) {
-                nuevoTexto.setLength(40);
-            }
+            nuevoTexto.setLength(40);
 
             apellidoTextField.setText(nuevoTexto.toString());
             apellidoTextField.positionCaret(posicionCursor);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Texto ingresado: " + apellidoTextField.getText());
     }
     @FXML
     private void verificarNombre() {
@@ -210,16 +205,13 @@ public class BuscarClienteController implements Initializable {
                     nuevoTexto.append(caracter);
                 }
             }
-            if (nuevoTexto.length() > 40) {
-                nuevoTexto.setLength(40);
-            }
+            nuevoTexto.setLength(40);
 
             nombreTextField.setText(nuevoTexto.toString());
             nombreTextField.positionCaret(posicionCursor);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Texto ingresado: " + nombreTextField.getText());
     }
 
     public void cancelarAction(ActionEvent event) {

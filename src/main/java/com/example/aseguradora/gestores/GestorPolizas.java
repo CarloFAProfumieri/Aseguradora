@@ -241,7 +241,7 @@ public class GestorPolizas {
             poliza.setUltimoDiaPago(datosPolizaDTO.getUltimoDiaPago());
             poliza.addCuotas(cuotasLista);
         }
-        String numeroPoliza = poliza.generarNroPoliza(1, SistemaAutoscoring.getSecuenciaRenovacion());
+        String numeroPoliza = poliza.generarNroPoliza(SistemaAutoscoring.getSucursal(), SistemaAutoscoring.getSecuenciaRenovacion());
         poliza.setNumeroPoliza(numeroPoliza);
         ValorPorcentualHijo valorPorcentualHijo = valorPorcentualHijoDAO.getValorPorcentualHijo(datosPolizaDTO.getIdValorPorcentualHijo());
         poliza.setValorPorcentualHijo(valorPorcentualHijo);

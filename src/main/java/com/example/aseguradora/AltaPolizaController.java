@@ -54,7 +54,7 @@ public class AltaPolizaController implements Initializable{
     @FXML private TableColumn<HijoDTO,Integer> edadColumn;
     @FXML private TableColumn<HijoDTO,Character> sexoColumn;
     @FXML private TableColumn<HijoDTO, String> estadoCivilColumn;
-    @FXML private Label patenteErrorLabel, chasisErrorLabel, motorErrorLabel;
+    @FXML private Label marcaErrorLabel, modeloErrorLabel, anioErrorLabel, patenteErrorLabel, provinciaErrorLabel, localidadErrorLabel, chasisErrorLabel, motorErrorLabel, kmErrorLabel;
     @FXML private Tooltip patenteErrorTooltip, chasisErrorTooltip, motorErrorTooltip;
     ObservableList<HijoDTO> listaHijos = observableArrayList();
     GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
@@ -72,8 +72,8 @@ public class AltaPolizaController implements Initializable{
     List<HijoDTO> hijoDTOs = new ArrayList<>();
     private boolean busquedaExitosa = false;
     private boolean patenteValida = true;
-    private boolean chasisValido = false;
-    private boolean motorValido = false;
+   // private boolean chasisValido = false;
+   // private boolean motorValido = false;
     private MenuInicioController mainMenu;
 
     @Override
@@ -83,9 +83,15 @@ public class AltaPolizaController implements Initializable{
         //ACCESO BASE DE DATOS
         listeners();
         clientDataPane.setDisable(true);
+        marcaErrorLabel.setVisible(false);
+        modeloErrorLabel.setVisible(false);
+        anioErrorLabel.setVisible(false);
         patenteErrorLabel.setVisible(false);
+        provinciaErrorLabel.setVisible(false);
+        localidadErrorLabel.setVisible(false);
         chasisErrorLabel.setVisible(false);
         motorErrorLabel.setVisible(false);
+        kmErrorLabel.setVisible(false);
         inicializarModalidadDePagoComboBox();
         calcularPremioButton.setDisable(true);
         edadColumn.setStyle("-fx-alignment: CENTER;");
@@ -101,8 +107,8 @@ public class AltaPolizaController implements Initializable{
 
     private void listeners() {
         listenerPatente();
-        listenerChasis();
-        listenerMotor();
+        //listenerChasis();
+        //listenerMotor();
     }
 
     private void listenerPatente() {
@@ -117,7 +123,7 @@ public class AltaPolizaController implements Initializable{
             }
         });
     }
-    private void listenerChasis() {
+    /*private void listenerChasis() {
         chasisTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -140,7 +146,7 @@ public class AltaPolizaController implements Initializable{
                 }
             }
         });
-    }
+    }*/
 
     private void quitarErrorViewer(Label label){
         label.setVisible(false);
@@ -170,7 +176,7 @@ public class AltaPolizaController implements Initializable{
         mostrarErrorViewer("MODERADO", patenteErrorLabel, patenteErrorTooltip,"Por favor ingrese un formato de patente válido", true);
         return false;
     }
-    private boolean validarChasisIngresado() {
+    /*private boolean validarChasisIngresado() {
         chasisTextField.setText(chasisTextField.getText().toUpperCase());
         if(chasisTextField.getText().length()!=17) {
             mostrarErrorViewer("MODERADO", chasisErrorLabel, chasisErrorTooltip,"Por favor verifique la longitud del código de chasis", true);
@@ -183,7 +189,7 @@ public class AltaPolizaController implements Initializable{
             mostrarErrorViewer("MODERADO", motorErrorLabel, motorErrorTooltip,"Por favor verifique la longitud del código de motor", true);
             return false;
         }else return true;
-    }
+    }*/
     private void mostrarErrorViewer(String severidad, Label label, Tooltip tooltip, String mensaje, boolean mostrar) {
         double screenY = getYCoordinate(tooltip,label);
         double screenX = getXCoordinate(tooltip,label);
@@ -319,19 +325,44 @@ public class AltaPolizaController implements Initializable{
         setEstado3();
     }
     private boolean validarDatosIngresadosVehiculo() {
-        if (anioComboBox.getValue() == null) return false;
-        if (marcaComboBox.getValue()==null) return false;
-        if (modeloComboBox.getValue()==null) return false;
-        if (provinciaComboBox.getValue()==null) return false;
-        if (localidadComboBox.getValue()==null) return false;
-        if (chasisTextField.getText().isEmpty()) return false;
-        if (motorTextField.getText().isEmpty()) return false;
-        if (kilometrosTextField.getText().isEmpty()) return false;
-        if (siniestrosComboBox.getValue()==null) return false;
-        if (!patenteValida) return false;
-        if (!chasisValido) return false;
-        if (!motorValido) return false;
-        return true;
+        boolean validez=true;
+        if (anioComboBox.getValue() == null) {
+            anioErrorLabel.setVisible(true);
+            validez=false;
+        }else anioErrorLabel.setVisible(false);
+        if (marcaComboBox.getValue()==null) {
+            marcaErrorLabel.setVisible(true);
+            validez=false;
+        }else marcaErrorLabel.setVisible(false);
+        if (modeloComboBox.getValue()==null) {
+            modeloErrorLabel.setVisible(true);
+            validez=false;
+        }else modeloErrorLabel.setVisible(false);
+        if (provinciaComboBox.getValue()==null) {
+            provinciaErrorLabel.setVisible(true);
+            validez=false;
+        }else provinciaErrorLabel.setVisible(false);
+        if (localidadComboBox.getValue()==null) {
+            localidadErrorLabel.setVisible(true);
+            validez=false;
+        }else localidadErrorLabel.setVisible(false);
+        if (chasisTextField.getText().isEmpty()) {
+            chasisErrorLabel.setVisible(true);
+            validez=false;
+        } else chasisErrorLabel.setVisible(false);
+        if (motorTextField.getText().isEmpty()) {
+            motorErrorLabel.setVisible(true);
+            validez=false;
+        }else motorErrorLabel.setVisible(false);
+        if (kilometrosTextField.getText().isEmpty()) {
+            kmErrorLabel.setVisible(true);
+            validez=false;
+        }else kmErrorLabel.setVisible(false);
+        if (siniestrosComboBox.getValue()==null) validez=false;;
+        if (!patenteValida) validez=false;;
+        //if (!chasisValido) return false;
+        //if (!motorValido) return false;
+        return validez;
     }
     private boolean fechaInicioValida(){
         if (inicioCoberturaDatePicker.getValue().isBefore(LocalDate.now().plusDays(1))) {
@@ -513,8 +544,8 @@ public class AltaPolizaController implements Initializable{
         datosPolizaDTO.setFechaFin(inicioCoberturaDatePicker.getValue().plusMonths(6));
         datosPolizaDTO.setFormaPago(modalidadDePagoComboBox.getValue());
         datosPolizaDTO.setPatente(patenteTextField.getText());
-        datosPolizaDTO.setCodigoMotor(motorTextField.getText());
-        datosPolizaDTO.setCodigoChasis(chasisTextField.getText());
+        datosPolizaDTO.setCodigoMotor(motorTextField.getText().toUpperCase());
+        datosPolizaDTO.setCodigoChasis(chasisTextField.getText().toUpperCase());
         datosPolizaDTO.setIdTipoCobertura(tipoCoberturaComboBox.getValue().getIdTipo());
         datosPolizaDTO.setAnio(Integer.parseInt(anioComboBox.getValue().toString()));
         datosPolizaDTO.setIdModelo(modeloComboBox.getValue().getIdModelo());
@@ -710,6 +741,25 @@ public class AltaPolizaController implements Initializable{
         clienteDTO = clienteSeleccionado;
     }
 
+    public void verificarPatente() {
+        try {
+            int posicionCursor = patenteTextField.getCaretPosition();
+            String textoActual = patenteTextField.getText();
+            StringBuilder nuevoTexto = new StringBuilder();
+
+            for (char caracter : textoActual.toCharArray()) {
+                if (Character.isLetterOrDigit(caracter) || caracter=='-') {
+                    nuevoTexto.append(caracter);
+                }
+            }
+            nuevoTexto.setLength(9);
+
+            patenteTextField.setText(nuevoTexto.toString());
+            patenteTextField.positionCaret(posicionCursor);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void verificarCodigoChasis() {
         try {
             int posicionCursor = chasisTextField.getCaretPosition();
@@ -721,10 +771,7 @@ public class AltaPolizaController implements Initializable{
                     nuevoTexto.append(caracter);
                 }
             }
-
-            if (nuevoTexto.length() > 17) {
-                nuevoTexto.setLength(17);
-            }
+            nuevoTexto.setLength(17);
 
             chasisTextField.setText(nuevoTexto.toString());
             chasisTextField.positionCaret(posicionCursor);
@@ -744,10 +791,7 @@ public class AltaPolizaController implements Initializable{
                     nuevoTexto.append(caracter);
                 }
             }
-
-            if (nuevoTexto.length() > 10) {
-                nuevoTexto.setLength(10);
-            }
+            nuevoTexto.setLength(10);
 
             motorTextField.setText(nuevoTexto.toString());
             motorTextField.positionCaret(posicionCursor);
@@ -767,10 +811,7 @@ public class AltaPolizaController implements Initializable{
                     nuevoTexto.append(caracter);
                 }
             }
-
-            if (nuevoTexto.length() > 6) {
-                nuevoTexto.setLength(6);
-            }
+            nuevoTexto.setLength(6);
 
             kilometrosTextField.setText(nuevoTexto.toString());
             kilometrosTextField.positionCaret(posicionCursor);

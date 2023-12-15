@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.AltaPolizaController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.AltaPolizaController">
     <children>
         <Pane fx:id="upperPane" layoutX="1.0" prefHeight="147.0" prefWidth="906.0">
             <children>
@@ -38,7 +50,7 @@
                 <ComboBox fx:id="marcaComboBox" layoutX="136.0" layoutY="110.0" onAction="#marcaSelectedAction" prefHeight="25.0" prefWidth="136.0" promptText="MARCA" />
                 <ComboBox fx:id="modeloComboBox" disable="true" layoutX="136.0" layoutY="147.0" onAction="#modeloSelectedAction" prefHeight="25.0" prefWidth="136.0" promptText="MODELO" />
                 <ComboBox fx:id="anioComboBox" disable="true" layoutX="137.0" layoutY="183.0" onAction="#anioComboBoxSelected" prefHeight="25.0" prefWidth="136.0" promptText="AÑO" />
-                <TextField fx:id="patenteTextField" layoutX="137.0" layoutY="223.0" onKeyPressed="#revisarPatente" prefHeight="25.0" prefWidth="136.0" promptText="PATENTE" />
+                <TextField fx:id="patenteTextField" layoutX="137.0" layoutY="223.0" onKeyTyped="#verificarPatente" prefHeight="25.0" prefWidth="136.0" promptText="PATENTE" />
                 <CheckBox fx:id="alarmaCheckBox" layoutX="345.0" layoutY="113.0" mnemonicParsing="false" text="Tiene alarma" />
                 <CheckBox fx:id="garageCheckBox" layoutX="345.0" layoutY="153.0" mnemonicParsing="false" text="Se guarda en garage" />
                 <CheckBox fx:id="rastreoVehicularCheckBox" layoutX="345.0" layoutY="191.0" mnemonicParsing="false" text="Posee dispositivo de Rastreo Vehicular" />
@@ -104,30 +116,19 @@
                 <Label layoutX="345.0" layoutY="371.0" text="Motor" />
                 <Label layoutX="599.0" layoutY="323.0" text="Kilometros por año" />
                 <Label layoutX="599.0" layoutY="370.0" text="Siniestros en el último año" />
+            <Label fx:id="marcaErrorLabel" layoutX="279.0" layoutY="112.0" text="(*)" textFill="RED" />
+            <Label fx:id="modeloErrorLabel" layoutX="279.0" layoutY="149.0" text="(*)" textFill="RED" />
+            <Label fx:id="anioErrorLabel" layoutX="279.0" layoutY="185.0" text="(*)" textFill="RED" />
             <Label fx:id="patenteErrorLabel" layoutX="279.0" layoutY="225.0" text="(*)" textFill="RED">
                <tooltip>
                   <Tooltip fx:id="patenteErrorTooltip" opacity="0.67" text="Por favor ingrese un formato de patente valido" />
                </tooltip>
-               <font>
-                  <Font size="15.0" />
-               </font>
             </Label>
-            <Label fx:id="chasisErrorLabel" layoutX="570.0" layoutY="321.0" text="(*)" textFill="RED">
-               <tooltip>
-                  <Tooltip fx:id="chasisErrorTooltip" opacity="0.67" text="Por favor ingrese un formato de patente valido" />
-               </tooltip>
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="motorErrorLabel" layoutX="570.0" layoutY="369.0" text="(*)" textFill="RED">
-               <tooltip>
-                  <Tooltip fx:id="motorErrorTooltip" opacity="0.67" text="Por favor ingrese un formato de patente valido" />
-               </tooltip>
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
+            <Label fx:id="provinciaErrorLabel" layoutX="279.0" layoutY="324.0" text="(*)" textFill="RED" />
+            <Label fx:id="localidadErrorLabel" layoutX="279.0" layoutY="369.0" text="(*)" textFill="RED" />
+            <Label fx:id="chasisErrorLabel" layoutX="570.0" layoutY="321.0" text="(*)" textFill="RED" />
+            <Label fx:id="motorErrorLabel" layoutX="570.0" layoutY="369.0" text="(*)" textFill="RED" />
+            <Label fx:id="kmErrorLabel" layoutX="888.0" layoutY="320.0" text="(*)" textFill="RED" />
             </children>
         </Pane>
         <Separator layoutY="628.0" prefHeight="3.0" prefWidth="906.0" />

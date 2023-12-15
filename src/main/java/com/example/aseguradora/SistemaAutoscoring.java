@@ -32,8 +32,9 @@ public class SistemaAutoscoring {
         parametrosMontoDTO.setPrima(montoAsegurado / 100); // Ejemplo: prima del 1% del monto asegurado
         parametrosMontoDTO.setDescuento(anio * 10); // Ejemplo: descuento de 10 por cada año de antigüedad
         parametrosMontoDTO.setDerechoEmision(edadConductor * 5); // Ejemplo: derecho de emisión de 5 por cada año de edad
+        parametrosMontoDTO.setPremio(parametrosMontoDTO.getPrima() + parametrosMontoDTO.getDerechoEmision());
         parametrosMontoDTO.setBaseAnualPrima(parametrosMontoDTO.getPrima() - parametrosMontoDTO.getDescuento());
-        parametrosMontoDTO.setMontoTotal((double) (parametrosMontoDTO.getBaseAnualPrima() + parametrosMontoDTO.getDerechoEmision()));
+        parametrosMontoDTO.setMontoTotal((double) (parametrosMontoDTO.getPremio() - parametrosMontoDTO.getDescuento()));
 
         return parametrosMontoDTO;
     }
@@ -41,6 +42,10 @@ public class SistemaAutoscoring {
     public static int getSecuenciaRenovacion() {
         Random random = new Random();
         return random.nextInt(100);
+    }
+    public static int getSucursal() {
+        Random random = new Random();
+        return random.nextInt(10);
     }
 
     public static int getCantidadSiniestros() {

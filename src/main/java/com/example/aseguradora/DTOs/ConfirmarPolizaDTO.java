@@ -20,7 +20,7 @@ public class ConfirmarPolizaDTO {
     private LocalDate finalCoberturaLocalDate;
     private int sumaAsegurada;
     private Double premio;
-    private int importePorDescuento;
+    private Double importePorDescuento;
     private FormaPago modalidadDePagoFormaPago;
     private List<LocalDate> ultimoDiaPagoLocalDateList;
 
@@ -42,7 +42,7 @@ public class ConfirmarPolizaDTO {
         finalCoberturaLocalDate = poliza.getFechaFin();
         sumaAsegurada = poliza.getSumaAsegurada();
         premio = poliza.getPremio();
-        importePorDescuento = 4231;
+        importePorDescuento = poliza.getDescuento();
         modalidadDePagoFormaPago = poliza.getFormaPago();
         ultimoDiaPagoLocalDateList = poliza.getUltimoDiaPago();
         montoTotal = poliza.getMontoTotal();
@@ -167,11 +167,11 @@ public class ConfirmarPolizaDTO {
         this.premio = premio;
     }
 
-    public int getImportePorDescuento() {
+    public Double getImportePorDescuento() {
         return importePorDescuento;
     }
 
-    public void setImportePorDescuento(int importePorDescuento) {
+    public void setImportePorDescuento(Double importePorDescuento) {
         this.importePorDescuento = importePorDescuento;
     }
 
