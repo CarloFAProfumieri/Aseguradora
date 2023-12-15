@@ -72,7 +72,7 @@ public class Poliza {
     @Enumerated(EnumType.STRING)
     @Column(name = "formaPago")
     private FormaPago formaPago;
-    @OneToMany(mappedBy = "poliza")
+    @OneToMany(mappedBy = "poliza", cascade = CascadeType.ALL)
     private List<Cuota> cuotas;
     @Enumerated(EnumType.STRING)
     @Column(name = "estadoPoliza")

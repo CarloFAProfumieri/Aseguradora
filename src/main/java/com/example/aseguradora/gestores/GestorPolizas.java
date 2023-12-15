@@ -227,6 +227,7 @@ public class GestorPolizas {
                 Cuota cuota = new Cuota(fechaInicio.plusMonths(i));
                 LocalDate ultimoDiaDePago_i = primerFechaUltimoDiaPago.plusMonths(i);
                 cuota.setImporte(montoPorCuota);
+                cuota.setPoliza(poliza);
                 listaFechasDeVencimiento.add(ultimoDiaDePago_i);
                 cuotasLista.add(cuota);
             }
