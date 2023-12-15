@@ -75,7 +75,7 @@ public class AltaPolizaHijoController implements Initializable {
         EstadoCivilDTO estadoCivilSeleccionado = estadoCivilComboBox.getValue();
 
         if (fechaNacimiento == null || estadoCivilSeleccionado == null || sexoComboBox.getValue() == null) {
-            altaPolizaController.mostrarVentanaError("Debe completar la información correspondiente");
+            PopupController.mostrarVentanaError("Debe completar la información correspondiente");
             return;
         }
 
@@ -85,7 +85,7 @@ public class AltaPolizaHijoController implements Initializable {
         int edad = Period.between(fechaNacimiento1, fechaActual).getYears();
 
         if(edad<18 || edad >30) {
-            altaPolizaController.mostrarVentanaError("La edad debe estar entre 18 y 30 años");
+            PopupController.mostrarVentanaError("La edad debe estar entre 18 y 30 años");
             return;
         }
         HijoDTO nuevoHijo = new HijoDTO(fechaNacimiento1, sexoHijo, estadoCivilSeleccionado.toString(), estadoCivilSeleccionado.getIdEstadoCivil());

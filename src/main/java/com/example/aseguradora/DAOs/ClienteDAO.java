@@ -45,28 +45,9 @@ public class ClienteDAO {
     public void getCliente(int numeroCliente) {
     }
 
-    public List<Cliente> getClientes(ClienteDTO unClienteDTO, int cantidadMaximaDeResultados) {
+    public List<Cliente> getClientes(ClienteDTO unClienteDTO, int cantidadMaximaDeResultados, int desde) {
         try (Session session = sessionFactory.openSession()) {
-            StringBuilder queryString = new StringBuilder("FROM Cliente c WHERE 1=1");
-
-            if (unClienteDTO.getNumeroCliente() != 0) {
-                queryString.append(" AND c.numeroCliente = :numeroCliente");
-            }
-
-            if (unClienteDTO.getTipoDocumentoId() != 0) {
-                queryString.append(" AND c.tipoDocumento.idTipoDocumento = :idTipoDocumento");
-            }
-
-            if (unClienteDTO.getNumeroDocumento() != 0){
-                queryString.append(" AND c.numeroDocumento = :numeroDocumento");
-            }
-
-            if (unClienteDTO.getApellido() != null){
-                queryString.append(" AND LOWER(c.apellido) LIKE LOWER(:apellido)");
-            }
-            if (unClienteDTO.getNombre() != null){
-                queryString.append(" AND LOWER(c.nombre) LIKE LOWER(:nombre)");
-            }
+            StringBuilder queryString = getStringBuilder(unClienteDTO);
 
             // Agrega condiciones similares para otros campos
 
@@ -89,10 +70,34 @@ public class ClienteDAO {
             if (unClienteDTO.getNombre() != null){
                 query.setParameter("nombre", "%" + unClienteDTO.getNombre() + "%");
             }
-            // Setea parámetros similares para otros campos
-
+            query.setFirstResult(desde);
+            query.setMaxResults(cantidadMaximaDeResultados);
             return query.getResultList();
         }
+    }
+
+    private static StringBuilder getStringBuilder(ClienteDTO unClienteDTO) {
+        StringBuilder queryString = new StringBuilder("FROM Cliente c WHERE 1=1"); // 1=1 para que si no se cargó nada en el clienteDTO se devuelvan todos los clientes
+
+        if (unClienteDTO.getNumeroCliente() != 0) {
+            queryString.append(" AND c.numeroCliente = :numeroCliente");
+        }
+
+        if (unClienteDTO.getTipoDocumentoId() != 0) {
+            queryString.append(" AND c.tipoDocumento.idTipoDocumento = :idTipoDocumento");
+        }
+
+        if (unClienteDTO.getNumeroDocumento() != 0){
+            queryString.append(" AND c.numeroDocumento = :numeroDocumento");
+        }
+
+        if (unClienteDTO.getApellido() != null){
+            queryString.append(" AND LOWER(c.apellido) LIKE LOWER(:apellido)");
+        }
+        if (unClienteDTO.getNombre() != null){
+            queryString.append(" AND LOWER(c.nombre) LIKE LOWER(:nombre)");
+        }
+        return queryString;
     }
 
 }

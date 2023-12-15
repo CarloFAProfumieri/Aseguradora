@@ -25,8 +25,8 @@ public class GestorClientes {
     public static GestorClientes obtenerInstancia() {
         return instancia;
     }
-    public List<ClienteDTO> getClientes(ClienteDTO unClienteDTO, int numeroDeResultados){
-        return clienteDAO.getClientes(unClienteDTO, numeroDeResultados)
+    public List<ClienteDTO> getClientes(ClienteDTO unClienteDTO, int numeroDeResultados, int desde){
+        return clienteDAO.getClientes(unClienteDTO, numeroDeResultados, desde)
                 .stream()
                 .map(cliente -> {
                     ClienteDTO clienteDTO = new ClienteDTO();
@@ -37,6 +37,7 @@ public class GestorClientes {
                     clienteDTO.setTipoDocumentoId(cliente.getTipoDocumento().getIdTipoDocumento());
                     clienteDTO.setTipoDocumento(cliente.getTipoDocumento().getNombre());
                     clienteDTO.setFechaNacimiento(cliente.getFechaNacimiento());
+                    System.out.println(clienteDTO);
                     return clienteDTO;
                 }).collect(Collectors.toList());
     }

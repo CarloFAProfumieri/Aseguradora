@@ -85,7 +85,6 @@ public class ConfirmarPolizaController implements Initializable {
         // }
 
 
-
         List<LocalDate> ultimoDiaDePagoList = confirmarPolizaDTO.getUltimoDiaPagoLocalDateList();
         StringBuilder ultimoDiaDePago = new StringBuilder();
         for (LocalDate fecha : ultimoDiaDePagoList) {
@@ -103,52 +102,15 @@ public class ConfirmarPolizaController implements Initializable {
     private void cancelarConfirmarAction() {
         Stage stage = (Stage) confirmarPolizaCancelarButton.getScene().getWindow();
         stage.close();
-        System.out.println("Operación cancelada");
     }
 
     @FXML
     private void generarPolizaAction(ActionEvent evento) throws IOException {
         GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
         //gestorPolizas.emitirPoliza(valoresDePolizaDTO);
-        System.out.println("Generando la póliza...");
         Stage stage = (Stage) ((javafx.scene.Node) evento.getSource()).getScene().getWindow();
         stage.close();
         altaPolizaController.confirmarPolizaAction(evento);
     }
 
-    public static void main(String[] args) throws IOException { //deprecated test case
-        /*
-        Stage stage = new Stage();
-        stage.setResizable(false);
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("confirmarPoliza.fxml"));
-        Parent root = fxmlLoader.load();
-
-        Scene scene = new Scene(root, 906, 844);
-        stage.setTitle("Alta Poliza");
-        stage.setScene(scene);
-        stage.show();
-        ConfirmarPolizaController confirmarPolizaController = fxmlLoader.getController();
-
-        Poliza unaPoliza = new Poliza();
-        Cliente unCliente = new Cliente();
-        ConfirmarPolizaDTO confirmarPolizaDTO = new ConfirmarPolizaDTO(unaPoliza,unCliente);
-        unaPoliza.setNumeroPoliza("123123");
-        confirmarPolizaDTO.setVehiculoMarca("pepeugeot");
-        confirmarPolizaDTO.setVehiculoModelo("50008");
-        confirmarPolizaDTO.setVehiculoMotor("312312");
-        confirmarPolizaDTO.setVehiculoChasis("143232");
-        confirmarPolizaDTO.setVehiculoPatente("ad13423");
-        confirmarPolizaDTO.setInicioCoberturaLocalDate(LocalDate.of(2023, 12, 7));
-        confirmarPolizaDTO.setFinalCoberturaLocalDate(LocalDate.of(2024, 5, 7));
-        confirmarPolizaDTO.setSumaAsegurada(123123);
-        confirmarPolizaDTO.setPremio(23123.2);
-        confirmarPolizaDTO.setModalidadDePagoFormaPago(FormaPago.SEMESTRAL);
-        List<LocalDate> ultimoDiaDePagoList = new ArrayList<>();
-        ultimoDiaDePagoList.add(LocalDate.of(2023, 12, 7));
-        confirmarPolizaDTO.setUltimoDiaPagoLocalDateList(ultimoDiaDePagoList);
-        confirmarPolizaDTO.setMontoTotal(1342312.45);
-
-        confirmarPolizaController.setPoliza(confirmarPolizaDTO);
-        */
-    }
 }

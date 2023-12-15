@@ -6,17 +6,15 @@ import com.example.aseguradora.gestores.GestorClientes;
 import com.example.aseguradora.gestores.GestorPolizas;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -40,12 +38,16 @@ public class BuscarClienteController implements Initializable {
     @FXML private TableColumn<ClienteDTO, String> tipoDocumentoColumn;
     @FXML private TableColumn<ClienteDTO, Integer> nroDocumentoColumn;
     @FXML private Button seleccionarButton;
+    @FXML Pagination paginacion;
     AltaPolizaController altaPolizaController;
     List<TipoDocumentoDTO> tiposDeDocumentoLista;
     ObservableList<ClienteDTO> listaClientes = observableArrayList();
     GestorClientes gestorClientes = GestorClientes.obtenerInstancia();
-    List<ClienteDTO> clientesLista = new ArrayList<>();
+
     GestorPolizas gestorPolizas = GestorPolizas.getInstancia();
+    private int cantidadTotalClientes = 0;
+    private boolean cargarPaginacion = false;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         inicializarTipoDocumentoComboBox();
@@ -61,8 +63,35 @@ public class BuscarClienteController implements Initializable {
         clientesTabla.setItems(listaClientes);
         Label customPlaceholder = new Label("Complete los datos necesarios y haga clic en 'Buscar' para visualizar los clientes");
         clientesTabla.setPlaceholder(customPlaceholder);
+        // Configura la paginación
+        paginacion.setPageFactory(this::crearContenidoPagina);
+        paginacion.setPageCount(1);
+    }
+    private Node crearContenidoPagina(int indicePagina) {
+
+        if (cargarPaginacion){
+
+            int desde = indicePagina * CANTIDAD_DE_RESULTADOS_POR_PAGINA;
+            int hasta = Math.min(desde + CANTIDAD_DE_RESULTADOS_POR_PAGINA, cantidadTotalClientes);
+
+            listaClientes.clear();
+            listaClientes.addAll(gestorClientes.getClientes(getClienteDTO(), CANTIDAD_DE_RESULTADOS_POR_PAGINA, desde));
+
+            return clientesTabla;
+        }
+        return clientesTabla;
     }
 
+    public void buscarClienteAction(ActionEvent event){
+        int cantidadDeResultados = numeroDePaginasComboBox.getValue() * CANTIDAD_DE_RESULTADOS_POR_PAGINA;
+        List<ClienteDTO> clientesLista =  gestorClientes.getClientes(getClienteDTO(), cantidadDeResultados, 0);
+        paginacion.setPageCount(calcularCantidadDePaginas(clientesLista.size()));
+        cargarPaginacion = true;
+        crearContenidoPagina(paginacion.getCurrentPageIndex());
+    }
+    private int calcularCantidadDePaginas(int cantidadTotalClientes) {
+        return (int) Math.ceil((double) cantidadTotalClientes / CANTIDAD_DE_RESULTADOS_POR_PAGINA);
+    }
     private void inicializarCantidadDePaginasComboBox() {
         for (int i = 1; i <= 99; i++) {
             numeroDePaginasComboBox.getItems().add(i);
@@ -72,18 +101,6 @@ public class BuscarClienteController implements Initializable {
     private void inicializarTipoDocumentoComboBox() {
         tiposDeDocumentoLista = gestorPolizas.getTiposDocumento();
         tipoDocumentoDTOComboBox.getItems().setAll(tiposDeDocumentoLista);
-    }
-    public void buscarClienteAction(ActionEvent event){
-        int cantidadDeResultados = numeroDePaginasComboBox.getValue() * CANTIDAD_DE_RESULTADOS_POR_PAGINA;
-        clientesLista = gestorClientes.getClientes(getClienteDTO(), cantidadDeResultados);
-        if (clientesLista.isEmpty()){
-            Label customPlaceholder = new Label("No se encontró ningún cliente que coincida con los criterios de búsqueda");
-            clientesTabla.setPlaceholder(customPlaceholder);
-            return;
-        }
-        clientesTabla.getItems().clear();
-        listaClientes.addAll(clientesLista);
-        seleccionarButton.setDisable(true);
     }
     public void clienteSelected(MouseEvent event){
         if(listaClientes.isEmpty()){
@@ -238,7 +255,7 @@ public class BuscarClienteController implements Initializable {
             Parent root = loader.load();
 
             // Obtener el controlador de la ventana de error
-            ErrorPopupController errorController = loader.getController();
+            PopupController errorController = loader.getController();
 
             // Configurar el mensaje de error
             errorController.setErrorMessage(mensaje);

@@ -2,6 +2,7 @@ package com.example.aseguradora.persistentes;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +14,8 @@ public class TipoDocumento {
     @Basic
     @Column(name = "nombre")
     private String nombre;
-
+    @OneToMany(mappedBy = "tipoDocumento")
+    private List<Cliente> clientes;
     public int getIdTipoDocumento() {
         return idTipoDocumento;
     }

@@ -1,21 +1,15 @@
 package com.example.aseguradora;
 
-import com.example.aseguradora.DTOs.ConfirmarPolizaDTO;
-import com.example.aseguradora.enumeraciones.FormaPago;
-import com.example.aseguradora.persistentes.Cliente;
-import com.example.aseguradora.persistentes.Poliza;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -43,13 +37,48 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         stg = stage;
         stage.setResizable(false);
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menuInicio.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 500);
-        stage.setTitle("Menu de Inicio");
+
+        FXMLLoader cargaLoader = new FXMLLoader(Main.class.getResource("PantallaCarga.fxml"));
+        Scene cargaScene = new Scene(cargaLoader.load());
+        Stage cargaStage = new Stage();
         Image imagen = new Image("com/example/aseguradora/iconoMedium.png");
-        stage.getIcons().add(imagen);
-        stage.setScene(scene);
-        stage.show();
+        cargaStage.getIcons().add(imagen);
+        cargaStage.initModality(Modality.APPLICATION_MODAL);
+        cargaStage.initStyle(StageStyle.UNDECORATED);
+        cargaStage.setScene(cargaScene);
+        cargaStage.show();
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                MenuInicioController menuInicioController = new MenuInicioController();
+                menuInicioController.inicializarBasesDeDatos();
+                return null;
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            // Cerrar la pantalla de carga cuando la inicialización ha terminado
+            cargaStage.close();
+
+            try {
+                // Mostrar la pantalla principal después de la inicialización de la base de datos
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("menuInicio.fxml"));
+                stage.setTitle("Inicio");
+                stage.getIcons().add(imagen);
+                stage.setScene(new Scene(loader.load(), 400, 500));
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException error) {
+                PopupController.mostrarVentanaError("Error fatal, vuelva a iniciar la aplicacion");
+            }
+        });
+
+        // Actualizar la barra de progreso en el controlador de la pantalla de carga
+        PantallaCargaController cargaController = cargaLoader.getController();
+        cargaController.bindProgressBar(task);
+
+        // Ejecutar la tarea en un nuevo hilo
+        new Thread(task).start();
     }
     /*
     public void start(Stage stage) throws IOException {

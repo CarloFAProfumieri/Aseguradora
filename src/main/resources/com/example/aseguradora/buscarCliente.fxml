@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="554.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.BuscarClienteController">
+<AnchorPane prefHeight="554.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aseguradora.BuscarClienteController">
    <children>
       <Pane prefHeight="554.0" prefWidth="814.0">
          <children>
@@ -20,7 +27,7 @@
             <Label layoutX="320.0" layoutY="29.0" text="Tipo de Documento" />
             <Label layoutX="32.0" layoutY="94.0" text="Apellido" />
             <Label layoutX="606.0" layoutY="94.0" text="Páginas" />
-            <TableView fx:id="clientesTabla" layoutX="32.0" layoutY="177.0" onMousePressed="#clienteSelected" prefHeight="312.0" prefWidth="747.0">
+            <TableView fx:id="clientesTabla" layoutX="32.0" layoutY="180.0" onMousePressed="#clienteSelected" prefHeight="314.0" prefWidth="747.0">
               <columns>
                 <TableColumn fx:id="nroClienteColumn" prefWidth="99.0" text="NRO CLIENTE" />
                 <TableColumn fx:id="apellidoColumn" prefWidth="219.0" text="APELLIDO" />
@@ -32,6 +39,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
+            <Pagination fx:id="paginacion" layoutX="30.0" layoutY="173.0" maxHeight="372.0" maxPageIndicatorCount="1" pageCount="99" prefHeight="358.0" prefWidth="754.0" />
             <Button fx:id="seleccionarButton" disable="true" layoutX="686.0" layoutY="515.0" mnemonicParsing="false" onAction="#seleccionarClienteAction" prefHeight="25.0" prefWidth="94.0" text="Seleccionar" />
             <Button layoutX="569.0" layoutY="515.0" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="25.0" prefWidth="94.0" text="Cancelar" />
          </children>

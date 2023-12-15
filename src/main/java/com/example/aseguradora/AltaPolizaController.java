@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -73,6 +74,7 @@ public class AltaPolizaController implements Initializable{
     private boolean patenteValida = true;
     private boolean chasisValido = false;
     private boolean motorValido = false;
+    private MenuInicioController mainMenu;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -145,7 +147,7 @@ public class AltaPolizaController implements Initializable{
     }
     private boolean formatearVerificarPatenteIngresada() {
         String input = patenteTextField.getText().toUpperCase();
-        // Use a regular expression to check if the input matches the format AA-999-AA
+        // Se verifica con las expresiones regulares que la patente este en un formato valido: AA-999-AA / AA999AA / AAA-999 / AAA999
         if (input.matches("[A-Z]{2}-\\d{3}-[A-Z]{2}")) {
             formatearPatente(1);
             return true;
@@ -270,7 +272,6 @@ public class AltaPolizaController implements Initializable{
         Collections.sort(modelosCargados);
         modeloComboBox.getItems().clear();
         modeloComboBox.getItems().addAll(modelosCargados);
-        System.out.println("modelos de " + marcaSeleccionada + " cargados");
     }
     private void inicializarTipoDocumentoComboBox() {
         tiposDeDocumentoLista = gestorPolizas.getTiposDocumento();
@@ -299,19 +300,19 @@ public class AltaPolizaController implements Initializable{
     }
     public void confirmarDatosAction(ActionEvent evento) throws IOException{
         if (!validarDatosIngresadosVehiculo()) {
-            mostrarVentanaError("Los campos no fueron completados correctamente");
+            PopupController.mostrarVentanaError("Los campos no fueron completados correctamente");
             return;
         }
         if (gestorPolizas.existePatenteVigente(patenteTextField.getText())){
-            mostrarVentanaError("Patente ya existente en la base de datos");
+            PopupController.mostrarVentanaError("Patente ya existente en la base de datos");
             return;
         }
         if (gestorPolizas.existeChasisVigente(chasisTextField.getText())) {
-            mostrarVentanaError("Código de chasis ya existente en la base de datos");
+            PopupController.mostrarVentanaError("Código de chasis ya existente en la base de datos");
             return;
         }
         if (gestorPolizas.existeMotorVigente(motorTextField.getText())) {
-            mostrarVentanaError("Código de motor ya existente en la base de datos");
+            PopupController.mostrarVentanaError("Código de motor ya existente en la base de datos");
             return;
         }
         setSumaAsegurada(SistemaAutoscoring.calcularSumaAsegurada(modeloComboBox.getValue().getIdModelo(), anioComboBox.getValue().getAnio()));
@@ -346,7 +347,6 @@ public class AltaPolizaController implements Initializable{
         if (garageCheckBox.isSelected()) medidas.add(getIdMedida("Garage"));
         if (rastreoVehicularCheckBox.isSelected()) medidas.add(getIdMedida("Rastreo Vehicular"));
         if (tuercasAntirroboCheckBox.isSelected()) medidas.add(getIdMedida("Tuercas Antirrobo"));
-        System.out.println(medidas);
         return medidas;
     }
 
@@ -453,14 +453,13 @@ public class AltaPolizaController implements Initializable{
     }
     public void calcularPremioAction(ActionEvent evento)throws IOException{
         if (tipoCoberturaComboBox.getValue() == null) {
-            mostrarVentanaError("No se seleccionó el tipo de cobertura");
+            PopupController.mostrarVentanaError("Para continuar seleccione el tipo de cobertura");
             return;
         }
         if (!fechaInicioValida()) {
-            mostrarVentanaError("La fecha de inicio seleccionada no es válida");
+            PopupController.mostrarVentanaError("La fecha de inicio seleccionada no es válida");
             return;
         }
-
         actualizarDatosPolizaDTO();
         actualizarDatosClienteDTO();
         ParametrosMontoDTO premioYDerechosDTO = SistemaAutoscoring.calcularPremioyDerechos(datosPolizaDTO,clienteDTO);
@@ -468,13 +467,30 @@ public class AltaPolizaController implements Initializable{
         cargarPantallaConfirmarPoliza(new ConfirmarPolizaDTO(datosPolizaDTO,clienteDTO));
     }
     public void confirmarPolizaAction(ActionEvent evento){
-        gestorPolizas.generarPoliza(datosPolizaDTO, getHijosDTO(), clienteDTO);
-        System.out.println("POLIZA GENERADA!");
+        String numeroDePolizaGenerada;
+        try{
+            numeroDePolizaGenerada = gestorPolizas.generarPoliza(datosPolizaDTO, getHijosDTO(), clienteDTO);
+        }catch (Exception e){
+            PopupController.mostrarVentanaError("Error al guardar la Poliza" + e.getMessage());
+            return;
+        }
+        mainMenu.setNumeroDePolizaGenerada(numeroDePolizaGenerada);
+        mainMenu.polizaCargadaExitosamente();
+        cerrar();
     }
+    public void cerrar() {
+        Node anyNode = confirmarDatosButton;
+
+        // Obtén el Stage asociado al Node
+        Stage stage = (Stage) anyNode.getScene().getWindow();
+
+        // Cierra la ventana
+        stage.close();
+    }
+
     public void anioComboBoxSelected(ActionEvent evento){
         if (anioComboBox.getValue().getAnio() <= LocalDate.now().getYear() - 10){
             setTipoCoberturaComboBox(1);
-            System.out.println("El vehículo solo puede acceder a coberturas por Responsabilidad Civil");
         }
         else {
             incializarTiposdeCoberturaComboBox();
@@ -530,7 +546,6 @@ public class AltaPolizaController implements Initializable{
             hijoDTO.setEstadoCivilId(hijo.getEstadoCivilId());
             hijoDTO.setFechaNacimiento(hijo.getFechaNacimiento());
             hijosDTOList.add(hijoDTO);
-            System.out.println(hijoDTO);
         }
 
         return hijosDTOList;
@@ -547,7 +562,7 @@ public class AltaPolizaController implements Initializable{
         try {
             return Integer.parseInt(numericValue);
         } catch (NumberFormatException e) {
-            mostrarVentanaError("Error al obtener la suma asegurada. Reinicie el programa para continuar");
+            PopupController.mostrarVentanaError("Error al obtener la suma asegurada. Reinicie el programa para continuar");
         }
         return 0;
     }
@@ -659,7 +674,7 @@ public class AltaPolizaController implements Initializable{
             stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
-            mostrarVentanaError("Error fatal. Reinicie el programa para continuar");
+            PopupController.mostrarVentanaError("Error fatal. Reinicie el programa para continuar");
         }
     }
 
@@ -667,35 +682,6 @@ public class AltaPolizaController implements Initializable{
             listaHijos.add(nuevoHijo);
             actualizarQuitarHijobutton();
         }
-
-    public void mostrarVentanaError(String mensaje) {
-        try {
-            // Cargar el FXML de la ventana de error
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
-            Parent root = loader.load();
-
-            // Obtener el controlador de la ventana de error
-            ErrorPopupController errorController = loader.getController();
-
-            // Configurar el mensaje de error
-            errorController.setErrorMessage(mensaje);
-
-            // Crear la escena y el escenario (Stage)
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            Image imagen = new Image("com/example/aseguradora/error.png");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.getIcons().add(imagen);
-            stage.setTitle("Error");
-            stage.setScene(scene);
-
-            // Mostrar la ventana de error
-            stage.showAndWait();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void cargarPantallaConfirmarPoliza(ConfirmarPolizaDTO confirmarPolizaDTO) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmarPoliza.fxml"));
         Parent root = loader.load();
@@ -745,7 +731,6 @@ public class AltaPolizaController implements Initializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Texto ingresado: " + chasisTextField.getText());
     }
 
     public void verificarCodigoMotor() {
@@ -769,7 +754,6 @@ public class AltaPolizaController implements Initializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Texto ingresado: " + motorTextField.getText());
     }
 
     public void verificarKmPorAnio() {
@@ -793,7 +777,10 @@ public class AltaPolizaController implements Initializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Texto ingresado: " + kilometrosTextField.getText());
+    }
+
+    public void setMainMenu(MenuInicioController menuInicioController) {
+        mainMenu = menuInicioController;
     }
 }
 

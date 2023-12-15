@@ -191,7 +191,7 @@ public class GestorPolizas {
                     return estadoCivilDTO;
                 }).collect(Collectors.toList());
     }
-    public void generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
+    public String generarPoliza(PolizaDTO datosPolizaDTO, List<HijoDTO> listaHijosDTO, ClienteDTO datosClienteDTO) {
 
         Poliza poliza = new Poliza();
         poliza.setAtributosPoliza(datosPolizaDTO); //verificar con el profesor
@@ -223,7 +223,7 @@ public class GestorPolizas {
             LocalDate primerFechaUltimoDiaPago = datosPolizaDTO.getUltimoDiaPago().getLast();
             List<LocalDate> listaFechasDeVencimiento = new ArrayList<>();
             double montoPorCuota = (datosPolizaDTO.getPrima()/6);
-            for (int i = 0; i <= 6; i++) {
+            for (int i = 0; i < 6; i++) {
                 Cuota cuota = new Cuota(fechaInicio.plusMonths(i));
                 LocalDate ultimoDiaDePago_i = primerFechaUltimoDiaPago.plusMonths(i);
                 cuota.setImporte(montoPorCuota);
@@ -248,6 +248,7 @@ public class GestorPolizas {
         ParametrosMonto parametrosMonto = new ParametrosMonto(datosPolizaDTO, poliza);
         poliza.setParametrosMonto(parametrosMonto);
         polizaDAO.guardarPoliza(poliza);
+        return poliza.getNumeroPoliza();
     }
 
     public ClienteDTO getClienteDTO() { //hardcode

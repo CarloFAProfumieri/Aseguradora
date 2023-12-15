@@ -91,4 +91,7 @@ public class ClienteDTO {
         Period periodo = Period.between(this.fechaNacimiento, fechaActual);
         return periodo.getYears();
     }
+    public String toString(){
+        return nombre + apellido;
+    }
 }
