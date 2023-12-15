@@ -1,8 +1,10 @@
 package com.example.aseguradora;
 import com.example.aseguradora.DTOs.*;
+import com.example.aseguradora.enumeraciones.EstadoCliente;
 import com.example.aseguradora.enumeraciones.EstadoPoliza;
 import com.example.aseguradora.enumeraciones.FormaPago;
 import com.example.aseguradora.gestores.GestorClientes;
+import com.example.aseguradora.gestores.GestorCuota;
 import com.example.aseguradora.gestores.GestorPolizas;
 import javafx.animation.PauseTransition;
 import javafx.beans.value.ChangeListener;
@@ -77,6 +79,7 @@ public class AltaPolizaController implements Initializable{
    // private boolean chasisValido = false;
    // private boolean motorValido = false;
     private MenuInicioController mainMenu;
+    private GestorCuota gestorCuotas = GestorCuota.obtenerInstancia();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -503,7 +506,8 @@ public class AltaPolizaController implements Initializable{
         String numeroDePolizaGenerada;
         try{
             numeroDePolizaGenerada = gestorPolizas.generarPoliza(datosPolizaDTO, getHijosDTO(), clienteDTO);
-            gestorClientes.actualizarEstadoCliente(clienteDTO);
+            EstadoCliente estadoCliente = getEstadoCliente(clienteDTO);
+            gestorClientes.actualizarEstadoCliente(clienteDTO, EstadoCliente.NORMAL); //FIX
         }catch (Exception e){
             PopupController.mostrarVentanaError("Error al guardar la Poliza" + e.getMessage());
             return;
@@ -512,6 +516,29 @@ public class AltaPolizaController implements Initializable{
         mainMenu.polizaCargadaExitosamente();
         cerrar();
     }
+
+    private EstadoCliente getEstadoCliente(ClienteDTO clienteDTO) throws Exception {
+        int cantidadPolizas = gestorPolizas.getPolizasPorClienteVigentes(clienteDTO);
+        if (cantidadPolizas == 0){
+            return EstadoCliente.NORMAL;
+        }
+        boolean tieneSiniestrosUltimoAnio = gestorPolizas.siniestrosEnElUltimoAnio(siniestrosComboBox.getValue().getIdCantidadSiniestros());
+        if (tieneSiniestrosUltimoAnio){
+            return EstadoCliente.NORMAL;
+        }
+        boolean poseePolizaImpaga = gestorCuotas.poseePolizasImpagas(clienteDTO);
+        if (poseePolizaImpaga){
+            return EstadoCliente.NORMAL;
+        }
+        boolean clienteActivoPor2Anios = gestorClientes.esActivoHace2Anios(clienteDTO);
+        if (clienteActivoPor2Anios){
+
+            return EstadoCliente.PLATA;
+        }
+
+        throw new Exception("La informacion del cliente está incompleta");
+    }
+
     public void cerrar() {
         Node anyNode = confirmarDatosButton;
 

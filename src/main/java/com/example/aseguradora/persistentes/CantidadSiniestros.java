@@ -11,23 +11,20 @@ public class CantidadSiniestros {
     @Column(name = "idCantidadSiniestros")
     private int idCantidadSiniestros;
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     @Basic
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "cantidad")
+    private String cantidad;
+
     @Basic
     @Column(name = "valorPorcentual")
     private Double valorPorcentual;
-    @Basic
-    @Column(name = "cantidad")
-    private Integer cantidad;
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String descripcion) {
+        this.cantidad = descripcion;
+    }
 
     public int getIdCantidadSiniestros() {
         return idCantidadSiniestros;
@@ -44,25 +41,16 @@ public class CantidadSiniestros {
     public void setValorPorcentual(Double valorPorcentual) {
         this.valorPorcentual = valorPorcentual;
     }
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CantidadSiniestros that = (CantidadSiniestros) o;
-        return idCantidadSiniestros == that.idCantidadSiniestros && Objects.equals(valorPorcentual, that.valorPorcentual) && Objects.equals(cantidad, that.cantidad);
+        return idCantidadSiniestros == that.idCantidadSiniestros && Objects.equals(valorPorcentual, that.valorPorcentual);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCantidadSiniestros, valorPorcentual, cantidad);
+        return Objects.hash(idCantidadSiniestros, valorPorcentual);
     }
 }

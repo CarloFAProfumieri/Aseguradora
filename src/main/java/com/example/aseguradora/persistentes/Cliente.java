@@ -60,6 +60,8 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     @Column(name = "sexo")
     private Sexo sexo;
+    @Column(name = "activoDesde")
+    private LocalDate activoDesde;
 
     public void setNumeroCliente(int numeroCliente) {
         this.numeroCliente = numeroCliente;
@@ -188,5 +190,9 @@ public class Cliente {
 
     public int getNumeroCliente() {
         return numeroCliente;
+    }
+
+    public void setEstado(EstadoCliente estadoCliente) {
+        this.estadoCliente= estadoCliente;
     }
 }

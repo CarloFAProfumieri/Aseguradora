@@ -99,8 +99,19 @@ public class PolizaDAO {
     }
 
 
+    public int getPolizasVigentes(int numeroCliente) {
+        try (Session session = sessionFactory.openSession()) {
+            // Utilizamos HQL para contar las polizas vigentes del cliente
+            String hql = "SELECT COUNT(p) FROM Poliza p " +
+                    "WHERE p.cliente.numeroCliente = :numeroCliente " +
+                    "AND p.estadoPoliza = :estadoPoliza";
 
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("numeroCliente", numeroCliente);
+            query.setParameter("estadoPoliza", EstadoPoliza.VIGENTE);
 
-
-
+            System.out.println("cantidadPolizasActivas: " + Math.toIntExact(query.uniqueResult()));
+            return Math.toIntExact(query.uniqueResult());
+        }
+    }
 }

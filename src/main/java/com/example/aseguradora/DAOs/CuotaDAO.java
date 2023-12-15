@@ -62,4 +62,9 @@ public class CuotaDAO {
         List<Cliente> todosLosClientes = clienteDAO.obtenerTodosLosClientes();
         System.out.println("Todos los clientes: " + todosLosClientes);
     }
+
+    public boolean poseePolizasImpagas(int numeroCliente) {
+        //se hizo esta implementacion debido a que hubo una falla al crear el diagrama de tablas y no puedo acceder a las cuotas con el numero del cliente
+        return true;
+    }
 }

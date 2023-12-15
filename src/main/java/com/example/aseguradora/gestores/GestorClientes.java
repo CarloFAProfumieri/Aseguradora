@@ -3,6 +3,7 @@ package com.example.aseguradora.gestores;
 import com.example.aseguradora.DAOs.ClienteDAO;
 import com.example.aseguradora.DTOs.ClienteDTO;
 import com.example.aseguradora.DTOs.EstadoCivilDTO;
+import com.example.aseguradora.enumeraciones.EstadoCliente;
 import com.example.aseguradora.persistentes.Cliente;
 
 import java.util.List;
@@ -41,6 +42,9 @@ public class GestorClientes {
                     return clienteDTO;
                 }).collect(Collectors.toList());
     }
+    public int getClientesNumeroDeCoincidencias(ClienteDTO unClienteDTO, int numeroDeResultadosMax){
+        return clienteDAO.getClientesNumeroDeCoincidencias(unClienteDTO, numeroDeResultadosMax);
+    }
     public List<ClienteDTO> getAllClientes() {
         return clienteDAO.obtenerTodosLosClientes()
                 .stream()
@@ -56,7 +60,11 @@ public class GestorClientes {
                 }).collect(Collectors.toList());
     }
 
-    public void actualizarEstadoCliente(ClienteDTO clienteDTO) {
-        System.out.println("ACTUALIZAR ESTADO CLIENTE");
+    public void actualizarEstadoCliente(ClienteDTO clienteDTO, EstadoCliente estadoCliente) {
+        clienteDAO.setEstadoCliente(clienteDTO,estadoCliente);
+    }
+
+    public boolean esActivoHace2Anios(ClienteDTO clienteDTO) {
+        return clienteDAO.esActivoHace2Anios(clienteDTO.getNumeroCliente());
     }
 }

@@ -63,31 +63,41 @@ public class BuscarClienteController implements Initializable {
         clientesTabla.setItems(listaClientes);
         Label customPlaceholder = new Label("Complete los datos necesarios y haga clic en 'Buscar' para visualizar los clientes");
         clientesTabla.setPlaceholder(customPlaceholder);
-        // Configura la paginación
+
         paginacion.setPageFactory(this::crearContenidoPagina);
         paginacion.setPageCount(1);
     }
     private Node crearContenidoPagina(int indicePagina) {
-
         if (cargarPaginacion){
 
             int desde = indicePagina * CANTIDAD_DE_RESULTADOS_POR_PAGINA;
             int hasta = Math.min(desde + CANTIDAD_DE_RESULTADOS_POR_PAGINA, cantidadTotalClientes);
 
             listaClientes.clear();
-            listaClientes.addAll(gestorClientes.getClientes(getClienteDTO(), CANTIDAD_DE_RESULTADOS_POR_PAGINA, desde));
+            try{
 
-            return clientesTabla;
+                listaClientes.addAll(gestorClientes.getClientes(getClienteDTO(), CANTIDAD_DE_RESULTADOS_POR_PAGINA, desde));
+
+                return clientesTabla;
+            }
+            catch (Exception e){
+                PopupController.mostrarVentanaError("Error al obtener los clientes de la base de datos: " + e.getMessage());
+            }
         }
         return clientesTabla;
     }
 
     public void buscarClienteAction(ActionEvent event){
         int cantidadDeResultados = numeroDePaginasComboBox.getValue() * CANTIDAD_DE_RESULTADOS_POR_PAGINA;
-        List<ClienteDTO> clientesLista =  gestorClientes.getClientes(getClienteDTO(), cantidadDeResultados, 0);
-        paginacion.setPageCount(calcularCantidadDePaginas(clientesLista.size()));
-        cargarPaginacion = true;
-        crearContenidoPagina(paginacion.getCurrentPageIndex());
+        try{
+            int cantidadResultados =  gestorClientes.getClientesNumeroDeCoincidencias(getClienteDTO(), cantidadDeResultados);
+            paginacion.setPageCount(calcularCantidadDePaginas(cantidadResultados));
+            cargarPaginacion = true;
+            crearContenidoPagina(paginacion.getCurrentPageIndex());
+        }
+        catch (Exception e){
+            PopupController.mostrarVentanaError("error al recuperar los clientes de la base de datos: " + e.getMessage());
+        }
     }
     private int calcularCantidadDePaginas(int cantidadTotalClientes) {
         return (int) Math.ceil((double) cantidadTotalClientes / CANTIDAD_DE_RESULTADOS_POR_PAGINA);

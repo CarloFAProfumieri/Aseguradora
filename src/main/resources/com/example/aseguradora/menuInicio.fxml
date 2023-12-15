@@ -11,9 +11,9 @@
          <children>
             <Button fx:id="darAltaPolizaButton" layoutX="61.0" layoutY="66.0" mnemonicParsing="false" onAction="#darAltaPolizaAction" prefHeight="49.0" prefWidth="280.0" text="Dar de Alta Poliza" />
             <Label layoutX="54.0" layoutY="14.0" text="Sesión del usuario: PROFUMIERI CARLO - DESARROLLO" />
-            <Button fx:id="darAltaClienteButton" layoutX="61.0" layoutY="150.0" mnemonicParsing="false" onAction="#darAltaClienteAction" prefHeight="49.0" prefWidth="280.0" text="Dar de Alta Cliente" />
+            <Button fx:id="darAltaClienteButton" layoutX="61.0" layoutY="150.0" mnemonicParsing="false" onAction="#consultarPoliza" prefHeight="49.0" prefWidth="280.0" text="Consultar Poliza" />
             <Button layoutX="61.0" layoutY="409.0" mnemonicParsing="false" onAction="#cerrarSesionAction" prefHeight="49.0" prefWidth="280.0" text="Cerrar sesión" />
-            <Button layoutX="61.0" layoutY="236.0" mnemonicParsing="false" onAction="#consultarClienteAction" prefHeight="49.0" prefWidth="280.0" text="Consultar Cliente" />
+            <Button layoutX="61.0" layoutY="236.0" mnemonicParsing="false" onAction="#generarPropuestasRenovacion" prefHeight="49.0" prefWidth="280.0" text="Generar Propuesta de renovación" />
             <Button layoutX="61.0" layoutY="323.0" mnemonicParsing="false" onAction="#actualizarFactoresCaracteristicasAction" prefHeight="49.0" prefWidth="280.0" text="Actualizar Factores de Características" />
          </children>
       </Pane>

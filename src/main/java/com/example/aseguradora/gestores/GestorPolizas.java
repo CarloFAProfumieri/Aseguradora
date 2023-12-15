@@ -106,9 +106,8 @@ public class GestorPolizas {
                 .map(cantidadSiniestros -> {
                     CantidadSiniestrosDTO cantidadSiniestrosDTO = new CantidadSiniestrosDTO();
                     cantidadSiniestrosDTO.setIdCantidadSiniestros(cantidadSiniestros.getIdCantidadSiniestros());
-                    cantidadSiniestrosDTO.setCantidad(cantidadSiniestros.getCantidad());
                     cantidadSiniestrosDTO.setValorPorcentual(cantidadSiniestros.getValorPorcentual());
-                    cantidadSiniestrosDTO.setDescripcion(cantidadSiniestros.getDescripcion());
+                    cantidadSiniestrosDTO.setCantidad(cantidadSiniestros.getCantidad());
                     return cantidadSiniestrosDTO;
                 }).collect(Collectors.toList());
     }
@@ -281,5 +280,16 @@ public class GestorPolizas {
         return polizaDAO.existeMotorVigente(codigoMotor);
     }
 
+    public int getPolizasPorClienteVigentes(ClienteDTO clienteDTO) {
+        return polizaDAO.getPolizasVigentes(clienteDTO.getNumeroCliente());
+    }
+
+    public boolean siniestrosEnElUltimoAnio(int idCantidadSiniestros) {
+        CantidadSiniestros cantidadSiniestros = cantidadSiniestrosDAO.getCantidadSiniestros(idCantidadSiniestros);
+        if(cantidadSiniestros.getIdCantidadSiniestros() == 1){
+            return true;
+        }
+    return false;
+    }
 }
 

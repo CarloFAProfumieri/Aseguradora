@@ -8,13 +8,13 @@ import java.time.Period;
 public class HijoDTO {
     private int idHijo;
     private LocalDate fechaNacimiento;
-    private Sexo sexo;  // Debería ser del tipo Sexo, no String
-
-    private String estadoCivil;
-
+    private Sexo sexo;
     private int estadoCivilId;
 
     private int edad;
+
+    //solo para visualizacion
+    private String estadoCivil;
 
     @Override
     public String toString() {

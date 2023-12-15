@@ -2,21 +2,18 @@ package com.example.aseguradora.DTOs;
 
 public class CantidadSiniestrosDTO {
     private int idCantidadSiniestros;
-    private String descripcion;
-
+    private String cantidad;
     private Double valorPorcentual;
 
-    private Integer cantidad;
-
     public String toString(){
-        return descripcion;
+        return cantidad;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
     }
-    public String getDescripcion() {
-        return descripcion;
+    public String getCantidad() {
+        return cantidad;
     }
 
     public int getIdCantidadSiniestros() {
@@ -35,11 +32,4 @@ public class CantidadSiniestrosDTO {
         this.valorPorcentual = valorPorcentual;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
 }

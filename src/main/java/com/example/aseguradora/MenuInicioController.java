@@ -53,7 +53,7 @@ public class MenuInicioController implements Initializable {
         altaPolizaStage.initModality(Modality.WINDOW_MODAL);
         altaPolizaStage.initOwner(stg);
 
-        Scene scene = new Scene(altaPolizaParent, 906, 844);
+        Scene scene = new Scene(altaPolizaParent, 906, 720);
         altaPolizaStage.setScene(scene);
         altaPolizaStage.setResizable(false);
         altaPolizaRunning=true;
@@ -64,7 +64,10 @@ public class MenuInicioController implements Initializable {
         }
         altaPolizaRunning=false;
     }
-    public void darAltaClienteAction(ActionEvent evento) throws IOException {
+    public void consultarPoliza(ActionEvent evento) throws IOException {
+        PopupController.mostrarVentanaInformacion("Consultar poliza no implementado","Consultar Poliza no Implementado");
+        return;
+        /*
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("altaCliente.fxml"));
         Parent altaClienteParent = fxmlLoader.load();
 
@@ -75,13 +78,19 @@ public class MenuInicioController implements Initializable {
         altaClienteStage.initModality(Modality.APPLICATION_MODAL);
         altaClienteStage.initOwner(stg);
 
-        Scene scene = new Scene(altaClienteParent, 800, 627);  // Ajusta ANCHO y ALTO según tus preferencias
+        Scene scene = new Scene(altaClienteParent, 800, 627);//627  // Ajusta ANCHO y ALTO según tus preferencias
+
         altaClienteStage.setScene(scene);
         altaClienteStage.setResizable(false);
 
         altaClienteStage.showAndWait();
+
+         */
     }
-    public void consultarClienteAction(ActionEvent evento) throws IOException {
+    public void generarPropuestasRenovacion(ActionEvent evento) throws IOException {
+        PopupController.mostrarVentanaInformacion("Generar Propuesta de Renovacion no implementado", "Propuesta de Renovaciónn");
+        return;
+        /*
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("buscarCliente.fxml"));
         Parent buscarClienteParent = fxmlLoader.load();
 
@@ -92,11 +101,13 @@ public class MenuInicioController implements Initializable {
         buscarClienteStage.initModality(Modality.WINDOW_MODAL);
         buscarClienteStage.initOwner(stg);
 
-        Scene scene = new Scene(buscarClienteParent, 815, 554);
+        Scene scene = new Scene(buscarClienteParent, 815, 554);//554
         buscarClienteStage.setScene(scene);
         buscarClienteStage.setResizable(false);
 
         buscarClienteStage.showAndWait();
+
+         */
     }
     public void polizaCargadaExitosamente(){
         polizaCargadaExitosamente = true;
@@ -106,10 +117,8 @@ public class MenuInicioController implements Initializable {
         gestorClientes = GestorClientes.obtenerInstancia();
     }
 
-
-
     public void actualizarFactoresCaracteristicasAction(ActionEvent event) {
-        PopupController.mostrarVentanaError("pato");
+        PopupController.mostrarVentanaInformacion("Actualizar Factores de Características no implementado", "Actualizar Factores de características");
     }
     public void mostrarVentanaError(String mensaje) {
         try {
