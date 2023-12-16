@@ -53,7 +53,7 @@ public class MenuInicioController implements Initializable {
         altaPolizaStage.initModality(Modality.WINDOW_MODAL);
         altaPolizaStage.initOwner(stg);
 
-        Scene scene = new Scene(altaPolizaParent, 906, 720);
+        Scene scene = new Scene(altaPolizaParent, 906, 844);
         altaPolizaStage.setScene(scene);
         altaPolizaStage.setResizable(false);
         altaPolizaRunning=true;

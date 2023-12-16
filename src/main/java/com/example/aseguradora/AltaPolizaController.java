@@ -507,7 +507,7 @@ public class AltaPolizaController implements Initializable{
         try{
             numeroDePolizaGenerada = gestorPolizas.generarPoliza(datosPolizaDTO, getHijosDTO(), clienteDTO);
             EstadoCliente estadoCliente = getEstadoCliente(clienteDTO);
-            gestorClientes.actualizarEstadoCliente(clienteDTO, EstadoCliente.NORMAL); //FIX
+            gestorClientes.actualizarEstadoCliente(clienteDTO, estadoCliente);
         }catch (Exception e){
             PopupController.mostrarVentanaError("Error al guardar la Poliza" + e.getMessage());
             return;
@@ -522,12 +522,13 @@ public class AltaPolizaController implements Initializable{
         if (cantidadPolizas == 0){
             return EstadoCliente.NORMAL;
         }
+
         boolean tieneSiniestrosUltimoAnio = gestorPolizas.siniestrosEnElUltimoAnio(siniestrosComboBox.getValue().getIdCantidadSiniestros());
-        if (tieneSiniestrosUltimoAnio){
+        if (!tieneSiniestrosUltimoAnio){
             return EstadoCliente.NORMAL;
         }
         boolean poseePolizaImpaga = gestorCuotas.poseePolizasImpagas(clienteDTO);
-        if (poseePolizaImpaga){
+        if (!poseePolizaImpaga){
             return EstadoCliente.NORMAL;
         }
         boolean clienteActivoPor2Anios = gestorClientes.esActivoHace2Anios(clienteDTO);

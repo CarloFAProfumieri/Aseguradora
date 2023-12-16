@@ -145,7 +145,7 @@ public class ClienteDAO {
                 cliente.setEstado(estadoCliente);
 
                 // Guardar los cambios en la base de datos
-                session.save(cliente);
+                session.update(cliente);
 
                 transaction.commit();
             } catch (Exception e) {
